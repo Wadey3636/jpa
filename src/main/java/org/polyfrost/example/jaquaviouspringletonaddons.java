@@ -13,15 +13,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
  * @see Mod
  * @see InitializationEvent
  */
-@Mod(modid = ExampleMod.MODID, name = ExampleMod.NAME, version = ExampleMod.VERSION)
-public class ExampleMod {
+@Mod(modid = jaquaviouspringletonaddons.MODID, name = jaquaviouspringletonaddons.NAME, version = jaquaviouspringletonaddons.VERSION)
+public class jaquaviouspringletonaddons {
 
     // Sets the variables from `gradle.properties`. See the `blossom` config in `build.gradle.kts`.
     public static final String MODID = "@ID@";
     public static final String NAME = "@NAME@";
     public static final String VERSION = "@VER@";
     @Mod.Instance(MODID)
-    public static ExampleMod INSTANCE; // Adds the instance of the mod, so we can access other variables.
+    public static jaquaviouspringletonaddons INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static TestConfig config;
 
     // Register the config and commands.
