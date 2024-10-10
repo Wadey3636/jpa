@@ -1,7 +1,11 @@
 package org.polyfrost.example;
 
-import org.polyfrost.example.command.ExampleCommand;
-import org.polyfrost.example.config.TestConfig;
+
+import me.jpaMain.dungeonfeatures.mapChecker;
+import me.jpaMain.dungeonfeatures.positionalMessages;
+import net.minecraftforge.common.MinecraftForge;
+import org.polyfrost.example.command.jpaCommand;
+import org.polyfrost.example.config.jpaConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
@@ -22,12 +26,14 @@ public class jaquaviouspringletonaddons {
     public static final String VERSION = "@VER@";
     @Mod.Instance(MODID)
     public static jaquaviouspringletonaddons INSTANCE; // Adds the instance of the mod, so we can access other variables.
-    public static TestConfig config;
+    public static jpaConfig config;
 
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        config = new TestConfig();
-        CommandManager.INSTANCE.registerCommand(new ExampleCommand());
+        config = new jpaConfig();
+        CommandManager.INSTANCE.registerCommand(new jpaCommand());
+        MinecraftForge.EVENT_BUS.register(new mapChecker());
+        MinecraftForge.EVENT_BUS.register(new positionalMessages());
     }
 }
