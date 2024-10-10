@@ -12,7 +12,7 @@ import cc.polyfrost.oneconfig.config.data.OptionSize;
  * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
  */
 public class jpaConfig extends Config {
-
+/*
     @Switch(
             name = "Icefill Solver",
             size = OptionSize.SINGLE,
@@ -20,7 +20,8 @@ public class jpaConfig extends Config {
             subcategory = "Solvers",
             description = "Disabled ATM"
     )
-    public static boolean icefillSolver = false; // The default value for the boolean Switch.
+  */
+    public static boolean icefillSolver = false;
     @Switch(
             name = "F7/M7 Position messages",
             size = OptionSize.DUAL,
@@ -78,9 +79,27 @@ public class jpaConfig extends Config {
     )
     public static boolean midposmsg = false;
 
+
+    /*
+    @Switch(
+            name = "Mid Detector",
+            size = OptionSize.DUAL,
+            category = "F7/M7",
+            description = "Detects when a player is at mid"
+
+    )
+    public static boolean midtracker = false;
+    */
+
     public jpaConfig() {
 
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.UTIL_QOL), jaquaviouspringletonaddons.MODID + ".json");
+        addDependency("Berserker Leap Position Message", "F7/M7 Position messages");
+        addDependency("Early Entry Position Messages", "F7/M7 Position messages");
+        addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages");
+        addDependency("Inner Chamber position message", "F7/M7 Position messages");
+        addDependency("Part 5 Position Message", "F7/M7 Position messages");
+        addDependency("Middle Position Message", "F7/M7 Position messages");
         initialize();
     }
 }

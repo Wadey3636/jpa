@@ -2,6 +2,7 @@ package org.polyfrost.example;
 
 
 import me.jpaMain.dungeonfeatures.mapChecker;
+import me.jpaMain.dungeonfeatures.midDetector;
 import me.jpaMain.dungeonfeatures.positionalMessages;
 import net.minecraftforge.common.MinecraftForge;
 import org.polyfrost.example.command.jpaCommand;
@@ -35,5 +36,6 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new jpaCommand());
         MinecraftForge.EVENT_BUS.register(new mapChecker());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
+        MinecraftForge.EVENT_BUS.register(new midDetector());
     }
 }
