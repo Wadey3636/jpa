@@ -67,8 +67,8 @@ class positionalMessages {
                 sendPosMessage(coords, intArrayOf(-1, 108, 97), intArrayOf(3, 110, 108), BlockPos(17, 118, 132), Blocks.cobblestone_wall, "/pc At Early Entry 3!", ee3active)
             }
             if (goldorpos) sendPosMessage(coords, intArrayOf(49, 113, 55), intArrayOf(58, 120, 116), BlockPos(54, 118, 54), Blocks.gold_block, "/pc In Inner Chamber!", goldorposactive)
-            if (dragonpos) sendPosMessage(coords, intArrayOf(51, 4, 64), intArrayOf(60, 55, 79), BlockPos(53,64,79), Blocks.wool, "/pc In Part 5!", dragonposactive)
-            if (midposmsg) sendPosMessage(coords, intArrayOf(46, 64, 62), intArrayOf(68, 67, 84), BlockPos(53,64,79), Blocks.wool, "/pc At Middle!", midposactive)
+            if (dragonpos) sendPosMessage(coords, intArrayOf(51, 4, 64), intArrayOf(60, 55, 79), BlockPos(56,63,77), Blocks.sea_lantern, "/pc In Part 5!", dragonposactive)
+            if (midposmsg) sendPosMessage(coords, intArrayOf(46, 64, 62), intArrayOf(68, 72, 84), BlockPos(56,63,77), Blocks.sea_lantern, "/pc At Middle!", midposactive)
             //at mid
         }
     }
