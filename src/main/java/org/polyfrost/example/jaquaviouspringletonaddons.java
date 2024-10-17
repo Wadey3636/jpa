@@ -1,9 +1,12 @@
 package org.polyfrost.example;
 
 
+import me.jpaMain.command.getWorldType;
+import me.jpaMain.command.resetMidDetector;
 import me.jpaMain.dungeonfeatures.mapChecker;
 import me.jpaMain.dungeonfeatures.midDetector;
 import me.jpaMain.dungeonfeatures.positionalMessages;
+import me.jpaMain.utils.locationUtils;
 import net.minecraftforge.common.MinecraftForge;
 import org.polyfrost.example.command.jpaCommand;
 import org.polyfrost.example.config.jpaConfig;
@@ -34,8 +37,13 @@ public class jaquaviouspringletonaddons {
     public void onInit(FMLInitializationEvent event) {
         config = new jpaConfig();
         CommandManager.INSTANCE.registerCommand(new jpaCommand());
+        CommandManager.INSTANCE.registerCommand(new resetMidDetector());
+        CommandManager.INSTANCE.registerCommand(new getWorldType());
         MinecraftForge.EVENT_BUS.register(new mapChecker());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
         MinecraftForge.EVENT_BUS.register(new midDetector());
+        MinecraftForge.EVENT_BUS.register(new locationUtils());
     }
+
 }
+
