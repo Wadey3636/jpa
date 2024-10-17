@@ -48,7 +48,7 @@ class midDetector {
 
 
             mc.theWorld.playerEntities.forEach {
-                players.add(PlayerInfo(it.displayNameString, it.positionVector))
+                if (it != mc.thePlayer) players.add(PlayerInfo(it.displayNameString, it.positionVector))
             }
 
             players.forEach {

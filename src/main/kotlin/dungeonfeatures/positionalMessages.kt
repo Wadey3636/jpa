@@ -5,6 +5,7 @@ import cc.polyfrost.oneconfig.events.event.Stage
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.events.event.TickEvent
 import me.jpaMain.jpaMain.mc
+import me.jpaMain.utils.inDungeon
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import me.jpaMain.utils.isBlock
@@ -55,7 +56,7 @@ class positionalMessages {
 
     @Subscribe
     fun positionalMessages(event: TickEvent) {
-        if(event.stage == Stage.START) {
+        if((event.stage == Stage.START) && inDungeon) {
             if (!posMsgs) {return}
             val coords = mc.thePlayer.position;
             if (berzmsg) sendPosMessage(coords, intArrayOf(92, 129, 43), intArrayOf(93, 134, 46), BlockPos(100, 167, 40), Blocks.barrier, "/pc Ready for Healer Leap!", berzposactive)
