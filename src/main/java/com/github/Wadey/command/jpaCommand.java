@@ -1,6 +1,6 @@
-package org.polyfrost.example.command;
+package com.github.Wadey.command;
 
-import org.polyfrost.example.jaquaviouspringletonaddons;
+import com.github.Wadey.jaquaviouspringletonaddons;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 /**

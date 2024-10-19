@@ -1,14 +1,14 @@
-package org.polyfrost.example.config;
+package com.github.Wadey.config;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
-import org.polyfrost.example.jaquaviouspringletonaddons;
+import com.github.Wadey.jaquaviouspringletonaddons;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
-import cc.polyfrost.oneconfig.config.core.OneColor;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
@@ -70,6 +70,13 @@ public class jpaConfig extends Config {
     public static boolean dragonpos = false;
 
     @Checkbox(
+            name = "Part 2 Position Message",
+            category = "F7/M7",
+            subcategory = "Positional messages"
+    )
+    public static boolean stormposmsg = false;
+
+    @Checkbox(
             name = "Mid Position Message",
             category = "F7/M7",
             subcategory = "Positional messages"
@@ -94,22 +101,57 @@ public class jpaConfig extends Config {
 
 
 
-    @Switch(
+    @Checkbox(
             name = "Mid Detector",
-            size = OptionSize.DUAL,
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Detects when a player is at mid"
 
     )
     public static boolean midDetector = false;
+    @Checkbox(
+            name = "EE2 Detector",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            description = "Detects when a player is at mid"
+
+    )
+    public static boolean ee2Detector = false;
+    @Checkbox(
+            name = "EE3 Detector",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            description = "Detects when a player is at mid"
+
+    )
+    public static boolean ee3Detector = false;
+    @Checkbox(
+            name = "EE4 Detector",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            description = "Detects when a player is at mid"
+
+    )
+    public static boolean ee4Detector = false;
+    @Switch(
+            name = "Include Safespots",
+            size = OptionSize.DUAL,
+            category = "F7/M7",
+            subcategory = "Detectors",
+            description = "Detects when a player is at mid"
+
+    )
+    public static boolean safespots = false;
+
+
     @Slider(
-            name = "Mid Detector Text Size",
+            name = "Detector Text Size",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Detects when a player is at mid",
-            min = 0.0F, max = 60F)
-    public static float midDetectorTextSize = 20F;
+            min = 1.0F, max = 60F)
+    public static float midDetectorTextSize = 40F;
+
     public jpaConfig() {
 
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.UTIL_QOL), jaquaviouspringletonaddons.MODID + ".json");

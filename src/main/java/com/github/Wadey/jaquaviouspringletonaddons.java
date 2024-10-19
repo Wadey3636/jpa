@@ -1,4 +1,4 @@
-package org.polyfrost.example;
+package com.github.Wadey;
 
 
 import me.jpaMain.command.getWorldType;
@@ -6,10 +6,11 @@ import me.jpaMain.command.resetMidDetector;
 import me.jpaMain.dungeonfeatures.mapChecker;
 import me.jpaMain.dungeonfeatures.midDetector;
 import me.jpaMain.dungeonfeatures.positionalMessages;
+//import me.jpaMain.gardenFeatures.pestFarmingKeybind;
 import me.jpaMain.utils.locationUtils;
 import net.minecraftforge.common.MinecraftForge;
-import org.polyfrost.example.command.jpaCommand;
-import org.polyfrost.example.config.jpaConfig;
+import com.github.Wadey.command.jpaCommand;
+import com.github.Wadey.config.jpaConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
@@ -43,6 +44,7 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
         MinecraftForge.EVENT_BUS.register(new midDetector());
         MinecraftForge.EVENT_BUS.register(new locationUtils());
+        //MinecraftForge.EVENT_BUS.register(new pestFarmingKeybind());
     }
 
 }
