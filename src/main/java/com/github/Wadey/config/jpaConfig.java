@@ -1,7 +1,6 @@
 package com.github.Wadey.config;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
-import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.github.Wadey.jaquaviouspringletonaddons;
@@ -9,6 +8,9 @@ import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
+import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
+
+
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
@@ -113,7 +115,7 @@ public class jpaConfig extends Config {
             name = "EE2 Detector",
             category = "F7/M7",
             subcategory = "Detectors",
-            description = "Detects when a player is at mid"
+            description = "Detects when a player is at ee2"
 
     )
     public static boolean ee2Detector = false;
@@ -121,7 +123,7 @@ public class jpaConfig extends Config {
             name = "EE3 Detector",
             category = "F7/M7",
             subcategory = "Detectors",
-            description = "Detects when a player is at mid"
+            description = "Detects when a player is at ee3"
 
     )
     public static boolean ee3Detector = false;
@@ -129,7 +131,7 @@ public class jpaConfig extends Config {
             name = "EE4 Detector",
             category = "F7/M7",
             subcategory = "Detectors",
-            description = "Detects when a player is at mid"
+            description = "Detects when a player is at ee4"
 
     )
     public static boolean ee4Detector = false;
@@ -138,7 +140,7 @@ public class jpaConfig extends Config {
             size = OptionSize.DUAL,
             category = "F7/M7",
             subcategory = "Detectors",
-            description = "Detects when a player is at mid"
+            description = "Toggles the early entry detectors checking safespots"
 
     )
     public static boolean safespots = false;
@@ -155,7 +157,7 @@ public class jpaConfig extends Config {
     public jpaConfig() {
 
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.UTIL_QOL), jaquaviouspringletonaddons.MODID + ".json");
-        registerKeyBind(pestKey, () -> System.out.println("Look mom, a keybind!"));
+        registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
 
         addDependency("Berserker Leap Position Message", "F7/M7 Position messages");
         addDependency("Early Entry Position Messages", "F7/M7 Position messages");

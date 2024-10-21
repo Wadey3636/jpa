@@ -46,7 +46,7 @@ class positionalMessages {
             {
                 if (!msgVariable.get()) {
                     msgVariable.set(true)
-                    Minecraft.getMinecraft().thePlayer?.sendChatMessage(msg)
+                    mc.thePlayer?.sendChatMessage(msg)
                 }
             }
         else {

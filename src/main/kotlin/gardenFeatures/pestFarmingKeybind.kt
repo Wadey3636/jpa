@@ -1,31 +1,34 @@
 package me.jpaMain.gardenFeatures
-/*
-package me.jpaMain.gardenFeatures
-import cc.polyfrost.oneconfig.events.event.RawKeyEvent
-import me.jpaMain.utils.inGarden
-import cc.polyfrost.oneconfig.events.EventManager
+
 import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.events.event.KeyInputEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import com.github.Wadey.config.jpaConfig.pestKey
+import me.jpaMain.jpaMain.mc
+import me.jpaMain.utils.inGarden
+import com.github.Wadey.config.jpaConfig.pestKeyToggle
+import me.jpaMain.utils.isBlock
+import net.minecraft.init.Blocks
+import net.minecraft.util.BlockPos
 
-class pestFarmingKeybind {
-    init {
-        EventManager.INSTANCE.register(this)
+
+fun pestFarmingKeybind() {
+    if (!inGarden || !pestKeyToggle) return
+
+    if (
+        isBlock(BlockPos(mc.thePlayer.position.x,mc.thePlayer.position.y,mc.thePlayer.position.z), Blocks.reeds) ||
+        isBlock(BlockPos(mc.thePlayer.position.x - 1,mc.thePlayer.position.y,mc.thePlayer.position.z), Blocks.reeds) ||
+        isBlock(BlockPos(mc.thePlayer.position.x,mc.thePlayer.position.y,mc.thePlayer.position.z - 1), Blocks.reeds) ||
+        isBlock(BlockPos(mc.thePlayer.position.x - 1,mc.thePlayer.position.y,mc.thePlayer.position.z - 1), Blocks.reeds)
+        ) {
+        mc.thePlayer?.sendChatMessage("/setspawn")
+    }
+    else {
+        mc.thePlayer?.sendChatMessage("/warp garden")
     }
 
-    @Subscribe
-    fun pestFarmingKeybind(event: KeyInputEvent) {
-        //if (!inGarden || !pestKeyToggle) return
-        UChat.chat("keyPressed")
-        //UChat.chat(event.key)
-        //UChat.chat(event.key.toString() + " : " + pestKey.toString())
-        //if(event.key.toString() == pestKey.toString()) {
 
 
 
-        }
+
+}
 
 
-    }
-*/
+
