@@ -8,6 +8,7 @@ import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
+import me.jpaMain.dungeonfeatures.gfsKeybinds;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
 
 
@@ -100,8 +101,53 @@ public class jpaConfig extends Config {
             subcategory = "Pest Farming"
     )
     public static OneKeyBind pestKey = new OneKeyBind(UKeyboard.KEY_Q);
+    @Switch(
+            name = "Pearl GFS Toggle",
+            category = "Dungeon",
+            subcategory = "Keybinds",
+            description = "Toggles the Pearl GFS keybind"
+    )
+    public static boolean pearlKeyToggle;
 
+    @KeyBind(
+            name = "Pearl GFS",
+            description = "/gfs ender_pearl 16",
+            category = "Dungeon",
+            subcategory = "Keybinds"
+    )
+    public static OneKeyBind pearlKey = new OneKeyBind(UKeyboard.KEY_1);
 
+    @Switch(
+            name = "Superboom GFS Toggle",
+            category = "Dungeon",
+            subcategory = "Keybinds",
+            description = "Toggles the Superboom GFS keybind"
+    )
+    public static boolean superboomKeyToggle;
+
+    @KeyBind(
+            name = "Pearl GFS",
+            description = "/gfs SUPERBOOM_TNT 64",
+            category = "Dungeon",
+            subcategory = "Keybinds"
+    )
+    public static OneKeyBind superboomKey = new OneKeyBind(UKeyboard.KEY_2);
+
+    @Switch(
+            name = "Spirit Leap GFS Toggle",
+            category = "Dungeon",
+            subcategory = "Keybinds",
+            description = "Toggles the Spirit Leap GFS keybind"
+    )
+    public static boolean spiritleapKeyToggle;
+
+    @KeyBind(
+            name = "Spirit Leap GFS",
+            description = "/gfs SPIRIT_LEAP 16",
+            category = "Dungeon",
+            subcategory = "Keybinds"
+    )
+    public static OneKeyBind spiritleapKey = new OneKeyBind(UKeyboard.KEY_3);
 
     @Checkbox(
             name = "Mid Detector",
@@ -158,7 +204,9 @@ public class jpaConfig extends Config {
 
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.UTIL_QOL), jaquaviouspringletonaddons.MODID + ".json");
         registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
-
+        registerKeyBind(pearlKey, gfsKeybinds.INSTANCE::gfsPearl);
+        registerKeyBind(superboomKey, gfsKeybinds.INSTANCE::gfsSuperboom);
+        registerKeyBind(spiritleapKey, gfsKeybinds.INSTANCE::gfsSpiritleap);
         addDependency("Berserker Leap Position Message", "F7/M7 Position messages");
         addDependency("Early Entry Position Messages", "F7/M7 Position messages");
         addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages");
