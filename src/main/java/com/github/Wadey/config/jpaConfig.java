@@ -8,9 +8,8 @@ import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
-import me.jpaMain.dungeonfeatures.gfsKeybinds;
+import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
-
 
 
 /**
@@ -18,6 +17,7 @@ import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
  * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
  */
 public class jpaConfig extends Config {
+
 /*
     @Switch(
             name = "Icefill Solver",
@@ -196,17 +196,34 @@ public class jpaConfig extends Config {
             name = "Detector Text Size",
             category = "F7/M7",
             subcategory = "Detectors",
-            description = "Detects when a player is at mid",
             min = 1.0F, max = 60F)
     public static float midDetectorTextSize = 40F;
+
+    @Switch(
+            name = "Toggle Pad Timer",
+            size = OptionSize.DUAL,
+            category = "F7/M7",
+            subcategory = "Pad Timer",
+            description = "Puts a timer on your screen during storm phase that shows the next moment the pad will register"
+
+    )
+    public static boolean PadTimer = false;
+
+
+    @Slider(
+            name = "Pad Timer Size",
+            category = "F7/M7",
+            subcategory = "Pad Timer",
+            min = 1F, max = 10F)
+    public static float padTimerSize = 3F;
 
     public jpaConfig() {
 
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.UTIL_QOL), jaquaviouspringletonaddons.MODID + ".json");
         registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
-        registerKeyBind(pearlKey, gfsKeybinds.INSTANCE::gfsPearl);
-        registerKeyBind(superboomKey, gfsKeybinds.INSTANCE::gfsSuperboom);
-        registerKeyBind(spiritleapKey, gfsKeybinds.INSTANCE::gfsSpiritleap);
+        registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
+        registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
+        registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
         addDependency("Berserker Leap Position Message", "F7/M7 Position messages");
         addDependency("Early Entry Position Messages", "F7/M7 Position messages");
         addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages");

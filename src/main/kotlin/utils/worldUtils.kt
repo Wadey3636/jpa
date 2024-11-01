@@ -1,8 +1,13 @@
 package me.jpaMain.utils
-import net.minecraft.init.Blocks
-import net.minecraft.util.BlockPos
+import com.google.common.collect.Iterables
+import com.google.common.collect.Lists
 import me.jpaMain.jpaMain.mc
 import net.minecraft.block.Block
+import net.minecraft.init.Blocks
+import net.minecraft.scoreboard.Score
+import net.minecraft.scoreboard.ScorePlayerTeam
+import net.minecraft.util.BlockPos
+import java.util.stream.Collectors
 
 /**
  * Retrieves the block object at the specified positon
@@ -39,4 +44,33 @@ fun isBlock(pos: BlockPos, blocks: Block): Boolean {
     }
 
 
+}
+
+//Thank you to Wyan because I just yoinked this code from him when he sent me how he got the scoreboard
+
+fun getSidebarLines(): List<String> {
+    val lines: MutableList<String> = ArrayList()
+    if (mc.theWorld == null) return lines
+    val scoreboard = mc.theWorld.scoreboard ?: return lines
+
+    val objective = scoreboard.getObjectiveInDisplaySlot(1) ?: return lines
+
+    var scores = scoreboard.getSortedScores(objective)
+    val list = scores.stream()
+        .filter { input: Score? -> input != null && input.playerName != null && !input.playerName.startsWith("#") }
+        .collect(
+            Collectors.toList()
+        )
+
+    scores = if (list.size > 15) {
+        Lists.newArrayList(Iterables.skip(list, scores.size - 15))
+    } else {
+        list
+    }
+    for (score in scores) {
+        val team = scoreboard.getPlayersTeam(score.playerName)
+        lines.add(ScorePlayerTeam.formatPlayerName(team, score.playerName))
+    }
+
+    return lines
 }

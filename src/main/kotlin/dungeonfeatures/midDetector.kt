@@ -10,7 +10,7 @@ import cc.polyfrost.oneconfig.renderer.NanoVGHelper
 import cc.polyfrost.oneconfig.renderer.font.Fonts
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.jpaMain.mc
-import me.jpaMain.utils.PlayerInfo
+import me.jpaMain.utils.PlayerPosInfo
 import me.jpaMain.utils.inDungeon
 import me.jpaMain.utils.isBlock
 import net.minecraft.block.Block
@@ -57,7 +57,7 @@ class midDetector {
 
     fun detectPlayers(
         detectconfig: Boolean,
-        players: ArrayList<PlayerInfo>,
+        players: ArrayList<PlayerPosInfo>,
         lowCoords: IntArray,
         highCoords: IntArray,
         blockPos: BlockPos,
@@ -93,7 +93,7 @@ class midDetector {
 
     fun detectPlayersInverseBlock(
             detectconfig: Boolean,
-            players: ArrayList<PlayerInfo>,
+            players: ArrayList<PlayerPosInfo>,
             lowCoords: IntArray,
             highCoords: IntArray,
             blockPos: BlockPos,
@@ -138,9 +138,9 @@ class midDetector {
 
 
             if ((event.stage == Stage.START) && inDungeon) {
-                val players = arrayListOf<PlayerInfo>()
+                val players = arrayListOf<PlayerPosInfo>()
                 mc.theWorld?.playerEntities?.forEach {
-                    if (it != mc.thePlayer) players.add(PlayerInfo(it.displayNameString, it.positionVector))
+                    if (it != mc.thePlayer) players.add(PlayerPosInfo(it.displayNameString, it.positionVector))
                     //players.add(PlayerInfo(it.displayNameString, it.positionVector))
                 }
 
