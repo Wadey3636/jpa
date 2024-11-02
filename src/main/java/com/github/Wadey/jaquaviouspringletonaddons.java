@@ -7,6 +7,7 @@ import me.jpaMain.dungeonfeatures.mapChecker;
 import me.jpaMain.dungeonfeatures.midDetector;
 import me.jpaMain.dungeonfeatures.positionalMessages;
 //import me.jpaMain.gardenFeatures.pestFarmingKeybind;
+import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
 import net.minecraftforge.common.MinecraftForge;
 import com.github.Wadey.command.jpaCommand;
@@ -44,7 +45,7 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
         MinecraftForge.EVENT_BUS.register(new midDetector());
         MinecraftForge.EVENT_BUS.register(new locationUtils());
-        //MinecraftForge.EVENT_BUS.register(new pestFarmingKeybind());
+        MinecraftForge.EVENT_BUS.register(new dungeonUtils());
     }
 
 }
