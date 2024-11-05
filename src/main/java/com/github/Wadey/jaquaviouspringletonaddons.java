@@ -1,11 +1,8 @@
 package com.github.Wadey;
 
 
-import me.jpaMain.command.getWorldType;
-import me.jpaMain.command.resetMidDetector;
-import me.jpaMain.dungeonfeatures.mapChecker;
-import me.jpaMain.dungeonfeatures.midDetector;
-import me.jpaMain.dungeonfeatures.positionalMessages;
+import me.jpaMain.command.*;
+import me.jpaMain.dungeonfeatures.*;
 //import me.jpaMain.gardenFeatures.pestFarmingKeybind;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
@@ -16,6 +13,7 @@ import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import me.jpaMain.command.advancePadTick;
 
 /**
  * The entrypoint of the Example Mod that initializes it.
@@ -41,11 +39,17 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new jpaCommand());
         CommandManager.INSTANCE.registerCommand(new resetMidDetector());
         CommandManager.INSTANCE.registerCommand(new getWorldType());
+        CommandManager.INSTANCE.registerCommand(new simulateStormActivate());
+        CommandManager.INSTANCE.registerCommand(new simulateStormDeactivate());
+        CommandManager.INSTANCE.registerCommand(new advanceP3StartTimer());
+        CommandManager.INSTANCE.registerCommand(new advancePadTick());
         MinecraftForge.EVENT_BUS.register(new mapChecker());
+        MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
         MinecraftForge.EVENT_BUS.register(new midDetector());
         MinecraftForge.EVENT_BUS.register(new locationUtils());
         MinecraftForge.EVENT_BUS.register(new dungeonUtils());
+        MinecraftForge.EVENT_BUS.register(new padTimer());
     }
 
 }

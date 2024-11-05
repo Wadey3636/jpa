@@ -8,8 +8,10 @@ import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
-import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
+import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
+import me.jpaMain.huds.padTimerHud;
+import me.jpaMain.huds.p3StartTimerHud;
 
 
 /**
@@ -199,23 +201,20 @@ public class jpaConfig extends Config {
             min = 1.0F, max = 60F)
     public static float midDetectorTextSize = 40F;
 
-    @Switch(
-            name = "Toggle Pad Timer",
-            size = OptionSize.DUAL,
+    @HUD(
+            name = "Pad Timer",
             category = "F7/M7",
-            subcategory = "Pad Timer",
-            description = "Puts a timer on your screen during storm phase that shows the next moment the pad will register"
-
+            subcategory = "Timers"
     )
-    public static boolean PadTimer = false;
+    public padTimerHud hud = new padTimerHud();
 
-
-    @Slider(
-            name = "Pad Timer Size",
+    @HUD(
+            name = "P3 Start Timer",
             category = "F7/M7",
-            subcategory = "Pad Timer",
-            min = 1F, max = 10F)
-    public static float padTimerSize = 3F;
+            subcategory = ""
+    )
+    public p3StartTimerHud starthud = new p3StartTimerHud();
+
 
     public jpaConfig() {
 

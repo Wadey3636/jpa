@@ -103,11 +103,11 @@ class dungeonUtils {
 
 
         })
-        UChat.chat(scoreboard[scoreboard.size - 5])
+        //UChat.chat(scoreboard[scoreboard.size - 5])
         UChat.chat(dungeonFloor)
 
     }
 
 }
-
+//7cTheCataccombs7F7
 //12
