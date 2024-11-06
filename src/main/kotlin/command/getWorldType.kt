@@ -13,5 +13,4 @@ class getWorldType {
         private fun scoreboardthingy() {
             UChat.chat(dungeonFloor)
         }
-
 }

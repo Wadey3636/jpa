@@ -17,12 +17,7 @@ class p3StartTimer {
     //
     @Subscribe
     fun p3StartTimer(event: ChatReceiveEvent){
-
-        if(event.message.formattedText.toString() == "[351] [MVP+] Wadey36 ♲: aasd") {
-            UChat.chat("balls")
-        }
-
-        if (event.message.formattedText.toString() == "[BOSS] Storm: I should have known that I stood no chance.") {
+        if (event.message.unformattedText.toString() == "[BOSS] Storm: I should have known that I stood no chance.") {
             p3StartTimerticks = 104f
         }
     }

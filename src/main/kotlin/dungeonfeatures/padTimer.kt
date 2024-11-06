@@ -32,11 +32,11 @@ class padTimer {
     }
     @Subscribe
     fun stormPhaseStart(event: ChatReceiveEvent){
-        if (event.message.formattedText == "[BOSS] Storm: Pathetic Maxor, just like expected.") {
+        if (event.message.unformattedText.toString() == "[BOSS] Storm: Pathetic Maxor, just like expected.") {
             padticks = 20f
             stormActivated = true
         }
-        else if (event.message.formattedText == "[BOSS] Storm: I should have known that I stood no chance.") {
+        else if (event.message.unformattedText.toString() == "[BOSS] Storm: I should have known that I stood no chance.") {
             stormActivated = false
         }
     }
