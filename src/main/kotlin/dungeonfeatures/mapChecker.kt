@@ -11,10 +11,11 @@ import me.jpaMain.utils.getBlockAt
 //Each 1x1 unit is 30 by 30
 
 class mapChecker() {
-
+/*
     init {
         EventManager.INSTANCE.register(this)
     }
+ */
     @Subscribe
     fun mapChecker(event: TickEvent) {
         if(event.stage == Stage.START) {

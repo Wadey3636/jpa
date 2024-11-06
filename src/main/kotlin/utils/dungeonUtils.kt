@@ -104,7 +104,7 @@ class dungeonUtils {
 
         })
         //UChat.chat(scoreboard[scoreboard.size - 5])
-        UChat.chat(dungeonFloor)
+        //UChat.chat(dungeonFloor)
 
     }
 
