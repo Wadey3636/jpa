@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import net.minecraft.util.Vec3
 import roomInfo
+import java.lang.System.currentTimeMillis
 
 
 //Each 1x1 unit is 30 by 30
@@ -46,7 +47,7 @@ class mapChecker() {
         if(event.stage == Stage.START) {
 
 
-            if (coolDown ==) {}
+
                 val bounds = arrayListOf(arrayOf(mc.thePlayer.posX.toInt() - 128, mc.thePlayer.posZ.toInt() - 128),
                     arrayOf(mc.thePlayer.posX.toInt() + 128, mc.thePlayer.posZ.toInt() + 128))
 
@@ -80,7 +81,6 @@ class mapChecker() {
                 })
 
 
-            UChat.chat(Roomlist)
 
 
 
