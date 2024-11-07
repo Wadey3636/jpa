@@ -6,6 +6,7 @@ import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.events.fireEvents;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
+import me.jpaMain.utils.mapChecker;
 import net.minecraftforge.common.MinecraftForge;
 import com.github.Wadey.command.jpaCommand;
 import com.github.Wadey.config.jpaConfig;
@@ -38,11 +39,12 @@ public class jaquaviouspringletonaddons {
         config = new jpaConfig();
         CommandManager.INSTANCE.registerCommand(new jpaCommand());
         CommandManager.INSTANCE.registerCommand(new resetMidDetector());
-        CommandManager.INSTANCE.registerCommand(new getWorldType());
+        CommandManager.INSTANCE.registerCommand(new testCommand());
         CommandManager.INSTANCE.registerCommand(new simulateStormActivate());
         CommandManager.INSTANCE.registerCommand(new simulateStormDeactivate());
         CommandManager.INSTANCE.registerCommand(new advanceP3StartTimer());
         CommandManager.INSTANCE.registerCommand(new advancePadTick());
+        CommandManager.INSTANCE.registerCommand(new getRoomCoord());
         MinecraftForge.EVENT_BUS.register(new mapChecker());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
@@ -51,6 +53,7 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new dungeonUtils());
         MinecraftForge.EVENT_BUS.register(new padTimer());
         MinecraftForge.EVENT_BUS.register(new fireEvents());
+        MinecraftForge.EVENT_BUS.register(new eventTest());
     }
 
 }

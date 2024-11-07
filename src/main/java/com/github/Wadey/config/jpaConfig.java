@@ -20,15 +20,15 @@ import me.jpaMain.huds.p3StartTimerHud;
  */
 public class jpaConfig extends Config {
 
-/*
+
     @Switch(
             name = "Icefill Solver",
             size = OptionSize.SINGLE,
-            category = "General Dungeons",
+            category = "Dungeon",
             subcategory = "Solvers",
             description = "Disabled ATM"
     )
-  */
+
     public static boolean icefillSolver = false;
     @Switch(
             name = "F7/M7 Position messages",
