@@ -3,7 +3,7 @@ package com.github.Wadey;
 
 import me.jpaMain.command.*;
 import me.jpaMain.dungeonfeatures.*;
-//import me.jpaMain.gardenFeatures.pestFarmingKeybind;
+import me.jpaMain.events.fireEvents;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,10 +46,11 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new mapChecker());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
-        MinecraftForge.EVENT_BUS.register(new midDetector());
+        MinecraftForge.EVENT_BUS.register(new positionDetectors());
         MinecraftForge.EVENT_BUS.register(new locationUtils());
         MinecraftForge.EVENT_BUS.register(new dungeonUtils());
         MinecraftForge.EVENT_BUS.register(new padTimer());
+        MinecraftForge.EVENT_BUS.register(new fireEvents());
     }
 
 }

@@ -223,12 +223,12 @@ public class jpaConfig extends Config {
         registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
         registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
         registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
-        addDependency("Berserker Leap Position Message", "F7/M7 Position messages");
-        addDependency("Early Entry Position Messages", "F7/M7 Position messages");
-        addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages");
-        addDependency("Inner Chamber position message", "F7/M7 Position messages");
-        addDependency("Part 5 Position Message", "F7/M7 Position messages");
-        addDependency("Middle Position Message", "F7/M7 Position messages");
+        addDependency("Berserker Leap Position Message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Early Entry Position Messages", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Inner Chamber position message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Part 5 Position Message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Middle Position Message", "F7/M7 Position messages", () -> posMsgs);
         initialize();
     }
 }

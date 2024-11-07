@@ -1,6 +1,3 @@
-
-
-
-data class roomInfo(val name: String, val boundHighest: IntArray, val boundLowest: IntArray)
+data class roomInfo(val name: String, val bounds: ArrayList<IntArray>, val rotation: String)
 
 

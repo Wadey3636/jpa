@@ -25,7 +25,7 @@ public var midTriggered = AtomicBoolean(false)
 
 public var renderTime: Int = 0
 
-class midDetector {
+class positionDetectors {
 
     init {
         EventManager.INSTANCE.register(this)
