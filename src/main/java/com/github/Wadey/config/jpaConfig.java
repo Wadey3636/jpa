@@ -1,6 +1,7 @@
 package com.github.Wadey.config;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.github.Wadey.jaquaviouspringletonaddons;
@@ -28,8 +29,22 @@ public class jpaConfig extends Config {
             subcategory = "Solvers",
             description = "Disabled ATM"
     )
-
     public static boolean icefillSolver = false;
+    @Color(
+            name = "Line Color",
+            category = "Dungeon",
+            subcategory = "Solvers",
+            description = "The color of the path"
+    )
+    public static OneColor icefillPathColor = new OneColor(0, 255, 0, 255);
+    @Color(
+            name = "Etherwarp Point Color",
+            category = "Dungeon",
+            subcategory = "Solvers",
+            description = "Use a skill called Critical Thinking for one second"
+    )
+    public static OneColor icefillEtherwarpPointColor = new OneColor(0, 0, 255, 255);
+
     @Switch(
             name = "F7/M7 Position messages",
             size = OptionSize.DUAL,

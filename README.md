@@ -1,13 +1,15 @@
-##Features
+# Features
 
-F7/M7:
+--------
+### F7/M7:
 - Positional Messages
 - Player Position Detectors
 - Pad Tick Timer
 - P3 Start Timer
-
-Dungeons:
+- -----
+### Dungeons:
 - Gfs Command Keybindings
 
-Garden:
+----
+### Garden:
 - Pest Key

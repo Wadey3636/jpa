@@ -4,6 +4,7 @@ package com.github.Wadey;
 import me.jpaMain.command.*;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.events.fireEvents;
+import me.jpaMain.test.testFunctions;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
 import me.jpaMain.utils.mapChecker;
@@ -54,6 +55,7 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new padTimer());
         MinecraftForge.EVENT_BUS.register(new fireEvents());
         MinecraftForge.EVENT_BUS.register(new eventTest());
+        MinecraftForge.EVENT_BUS.register(new testFunctions());
     }
 
 }

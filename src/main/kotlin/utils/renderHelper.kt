@@ -1,4 +1,5 @@
 package me.jpaMain.utils
+import cc.polyfrost.oneconfig.config.core.OneColor
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -21,6 +22,39 @@ import kotlin.math.sqrt
 
 object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
+
+    fun drawLine3d(
+        x: Double,
+        y: Double,
+        z: Double,
+        x1: Double,
+        y1: Double,
+        z1: Double,
+        color: OneColor,
+        thickness: Float,
+        phase: Boolean
+    ) {
+
+        GL11.glBlendFunc(770, 771)
+        GL11.glEnable(GL11.GL_BLEND)
+        GL11.glLineWidth(thickness)
+        GL11.glDisable(GL11.GL_TEXTURE_2D)
+        if (phase) GlStateManager.enableDepth() // enableDepth
+        GL11.glDepthMask(false)
+        GlStateManager.pushMatrix() // pushMatrix()
+
+        Tessellator.getInstance().worldRenderer.begin(3, DefaultVertexFormats.POSITION_COLOR)
+        Tessellator.getInstance().worldRenderer.pos(x, y, z).color(color.red, color.green, color.blue, color.alpha)
+        Tessellator.getInstance().worldRenderer.pos(x1, y1, z1).color(color.red, color.green, color.blue, color.alpha)
+
+        Tessellator.getInstance().draw()
+
+        GlStateManager.popMatrix() // popMatrix()
+        if (phase) GlStateManager.disableDepth() // disableDepth
+        GL11.glEnable(GL11.GL_TEXTURE_2D)
+        GL11.glDepthMask(true)
+        GL11.glDisable(GL11.GL_BLEND)
+    }
 
 
     /**
@@ -152,4 +186,155 @@ object renderHelper {
         return lastValue + (currentValue - lastValue) * multiplier
     }
 
+    /**
+     *
+     * @param {Number[][]} points - List of vertices as [[x, y, z], [x, y, z], ...]
+     * @param {Number} r
+     * @param {Number} g
+     * @param {Number} b
+     * @param {Number} a
+     * @param {Boolean} phase - Show the line through walls
+     * @param {Number} lineWidth - The width of the line
+     */
+    fun drawLineThroughPoints(
+        points: List<List<Double>>,
+        color: OneColor,
+        phase: Boolean,
+        lineWidth: Float,
+        loop: Boolean
+    ) {
+
+        GlStateManager.pushMatrix()
+
+        GL11.glLineWidth(lineWidth)
+        GlStateManager.disableCull() // disableCullFace
+        GlStateManager.depthMask(false)
+        GlStateManager.disableTexture2D()
+        GlStateManager.enableBlend()
+
+        if (phase) GlStateManager.disableDepth()
+
+        if (loop) Tessellator.getInstance().worldRenderer.begin(GL11.GL_LINE_LOOP, DefaultVertexFormats.POSITION_COLOR)
+        else Tessellator.getInstance().worldRenderer.begin(3, DefaultVertexFormats.POSITION_COLOR)
+
+        Tessellator.getInstance().worldRenderer.color(color.red, color.green, color.blue, color.alpha)
+        var i = 0
+        while (i < points.size) {
+            Tessellator.getInstance().worldRenderer.pos(points[i][0], points[i][1], points[i][2])
+            i++
+        }
+
+        Tessellator.getInstance().draw()
+
+        if (phase) GlStateManager.enableDepth()
+
+        GlStateManager.enableCull() // enableCull
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+        GlStateManager.depthMask(true)
+        GlStateManager.popMatrix()
+
+    }
+
+    fun drawLineThroughPointsAboveBlock(
+        points: List<BlockPos>,
+        color: OneColor,
+        phase: Boolean,
+        lineWidth: Float,
+        loop: Boolean
+    ) {
+
+        GlStateManager.pushMatrix()
+
+        GL11.glLineWidth(lineWidth)
+        GlStateManager.disableCull() // disableCullFace
+        GlStateManager.depthMask(false)
+        GlStateManager.disableTexture2D()
+        GlStateManager.enableBlend()
+
+        if (phase) GlStateManager.disableDepth()
+
+        if (loop) Tessellator.getInstance().worldRenderer.begin(GL11.GL_LINE_LOOP, DefaultVertexFormats.POSITION_COLOR)
+        else Tessellator.getInstance().worldRenderer.begin(3, DefaultVertexFormats.POSITION_COLOR)
+
+        Tessellator.getInstance().worldRenderer.color(color.red, color.green, color.blue, color.alpha)
+        var i = 0
+        while (i < points.size) {
+            Tessellator.getInstance().worldRenderer.pos(points[i].x.toDouble() + 0.5, points[i].y.toDouble() +1.01, points[i].z.toDouble() + 0.5)
+            i++
+        }
+
+        Tessellator.getInstance().draw()
+
+        if (phase) GlStateManager.enableDepth()
+
+        GlStateManager.enableCull() // enableCull
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+        GlStateManager.depthMask(true)
+        GlStateManager.popMatrix()
+
+    }
+
+    fun renderBoxOutlineFromCorners(
+        x0: Double,
+        y0: Double,
+        z0: Double,
+        x1: Double,
+        y1: Double,
+        z1: Double,
+        color: OneColor,
+        lineWidth: Float,
+        phase: Boolean
+    ) {
+        GlStateManager.pushMatrix()
+
+        GL11.glLineWidth(lineWidth)
+        Tessellator.getInstance().worldRenderer.begin(3, DefaultVertexFormats.POSITION_TEX_COLOR)
+        GlStateManager.depthMask(false)
+        GlStateManager.disableTexture2D()
+        GlStateManager.enableBlend()
+
+        if (phase) GlStateManager.disableDepth()
+        Tessellator.getInstance().worldRenderer.color(color.red, color.green, color.blue, color.alpha)
+
+        Tessellator.getInstance().worldRenderer.pos(x0, y0, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y0, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y1, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y1, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y1, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y1, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y0, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y0, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y0, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y0, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y1, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x0, y1, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y1, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y0, z0).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y0, z1).tex(0.0, 0.0)
+        Tessellator.getInstance().worldRenderer.pos(x1, y1, z1).tex(0.0, 0.0)
+
+        Tessellator.getInstance().draw()
+
+        if (phase) GlStateManager.enableDepth()
+
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+        GlStateManager.depthMask(true)
+        GlStateManager.popMatrix()
+    }
+
+    fun renderBoxOutline(
+        x: Double,
+        y: Double,
+        z: Double,
+        w: Double,
+        h: Double,
+        color: OneColor,
+        lineWidth: Float,
+        phase: Boolean
+    ) {
+        renderBoxOutlineFromCorners(x - w / 2, y, z - w / 2, x + w / 2, y + h, z + w / 2, color, lineWidth, phase)
+    }
 }
