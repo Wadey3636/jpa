@@ -9,6 +9,7 @@ import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.renderer.NanoVGHelper
 import cc.polyfrost.oneconfig.renderer.font.Fonts
 import com.github.Wadey.config.jpaConfig.*
+import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.PlayerPosInfo
 import me.jpaMain.utils.inDungeon
@@ -130,14 +131,15 @@ class positionDetectors {
         }
 
         @Subscribe
-        fun midDetector(event: TickEvent) {
+        fun midDetector(event: QuarterSecondEvent) {
             if (renderTime > 0) {
                 renderTime += -1
             }
 
 
 
-            if ((event.stage == Stage.START) && inDungeon) {
+            if (
+                inDungeon) {
                 val players = arrayListOf<PlayerPosInfo>()
                 mc.theWorld?.playerEntities?.forEach {
                     if (it != mc.thePlayer) players.add(PlayerPosInfo(it.displayNameString, it.positionVector))

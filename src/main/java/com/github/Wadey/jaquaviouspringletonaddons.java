@@ -3,11 +3,11 @@ package com.github.Wadey;
 
 import me.jpaMain.command.*;
 import me.jpaMain.dungeonfeatures.*;
+import me.jpaMain.dungeonfeatures.DungeonScanner.dungeonScanner;
+import me.jpaMain.dungeonfeatures.iceFillSolver.iceFillSolver;
 import me.jpaMain.events.fireEvents;
-import me.jpaMain.test.testFunctions;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
-import me.jpaMain.utils.mapChecker;
 import net.minecraftforge.common.MinecraftForge;
 import com.github.Wadey.command.jpaCommand;
 import com.github.Wadey.config.jpaConfig;
@@ -46,7 +46,7 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new advanceP3StartTimer());
         CommandManager.INSTANCE.registerCommand(new advancePadTick());
         CommandManager.INSTANCE.registerCommand(new getRoomCoord());
-        MinecraftForge.EVENT_BUS.register(new mapChecker());
+        MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
         MinecraftForge.EVENT_BUS.register(new positionDetectors());
@@ -54,8 +54,7 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new dungeonUtils());
         MinecraftForge.EVENT_BUS.register(new padTimer());
         MinecraftForge.EVENT_BUS.register(new fireEvents());
-        MinecraftForge.EVENT_BUS.register(new eventTest());
-        MinecraftForge.EVENT_BUS.register(new testFunctions());
+        MinecraftForge.EVENT_BUS.register(new iceFillSolver());
     }
 
 }

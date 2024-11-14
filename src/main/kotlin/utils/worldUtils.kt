@@ -36,14 +36,7 @@ fun getBlockAt(pos: BlockPos): Block {
  */
 
 fun isBlock(pos: BlockPos, blocks: Block): Boolean {
-    return if(blocks == (mc.theWorld?.getBlockState(pos)?.block ?: Blocks.air)) {
-        true
-    }
-    else {
-        false
-    }
-
-
+    return blocks.toString() == (mc.theWorld?.getBlockState(pos)?.block ?: Blocks.air).toString()
 }
 
 //Thank you to Wyan because I just yoinked this code from him when he sent me how he got the scoreboard

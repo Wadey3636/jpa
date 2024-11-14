@@ -3,18 +3,19 @@ package me.jpaMain.command
 import cc.polyfrost.oneconfig.libs.universal.UChat
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main
+import cc.polyfrost.oneconfig.utils.dsl.mc
+import me.jpaMain.dungeonfeatures.DungeonScanner.possiblePositions
 import me.jpaMain.dungeonfeatures.p3StartTimerticks
+import me.jpaMain.utils.playerInRoomBounds
 
 
-@Command(value = "advP3StartTimer", description = "gay")
+@Command(value = "nearestRoomIcefill", description = "gay")
 
 class advanceP3StartTimer {
     @Main
     private fun bwah() {
-        if (p3StartTimerticks > 0) {
-            --p3StartTimerticks
-        }
-        UChat.chat(p3StartTimerticks)
+        val position = mc.thePlayer.position
+        //possiblePositions.forEach{ playerInRoomBounds(it, position)}
 
     }
 

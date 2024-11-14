@@ -12,6 +12,8 @@ Their GitHub can be found here: https://github.com/UnclaimedBloom6
 
 */
 
+import cc.polyfrost.oneconfig.libs.universal.UChat
+import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 import net.minecraft.util.BlockPos
 import me.jpaMain.jpaMain.mc
 
@@ -30,10 +32,19 @@ fun playerInRoomBounds(room: roomInfo, pos: BlockPos): Boolean {
     fun convertToRealCoords(room: roomInfo, coord: BlockPos): BlockPos {
         if (invertRotation(room.rotation) == null) return BlockPos(0, 0, 0)
         val coords = rotateCoords(coord, invertRotation(room.rotation)!!)
-        return BlockPos(coords.x + room.getX(), coords.y, coord.z + room.getZ())
+        //UChat.chat(invertRotation(room.rotation)!!)
+        //UChat.chat(coord)
+        //UChat.chat(coords)
+        //UChat.chat("${coords.x + room.getX()}, ${coords.y}, ${coords.z + room.getZ()}")
+        return BlockPos(coords.x + room.getX(), coords.y, coords.z + room.getZ())
 
     }
-
+//-121, -185
+//[15:57:38] [main/INFO] (Minecraft) [CHAT] BlockPos{x=1, y=70, z=-8}
+//[15:57:38] [main/INFO] (Minecraft) [CHAT] -129, 70, -193
+// (-8,70, -1)
+//-113 70 - 186
+//-121 + 8 , 70 , 185 - 1
     fun invertRotation(rotation: String): String? {
         when (rotation) {
             "South" -> return "South"
@@ -43,16 +54,20 @@ fun playerInRoomBounds(room: roomInfo, pos: BlockPos): Boolean {
         }
         return null
     }
-fun isPlayerInRoom(): roomInfo? {
+    //0, -16
+
+
+fun isPlayerInRoom(): Boolean {
+    if (iceFillPosition == null) return false
     val playerPos = BlockPos(mc.thePlayer.position)
 
-    for (room in roomList) {
-        val roomBounds = getRoomBounds(room)
+
+        val roomBounds = getRoomBounds(iceFillPosition!!)
         if (isWithinBounds(playerPos, roomBounds.first, roomBounds.second)) {
-            return room // Player is in this room
+            return true // Player is in this room
         }
-    }
-    return null // Player is not in any room
+
+    return false // Player is not in any room
 }
 
 /**
@@ -60,8 +75,8 @@ fun isPlayerInRoom(): roomInfo? {
  */
 fun getRoomBounds(room: roomInfo): Pair<BlockPos, BlockPos> {
     val roomSize = 15 // Half of 30x30 room (1x1 unit), adjust if necessary
-    val centerX = room.center[0]
-    val centerZ = room.center[1]
+    val centerX = room.getX()
+    val centerZ = room.getZ()
 
     val min = BlockPos(centerX - roomSize, 0, centerZ - roomSize)
     val max = BlockPos(centerX + roomSize, 255, centerZ + roomSize)
@@ -85,11 +100,31 @@ fun isWithinBounds(pos: BlockPos, min: BlockPos, max: BlockPos): Boolean {
 fun rotateCoords(coord:BlockPos, rotation: String): BlockPos {
     when (rotation)
         {"South" -> {return coord}
-        "West" -> {return BlockPos(coord.z, coord.y, -coord.x)}
+        "East" -> {return BlockPos(coord.z, coord.y, -coord.x)}
         "North" -> {return BlockPos(-coord.x, coord.y, -coord.z)}
-        "East" -> {return BlockPos(-coord.z, coord.y, coord.x)}}
+        "West" -> {return BlockPos(-coord.z, coord.y, coord.x)}}
         return BlockPos(0, 0,0)
     }
 
+// (8,70, -1)
+//
+
+//[15:57:38] [main/INFO] (Minecraft) [CHAT] BlockPos{x=1, y=70, z=-8}
+//[15:57:38] [main/INFO] (Minecraft) [CHAT] -129, 70, -193
 
 
+
+// [BlockPos{x=-118, y=70, z=-188},
+// BlockPos{x=-122, y=70, z=-184},
+// BlockPos{x=-122, y=70, z=-184},
+// BlockPos{x=-118, y=70, z=-188},
+// BlockPos{x=-118, y=70, z=-188},
+// BlockPos{x=-119, y=70, z=-187},
+// BlockPos{x=-119, y=70, z=-187},
+// BlockPos{x=-118, y=70, z=-188},
+// BlockPos{x=-118, y=70, z=-188},
+// BlockPos{x=-122, y=70, z=-184},
+// BlockPos{x=-122, y=70, z=-184},
+// BlockPos{x=-121, y=70, z=-185},
+// BlockPos{x=-121, y=70, z=-185},
+// BlockPos{x=-123, y=70, z=-183}]

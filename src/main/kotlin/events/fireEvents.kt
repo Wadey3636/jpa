@@ -5,7 +5,6 @@ import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
 import cc.polyfrost.oneconfig.events.event.Stage
 import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
 import net.minecraft.network.play.server.S32PacketConfirmTransaction
 import me.jpaMain.utils.isPlayerInRoom
 import me.jpaMain.utils.roomInfo
@@ -14,8 +13,9 @@ class fireEvents {
     init {
         EventManager.INSTANCE.register(this)
     }
-    private var lastRoom:roomInfo? = null
 
+    private var lastTimeQuarter = System.currentTimeMillis()
+    private var lastTimeSecond = System.currentTimeMillis()
     private val serverTicked by lazy {ServerTickEvent()}
 
     @Subscribe
@@ -24,24 +24,20 @@ class fireEvents {
     }
 
     @Subscribe
-    fun triggerRoomEvents(event: TickEvent) {
+    fun onTick(event: TickEvent) {
         if (event.stage != Stage.START) return
-
-        val currentRoom = isPlayerInRoom()
-        if (currentRoom == lastRoom) return // Exit early if still in the same room
-
-        // Room exit logic
-        if (currentRoom == null && lastRoom != null) {
-            EventManager.INSTANCE.post(ExitRoomEvent())
-            lastRoom = null
-            return
+        if ( System.currentTimeMillis() - lastTimeQuarter > 250) {
+            lastTimeQuarter = System.currentTimeMillis()
+            EventManager.INSTANCE.post(QuarterSecondEvent())
+        }
+        if ( System.currentTimeMillis() - lastTimeSecond > 1000) {
+            lastTimeSecond = System.currentTimeMillis()
+            EventManager.INSTANCE.post(SecondEvent())
         }
 
-        // Room entry logic
-        if (currentRoom != null) {
-            EventManager.INSTANCE.post(EnterRoomEvent(currentRoom))
-            lastRoom = currentRoom
-        }
+
+
+
     }
 
 

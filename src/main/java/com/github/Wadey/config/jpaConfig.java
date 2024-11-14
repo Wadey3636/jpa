@@ -44,6 +44,13 @@ public class jpaConfig extends Config {
             description = "Use a skill called Critical Thinking for one second"
     )
     public static OneColor icefillEtherwarpPointColor = new OneColor(0, 0, 255, 255);
+    @Color(
+            name = "Teleport Point Color",
+            category = "Dungeon",
+            subcategory = "Solvers",
+            description = "Use a skill called Critical Thinking for one second"
+    )
+    public static OneColor icefillTeleportPointColor = new OneColor(255, 0, 0, 255);
 
     @Switch(
             name = "F7/M7 Position messages",
