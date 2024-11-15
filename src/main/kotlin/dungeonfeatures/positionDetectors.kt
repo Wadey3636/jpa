@@ -2,8 +2,6 @@ package me.jpaMain.dungeonfeatures
 
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.HudRenderEvent
-import cc.polyfrost.oneconfig.events.event.Stage
-import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.renderer.NanoVGHelper

@@ -12,10 +12,9 @@ Their GitHub can be found here: https://github.com/UnclaimedBloom6
 
 */
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
-import net.minecraft.util.BlockPos
 import me.jpaMain.jpaMain.mc
+import net.minecraft.util.BlockPos
 
 fun playerInRoomBounds(room: roomInfo, pos: BlockPos): Boolean {
     return (pos.x in (room.getX() -15)..(room.getX() + 15) &&

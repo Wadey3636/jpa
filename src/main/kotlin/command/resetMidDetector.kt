@@ -1,9 +1,7 @@
 package me.jpaMain.command
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main
-import me.jpaMain.dungeonfeatures.*
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 import me.jpaMain.dungeonfeatures.DungeonScanner.scanFinished
 import me.jpaMain.dungeonfeatures.DungeonScanner.uncheckedRooms

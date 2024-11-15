@@ -1,7 +1,5 @@
 package me.jpaMain.dungeonfeatures
-import com.github.Wadey.config.jpaConfig.spiritleapKeyToggle
-import com.github.Wadey.config.jpaConfig.superboomKeyToggle
-import com.github.Wadey.config.jpaConfig.pearlKeyToggle
+import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.jpaMain.mc
 
 

@@ -2,8 +2,6 @@ package me.jpaMain.utils
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.LocrawEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
-
 
 
 var scoreboard: Array<String> = arrayOf()

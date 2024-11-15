@@ -6,14 +6,12 @@ import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
 import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
 import net.minecraft.network.play.server.S32PacketConfirmTransaction
 var p3StartTimerticks = 0f
 class p3StartTimer {
     init {
         EventManager.INSTANCE.register(this)
     }
-//[BOSS] Storm: Pathetic Maxor, just like expected.
     //
     @Subscribe
     fun p3StartTimer(event: ChatReceiveEvent){

@@ -6,8 +6,6 @@ import cc.polyfrost.oneconfig.events.event.Stage
 import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import net.minecraft.network.play.server.S32PacketConfirmTransaction
-import me.jpaMain.utils.isPlayerInRoom
-import me.jpaMain.utils.roomInfo
 
 class fireEvents {
     init {

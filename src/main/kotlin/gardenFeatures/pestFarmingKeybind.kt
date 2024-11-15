@@ -1,9 +1,8 @@
 package me.jpaMain.gardenFeatures
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
+import com.github.Wadey.config.jpaConfig.pestKeyToggle
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inGarden
-import com.github.Wadey.config.jpaConfig.pestKeyToggle
 import me.jpaMain.utils.isBlock
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos

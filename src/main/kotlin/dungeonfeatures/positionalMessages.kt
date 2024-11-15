@@ -1,19 +1,16 @@
 package me.jpaMain.dungeonfeatures
 
 import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.Stage
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.events.event.TickEvent
+import com.github.Wadey.config.jpaConfig.*
+import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inDungeon
-import net.minecraft.init.Blocks
-import net.minecraft.util.BlockPos
 import me.jpaMain.utils.isBlock
 import net.minecraft.block.Block
-import net.minecraft.client.Minecraft
-import com.github.Wadey.config.jpaConfig.*
+import net.minecraft.init.Blocks
+import net.minecraft.util.BlockPos
 import java.util.concurrent.atomic.AtomicBoolean
-
 
 
 class positionalMessages {
@@ -46,6 +43,7 @@ class positionalMessages {
             {
                 if (!msgVariable.get()) {
                     msgVariable.set(true)
+
                     mc.thePlayer?.sendChatMessage(msg)
                 }
             }
@@ -58,8 +56,8 @@ class positionalMessages {
     }
 
     @Subscribe
-    fun positionalMessages(event: TickEvent) {
-        if((event.stage == Stage.START) && inDungeon) {
+    fun positionalMessages(event: QuarterSecondEvent) {
+        if(inDungeon) {
             if (!posMsgs) {return}
             val coords = mc.thePlayer.position;
             if (berzmsg) sendPosMessage(coords, intArrayOf(92, 129, 43), intArrayOf(93, 134, 46), BlockPos(100, 167, 40), Blocks.barrier, "/pc Ready for Healer Leap!", berzposactive)

@@ -4,6 +4,7 @@ import me.jpaMain.jpaMain.mc
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
 import net.minecraft.client.renderer.Tessellator
+import net.minecraft.client.renderer.WorldRenderer
 import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.AxisAlignedBB
@@ -11,21 +12,8 @@ import net.minecraft.util.BlockPos
 import net.minecraft.util.MathHelper
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11
-import java.awt.Color
 import kotlin.math.cos
 import kotlin.math.sin
-import net.minecraft.entity.Entity;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.inventory.Slot;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.Vec3;
-import net.minecraft.util.Vec3i;
-import org.lwjgl.opengl.GL14;
-import org.lwjgl.util.vector.Vector3f;
 
 object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
@@ -129,6 +117,7 @@ object renderHelper {
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
 
+        GlStateManager.pushMatrix()
         GlStateManager.disableTexture2D()
         GlStateManager.disableLighting()
         GlStateManager.disableCull()
@@ -137,43 +126,122 @@ object renderHelper {
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thickness)
         GL11.glEnable(GL11.GL_BLEND);
-
-        GlStateManager.pushMatrix()
         GlStateManager.color(
             color.red.toFloat() / 255,
             color.green.toFloat() / 255,
             color.blue.toFloat() / 255,
             color.alpha.toFloat() / 255
         )
-        val x = pos.x.toDouble() - viewerPos.first
-        val y = pos.y.toDouble() - viewerPos.second
-        val z = pos.z.toDouble() - viewerPos.third
 
-        worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION)
-        worldRenderer.pos(x, y, z).endVertex()
-        worldRenderer.pos(x + 1, y, z).endVertex()
-        worldRenderer.pos(x + 1, y, z + 1).endVertex()
-        worldRenderer.pos(x, y, z + 1).endVertex()
-        worldRenderer.pos(x, y, z).endVertex()
-        worldRenderer.pos(x, y + 1, z).endVertex()
-        worldRenderer.pos(x + 1, y + 1, z).endVertex()
-        worldRenderer.pos(x + 1, y, z).endVertex()
-        worldRenderer.pos(x + 1, y + 1, z).endVertex()
-        worldRenderer.pos(x + 1, y + 1, z + 1).endVertex()
-        worldRenderer.pos(x + 1, y + 0, z + 1).endVertex()
-        worldRenderer.pos(x + 1, y + 1, z + 1).endVertex()
-        worldRenderer.pos(x, y + 1, z + 1).endVertex()
-        worldRenderer.pos(x, y, z + 1).endVertex()
-        worldRenderer.pos(x, y + 1, z + 1).endVertex()
-        worldRenderer.pos(x, y + 1, z).endVertex()
+
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+        addBoxVertices(worldRenderer, pos, viewerPos)
 
         tessellator.draw()
-        GlStateManager.popMatrix()
+
         GlStateManager.enableTexture2D()
         GlStateManager.enableCull()
         GlStateManager.disableBlend()
         GlStateManager.enableLighting()
+        GlStateManager.popMatrix()
+    }
+    fun drawBox(pos: BlockPos, red: Float, green: Float, blue: Float, alpha: Float, thickness: Float, phase: Boolean, viewerPos: Triple<Double, Double, Double>) {
+        val tessellator = Tessellator.getInstance()
+        val worldRenderer = tessellator.worldRenderer
 
+        GlStateManager.pushMatrix()
+        GlStateManager.disableTexture2D()
+        GlStateManager.disableLighting()
+        GlStateManager.disableCull()
+        GlStateManager.enableBlend()
+        GlStateManager.blendFunc(770, 771)
+        GL11.glEnable(GL11.GL_LINE_SMOOTH)
+        GL11.glLineWidth(thickness)
+        GL11.glEnable(GL11.GL_BLEND);
+        GlStateManager.color(red, green, blue, alpha)
+
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+        addBoxVertices(worldRenderer, pos, viewerPos)
+
+        tessellator.draw()
+
+        GlStateManager.enableTexture2D()
+        GlStateManager.enableCull()
+        GlStateManager.disableBlend()
+        GlStateManager.enableLighting()
+        GlStateManager.popMatrix()
+    }
+    fun drawBoxes(positions: List<BlockPos>, red: Float, green: Float, blue: Float, alpha: Float, thickness: Float, phase: Boolean, viewerPos: Triple<Double, Double, Double>) {
+        val tessellator = Tessellator.getInstance()
+        val worldRenderer = tessellator.worldRenderer
+
+        GlStateManager.pushMatrix()
+        GlStateManager.disableTexture2D()
+        GlStateManager.disableLighting()
+        GlStateManager.disableCull()
+        GlStateManager.enableBlend()
+        GlStateManager.blendFunc(770, 771)
+        GL11.glEnable(GL11.GL_LINE_SMOOTH)
+        GL11.glLineWidth(thickness)
+        GL11.glEnable(GL11.GL_BLEND);
+        GlStateManager.color(red, green, blue, alpha)
+
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+        for (pos in positions) {
+            addBoxVertices(worldRenderer, pos, viewerPos)
+        }
+        tessellator.draw()
+
+        GlStateManager.enableTexture2D()
+        GlStateManager.enableCull()
+        GlStateManager.disableBlend()
+        GlStateManager.enableLighting()
+        GlStateManager.popMatrix()
+    }
+    private fun addBoxVertices(worldRenderer: WorldRenderer, pos: BlockPos, viewerPos: Triple<Double, Double, Double>) {
+        val x = pos.x.toDouble() - viewerPos.first
+        val y = pos.y.toDouble() - viewerPos.second
+        val z = pos.z.toDouble() - viewerPos.third
+        val x1 = x + 1
+        val y1 = y + 1
+        val z1 = z + 1
+
+        // Define the 12 edges of the box
+        worldRenderer.pos(x, y, z).endVertex()
+        worldRenderer.pos(x1, y, z).endVertex()
+
+        worldRenderer.pos(x1, y, z).endVertex()
+        worldRenderer.pos(x1, y, z1).endVertex()
+
+        worldRenderer.pos(x1, y, z1).endVertex()
+        worldRenderer.pos(x, y, z1).endVertex()
+
+        worldRenderer.pos(x, y, z1).endVertex()
+        worldRenderer.pos(x, y, z).endVertex()
+
+        worldRenderer.pos(x, y1, z).endVertex()
+        worldRenderer.pos(x1, y1, z).endVertex()
+
+        worldRenderer.pos(x1, y1, z).endVertex()
+        worldRenderer.pos(x1, y1, z1).endVertex()
+
+        worldRenderer.pos(x1, y1, z1).endVertex()
+        worldRenderer.pos(x, y1, z1).endVertex()
+
+        worldRenderer.pos(x, y1, z1).endVertex()
+        worldRenderer.pos(x, y1, z).endVertex()
+
+        worldRenderer.pos(x, y, z).endVertex()
+        worldRenderer.pos(x, y1, z).endVertex()
+
+        worldRenderer.pos(x1, y, z).endVertex()
+        worldRenderer.pos(x1, y1, z).endVertex()
+
+        worldRenderer.pos(x1, y, z1).endVertex()
+        worldRenderer.pos(x1, y1, z1).endVertex()
+
+        worldRenderer.pos(x, y, z1).endVertex()
+        worldRenderer.pos(x, y1, z1).endVertex()
     }
 
     /**
