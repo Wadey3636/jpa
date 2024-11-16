@@ -3,7 +3,7 @@ package me.jpaMain.gardenFeatures
 import com.github.Wadey.config.jpaConfig.pestKeyToggle
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inGarden
-import me.jpaMain.utils.isBlock
+import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 

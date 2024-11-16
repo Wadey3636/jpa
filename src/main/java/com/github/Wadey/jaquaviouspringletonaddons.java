@@ -1,6 +1,5 @@
 package com.github.Wadey;
 
-
 import me.jpaMain.command.*;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.dungeonfeatures.DungeonScanner.dungeonScanner;
@@ -15,7 +14,7 @@ import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import me.jpaMain.command.advancePadTick;
+import me.jpaMain.command.triggerWishHUD;
 
 /**
  * The entrypoint of the Example Mod that initializes it.
@@ -43,7 +42,7 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new testCommand());
         CommandManager.INSTANCE.registerCommand(new simulateStormActivate());
         CommandManager.INSTANCE.registerCommand(new simulateStormDeactivate());
-        CommandManager.INSTANCE.registerCommand(new advancePadTick());
+        CommandManager.INSTANCE.registerCommand(new triggerWishHUD());
         CommandManager.INSTANCE.registerCommand(new getRoomCoord());
         MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
@@ -54,6 +53,8 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new padTimer());
         MinecraftForge.EVENT_BUS.register(new fireEvents());
         MinecraftForge.EVENT_BUS.register(new iceFillSolver());
+        MinecraftForge.EVENT_BUS.register(new wishNotification());
+
     }
 
 }

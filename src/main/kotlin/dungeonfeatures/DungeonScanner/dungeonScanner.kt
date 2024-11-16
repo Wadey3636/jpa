@@ -7,7 +7,7 @@ import com.github.Wadey.config.jpaConfig.icefillSolver
 import me.jpaMain.events.SecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inDungeon
-import me.jpaMain.utils.isBlock
+import me.jpaMain.utils.worldUtils.isBlock
 import me.jpaMain.utils.roomInfo
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos

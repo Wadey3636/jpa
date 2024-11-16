@@ -237,6 +237,19 @@ public class jpaConfig extends Config {
     )
     public p3StartTimerHud starthud = new p3StartTimerHud();
 
+    @Switch(
+            name = "Smart Healer Wish Notification",
+            category = "F7/M7",
+            subcategory = "Wish",
+            description = "A healer wish notification that only activates while you are healer"
+    )
+    public static boolean healerWishNotification = false;
+    @Color(
+            name = "Color",
+            category = "F7/M7",
+            subcategory = "Wish"
+    )
+    public static OneColor healerWishNotificationColor = new OneColor(0, 255, 0, 255);
 
     public jpaConfig() {
 

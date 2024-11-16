@@ -6,7 +6,7 @@ import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inDungeon
-import me.jpaMain.utils.isBlock
+import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos

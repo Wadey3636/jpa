@@ -2,7 +2,7 @@ package me.jpaMain.utils
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.LocrawEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-
+import me.jpaMain.utils.worldUtils.getSidebarLines
 
 var scoreboard: Array<String> = arrayOf()
 var dungeonFloor = ""

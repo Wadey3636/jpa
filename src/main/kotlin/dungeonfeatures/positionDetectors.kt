@@ -11,7 +11,9 @@ import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.PlayerPosInfo
 import me.jpaMain.utils.inDungeon
-import me.jpaMain.utils.isBlock
+import me.jpaMain.utils.screenCenterX
+import me.jpaMain.utils.screenCenterY
+import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
@@ -21,6 +23,7 @@ public var ee2Triggered = AtomicBoolean(false)
 public var ee3Triggered = AtomicBoolean(false)
 public var ee4Triggered = AtomicBoolean(false)
 public var midTriggered = AtomicBoolean(false)
+public var berzLeapSpot = AtomicBoolean(false)
 
 public var renderTime: Int = 0
 
@@ -31,8 +34,6 @@ class positionDetectors {
     }
 
     var player: String = ""
-    var xpos: Float = 0f
-    var ypos: Float = 0f
 
     @Subscribe
     fun midReset(event: WorldLoadEvent) {
@@ -40,8 +41,7 @@ class positionDetectors {
         ee2Triggered.set(false)
         ee3Triggered.set(false)
         ee4Triggered.set(false)
-        xpos = mc.displayWidth.toFloat() / 2
-        ypos = mc.displayHeight.toFloat() / 2
+        berzLeapSpot.set(false)
     }
 
     /**
@@ -63,31 +63,27 @@ class positionDetectors {
         block: Block,
         detectorActive: AtomicBoolean
     ) {
-        if (detectorActive.get() || !detectconfig) return
-        players.forEach {
-            if (
+        if (!detectconfig || renderTime > 0 || !isBlock(BlockPos(blockPos), block)) return
+        val detected = players.firstOrNull{
                 it.position.xCoord.toInt() in lowCoords[0]..highCoords[0] &&
                 it.position.yCoord.toInt() in lowCoords[1]..highCoords[1] &&
-                it.position.zCoord.toInt() in lowCoords[2]..highCoords[2] &&
-                isBlock(BlockPos(blockPos), block)
-            ) {
-
-                player = it.name
-                renderTime = 60
-                detectorActive.set(true)
-                mc.theWorld.playSound(
-                    mc.thePlayer.posX,
-                    mc.thePlayer.posY,
-                    mc.thePlayer.posZ,
-                    "minecraft:random.orb",
-                    1.0f,
-                    1.0f,
-                    false
-                )
-                return
-            }
-
+                it.position.zCoord.toInt() in lowCoords[2]..highCoords[2]
         }
+        if (detected == null) {detectorActive.set(false); return}
+        if (detectorActive.get()) return
+
+        renderTime = 60
+        detected.let { player = it.name }
+        mc.theWorld.playSound(
+            mc.thePlayer.posX,
+            mc.thePlayer.posY,
+            mc.thePlayer.posZ,
+            "minecraft:random.orb",
+            1.0f,
+            1.0f,
+            false
+        )
+        detectorActive.set(true)
     }
 
     fun detectPlayersInverseBlock(
@@ -99,33 +95,30 @@ class positionDetectors {
             block: Block,
             detectorActive: AtomicBoolean
     ) {
-            if (detectorActive.get() || !detectconfig) return
-            players.forEach {
-                if (
-                    it.position.xCoord.toInt() in lowCoords[0]..highCoords[0] &&
+        if (!detectconfig || renderTime > 0 || isBlock(BlockPos(blockPos), block)) return
+        val detected = players.firstOrNull{ it ->
+
+            it.position.xCoord.toInt() in lowCoords[0]..highCoords[0] &&
                     it.position.yCoord.toInt() in lowCoords[1]..highCoords[1] &&
-                    it.position.zCoord.toInt() in lowCoords[2]..highCoords[2] &&
-                    !isBlock(BlockPos(blockPos), block)
-                ) {
-
-                    player = it.name
-                    renderTime = 60
-                    detectorActive.set(true)
-                    mc.theWorld.playSound(
-                        mc.thePlayer.posX,
-                        mc.thePlayer.posY,
-                        mc.thePlayer.posZ,
-                        "minecraft:random.orb",
-                        1.0f,
-                        1.0f,
-                        false
-                    )
-                    return
-                }
-
-            }
+                    it.position.zCoord.toInt() in lowCoords[2]..highCoords[2]
 
 
+        }
+        if (detected == null) {detectorActive.set(false); return}
+        if (detectorActive.get()) return
+
+        renderTime = 60
+        detected.let { player = it.name }
+        mc.theWorld.playSound(
+            mc.thePlayer.posX,
+            mc.thePlayer.posY,
+            mc.thePlayer.posZ,
+            "minecraft:random.orb",
+            1.0f,
+            1.0f,
+            false
+        )
+        detectorActive.set(true)
         }
 
         @Subscribe
@@ -218,9 +211,9 @@ class positionDetectors {
 
                 NanoVGHelper.INSTANCE.drawCenteredText(
                     vg,
-                    "$player",
-                    xpos,
-                    ypos,
+                    player,
+                    screenCenterX,
+                    screenCenterY,
                     -16776961,
                     midDetectorTextSize * 5,
                     Fonts.MINECRAFT_REGULAR

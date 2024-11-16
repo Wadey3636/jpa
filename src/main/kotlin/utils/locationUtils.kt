@@ -20,7 +20,6 @@ class locationUtils {
     }
 
     @Subscribe
-//6
     fun locationChecker(event: LocrawEvent) {
         inDungeon = event.info.mapName == "Dungeon"
         inGarden = event.info.mapName == "Garden"
