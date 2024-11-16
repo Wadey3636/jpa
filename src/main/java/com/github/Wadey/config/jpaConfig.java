@@ -11,6 +11,7 @@ import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
+import me.jpaMain.huds.WishHud;
 import me.jpaMain.huds.padTimerHud;
 import me.jpaMain.huds.p3StartTimerHud;
 
@@ -250,6 +251,13 @@ public class jpaConfig extends Config {
             subcategory = "Wish"
     )
     public static OneColor healerWishNotificationColor = new OneColor(0, 255, 0, 255);
+
+    @HUD(
+            name = "Wish Hud",
+            category = "F7/M7",
+            subcategory = "Wish"
+    )
+    public WishHud wishHud = new WishHud();
 
     public jpaConfig() {
 
