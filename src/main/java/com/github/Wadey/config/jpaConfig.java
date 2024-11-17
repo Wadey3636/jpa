@@ -234,9 +234,16 @@ public class jpaConfig extends Config {
     @HUD(
             name = "P3 Start Timer",
             category = "F7/M7",
-            subcategory = ""
+            subcategory = "Timers"
     )
     public p3StartTimerHud starthud = new p3StartTimerHud();
+    @HUD(
+            name = "Purple Pad Helper",
+            category = "F7/M7",
+            subcategory = "Timers"
+    )
+    public p3StartTimerHud purpleHud = new p3StartTimerHud();
+
 
     @Switch(
             name = "Smart Healer Wish Notification",

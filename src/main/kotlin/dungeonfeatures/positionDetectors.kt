@@ -107,7 +107,7 @@ class positionDetectors {
         if (detected == null) {detectorActive.set(false); return}
         if (detectorActive.get()) return
 
-        renderTime = 60
+        renderTime = 12
         detected.let { player = it.name }
         mc.theWorld.playSound(
             mc.thePlayer.posX,
