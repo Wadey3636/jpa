@@ -3,12 +3,14 @@ package com.github.Wadey.config;
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
+import cc.polyfrost.oneconfig.config.data.PageLocation;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.github.Wadey.jaquaviouspringletonaddons;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
+import javafx.scene.control.Toggle;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
 import me.jpaMain.huds.padTimerHud;
@@ -269,6 +271,20 @@ public class jpaConfig extends Config {
             subcategory = "Wish",
             min = 1.0F, max = 8f)
     public static float wishNotificationSize = 3f;
+    @Switch(
+            name = "Toggle",
+            category = "General",
+            subcategory = "Player Size Customizer",
+            size = OptionSize.DUAL
+    )
+    public static boolean playerSizeCustomizer = false;
+    @Page(
+            name = "Player List",
+            location = PageLocation.BOTTOM,
+            category = "General",
+            subcategory = "Player Size Customizer"
+    )
+    public static page
 
     public jpaConfig() {
 
