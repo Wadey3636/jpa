@@ -1,6 +1,9 @@
 package me.jpaMain.utils
+
 import cc.polyfrost.oneconfig.config.core.OneColor
 import me.jpaMain.jpaMain.mc
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
 import net.minecraft.client.renderer.Tessellator
@@ -29,6 +32,41 @@ object renderHelper {
     }
 
 
+    fun argbToInt(alpha: Int, red: Int, green: Int, blue: Int): Int {
+        return (alpha shl 24) or (red shl 16) or (green shl 8) or blue
+    }
+    fun oneColorToInt(color: OneColor): Int {
+        return (color.alpha shl 24) or (color.red shl 16) or (color.green shl 8) or color.blue
+    }
+
+    fun renderTitleText(text: String, scale: Float, color: Int) {
+        val fontRenderer = mc.fontRendererObj
+        val scaledResolution = ScaledResolution(mc)
+
+        // Scale text width and height
+        val scaledWidth = fontRenderer.getStringWidth(text) * scale
+        val scaledHeight = fontRenderer.FONT_HEIGHT * scale
+
+        // Calculate centered position
+        val centerX = (scaledResolution.scaledWidth / 2f) - (scaledWidth / 2f)
+        val centerY = (scaledResolution.scaledHeight / 2f) - (scaledHeight / 2f)
+
+        // Enable scaling
+        GlStateManager.pushMatrix()
+        GlStateManager.scale(scale, scale, scale)
+
+        // Draw text, accounting for the inverse scale
+        fontRenderer.drawStringWithShadow(
+            text,
+            centerX / scale,
+            centerY / scale,
+            color
+        )
+
+        // Restore scaling
+        GlStateManager.popMatrix()
+    }
+
 
 
     fun drawLine3d(
@@ -52,7 +90,7 @@ object renderHelper {
         GlStateManager.blendFunc(770, 771)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thickness)
-        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_BLEND)
 
         GlStateManager.pushMatrix()
 
@@ -76,7 +114,14 @@ object renderHelper {
         GlStateManager.disableBlend()
         GlStateManager.enableLighting()
     }
-    fun drawLines3dAboveBlocks(points: List<BlockPos>, color: OneColor, thickness: Float, phase: Boolean, viewerPos: Triple<Double, Double, Double>) {
+
+    fun drawLines3dAboveBlocks(
+        points: List<BlockPos>,
+        color: OneColor,
+        thickness: Float,
+        phase: Boolean,
+        viewerPos: Triple<Double, Double, Double>
+    ) {
         if (points.size < 2) return
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
@@ -88,7 +133,7 @@ object renderHelper {
         GlStateManager.blendFunc(770, 771)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thickness)
-        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_BLEND)
 
         GlStateManager.pushMatrix()
         GlStateManager.color(
@@ -102,8 +147,16 @@ object renderHelper {
         var i = 0
         while (i < points.size - 1) {
             i++
-        worldRenderer.pos(points[i - 1].x.toDouble() + 0.5 - viewerPos.first, points[i - 1].y.toDouble() + 1.01  - viewerPos.second, points[i - 1].z.toDouble() + 0.5  - viewerPos.third).endVertex()
-        worldRenderer.pos(points[i].x.toDouble() + 0.5  - viewerPos.first, points[i].y.toDouble() + 1.01  - viewerPos.second, points[i].z.toDouble() + 0.5 - viewerPos.third).endVertex()
+            worldRenderer.pos(
+                points[i - 1].x.toDouble() + 0.5 - viewerPos.first,
+                points[i - 1].y.toDouble() + 1.01 - viewerPos.second,
+                points[i - 1].z.toDouble() + 0.5 - viewerPos.third
+            ).endVertex()
+            worldRenderer.pos(
+                points[i].x.toDouble() + 0.5 - viewerPos.first,
+                points[i].y.toDouble() + 1.01 - viewerPos.second,
+                points[i].z.toDouble() + 0.5 - viewerPos.third
+            ).endVertex()
         }
         tessellator.draw()
         GlStateManager.popMatrix()
@@ -113,7 +166,13 @@ object renderHelper {
         GlStateManager.enableLighting()
     }
 
-    fun drawBox(pos: BlockPos, color: OneColor, thickness: Float, phase: Boolean, viewerPos: Triple<Double, Double, Double>) {
+    fun drawBox(
+        pos: BlockPos,
+        color: OneColor,
+        thickness: Float,
+        phase: Boolean,
+        viewerPos: Triple<Double, Double, Double>
+    ) {
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
 
@@ -125,7 +184,7 @@ object renderHelper {
         GlStateManager.blendFunc(770, 771)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thickness)
-        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_BLEND)
         GlStateManager.color(
             color.red.toFloat() / 255,
             color.green.toFloat() / 255,
@@ -145,7 +204,17 @@ object renderHelper {
         GlStateManager.enableLighting()
         GlStateManager.popMatrix()
     }
-    fun drawBox(pos: BlockPos, red: Float, green: Float, blue: Float, alpha: Float, thickness: Float, phase: Boolean, viewerPos: Triple<Double, Double, Double>) {
+
+    fun drawBox(
+        pos: BlockPos,
+        red: Float,
+        green: Float,
+        blue: Float,
+        alpha: Float,
+        thickness: Float,
+        phase: Boolean,
+        viewerPos: Triple<Double, Double, Double>
+    ) {
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
 
@@ -157,7 +226,7 @@ object renderHelper {
         GlStateManager.blendFunc(770, 771)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thickness)
-        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_BLEND)
         GlStateManager.color(red, green, blue, alpha)
 
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
@@ -171,7 +240,17 @@ object renderHelper {
         GlStateManager.enableLighting()
         GlStateManager.popMatrix()
     }
-    fun drawBoxes(positions: List<BlockPos>, red: Float, green: Float, blue: Float, alpha: Float, thickness: Float, phase: Boolean, viewerPos: Triple<Double, Double, Double>) {
+
+    fun drawBoxes(
+        positions: List<BlockPos>,
+        red: Float,
+        green: Float,
+        blue: Float,
+        alpha: Float,
+        thickness: Float,
+        phase: Boolean,
+        viewerPos: Triple<Double, Double, Double>
+    ) {
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
 
@@ -183,7 +262,7 @@ object renderHelper {
         GlStateManager.blendFunc(770, 771)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thickness)
-        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_BLEND)
         GlStateManager.color(red, green, blue, alpha)
 
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
@@ -198,6 +277,7 @@ object renderHelper {
         GlStateManager.enableLighting()
         GlStateManager.popMatrix()
     }
+
     private fun addBoxVertices(worldRenderer: WorldRenderer, pos: BlockPos, viewerPos: Triple<Double, Double, Double>) {
         val x = pos.x.toDouble() - viewerPos.first
         val y = pos.y.toDouble() - viewerPos.second
@@ -343,7 +423,6 @@ object renderHelper {
     }
 
 
-
     /**
      * @author Mojang
      */
@@ -361,7 +440,13 @@ object renderHelper {
         GlStateManager.disableAlpha()
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
         GL11.glLineWidth(width)
-        RenderGlobal.drawOutlinedBoundingBox(aabb, color.red / 255, color.green / 255, color.blue / 255, color.alpha / 255)
+        RenderGlobal.drawOutlinedBoundingBox(
+            aabb,
+            color.red / 255,
+            color.green / 255,
+            color.blue / 255,
+            color.alpha / 255
+        )
         GlStateManager.translate(realX, realY, realZ)
         GlStateManager.disableBlend()
         GlStateManager.enableAlpha()

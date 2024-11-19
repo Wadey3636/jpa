@@ -43,7 +43,7 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new simulateStormActivate());
         CommandManager.INSTANCE.registerCommand(new simulateStormDeactivate());
         CommandManager.INSTANCE.registerCommand(new triggerWishHUD());
-        CommandManager.INSTANCE.registerCommand(new getRoomCoord());
+        CommandManager.INSTANCE.registerCommand(new JPAdevMode());
         MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());

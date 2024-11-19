@@ -11,7 +11,6 @@ import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
-import me.jpaMain.huds.WishHud;
 import me.jpaMain.huds.padTimerHud;
 import me.jpaMain.huds.p3StartTimerHud;
 
@@ -221,9 +220,14 @@ public class jpaConfig extends Config {
             name = "Detector Text Size",
             category = "F7/M7",
             subcategory = "Detectors",
-            min = 1.0F, max = 60F)
-    public static float midDetectorTextSize = 40F;
-
+            min = 1.0F, max = 8f)
+    public static float detectorTextSize = 3f;
+    @Color(
+            name = "Color",
+            category = "F7/M7",
+            subcategory = "Detectors"
+    )
+    public static OneColor detectorColor = new OneColor(160, 0, 255, 255);
     @HUD(
             name = "Pad Timer",
             category = "F7/M7",
@@ -237,13 +241,14 @@ public class jpaConfig extends Config {
             subcategory = "Timers"
     )
     public p3StartTimerHud starthud = new p3StartTimerHud();
+    /*
     @HUD(
             name = "Purple Pad Helper",
             category = "F7/M7",
             subcategory = "Timers"
     )
     public p3StartTimerHud purpleHud = new p3StartTimerHud();
-
+*/
 
     @Switch(
             name = "Smart Healer Wish Notification",
@@ -258,13 +263,12 @@ public class jpaConfig extends Config {
             subcategory = "Wish"
     )
     public static OneColor healerWishNotificationColor = new OneColor(0, 255, 0, 255);
-
-    @HUD(
-            name = "Wish Hud",
+    @Slider(
+            name = "Size",
             category = "F7/M7",
-            subcategory = "Wish"
-    )
-    public WishHud wishHud = new WishHud();
+            subcategory = "Wish",
+            min = 1.0F, max = 8f)
+    public static float wishNotificationSize = 3f;
 
     public jpaConfig() {
 

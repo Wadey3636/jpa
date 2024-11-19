@@ -18,35 +18,33 @@ import net.minecraft.util.BlockPos
 import me.jpaMain.utils.worldUtils.isWithinBounds
 
 fun playerInRoomBounds(room: roomInfo, pos: BlockPos): Boolean {
-    return (pos.x in (room.getX() -15)..(room.getX() + 15) &&
+    return (pos.x in (room.getX() - 15)..(room.getX() + 15) &&
             pos.z in (room.getZ() - 15)..(room.getZ() + 15)
             )
 }
 
-    fun convertToRoomCoords(room: roomInfo, coords: BlockPos): BlockPos {
-        return rotateCoords(BlockPos(coords.x - room.getX(), coords.y, coords.z - room.getZ()), room.rotation)
+fun convertToRoomCoords(room: roomInfo, coords: BlockPos): BlockPos {
+    return rotateCoords(BlockPos(coords.x - room.getX(), coords.y, coords.z - room.getZ()), room.rotation)
+}
+
+
+fun convertToRealCoords(room: roomInfo, coord: BlockPos): BlockPos {
+    if (invertRotation(room.rotation) == null) return BlockPos(0, 0, 0)
+    val coords = rotateCoords(coord, invertRotation(room.rotation)!!)
+
+    return BlockPos(coords.x + room.getX(), coords.y, coords.z + room.getZ())
+
+}
+
+fun invertRotation(rotation: String): String? {
+    when (rotation) {
+        "South" -> return "South"
+        "North" -> return "North"
+        "West" -> return "East"
+        "East" -> return "West"
     }
-
-
-
-    fun convertToRealCoords(room: roomInfo, coord: BlockPos): BlockPos {
-        if (invertRotation(room.rotation) == null) return BlockPos(0, 0, 0)
-        val coords = rotateCoords(coord, invertRotation(room.rotation)!!)
-
-        return BlockPos(coords.x + room.getX(), coords.y, coords.z + room.getZ())
-
-    }
-
-    fun invertRotation(rotation: String): String? {
-        when (rotation) {
-            "South" -> return "South"
-            "North" -> return "North"
-            "West" -> return "East"
-            "East" -> return "West"
-        }
-        return null
-    }
-
+    return null
+}
 
 
 fun isPlayerInRoom(): Boolean {
@@ -69,13 +67,23 @@ fun getRoomBounds(room: roomInfo): Pair<BlockPos, BlockPos> {
 }
 
 
+fun rotateCoords(coord: BlockPos, rotation: String): BlockPos {
+    when (rotation) {
+        "South" -> {
+            return coord
+        }
 
+        "East" -> {
+            return BlockPos(coord.z, coord.y, -coord.x)
+        }
 
-fun rotateCoords(coord:BlockPos, rotation: String): BlockPos {
-    when (rotation)
-        {"South" -> {return coord}
-        "East" -> {return BlockPos(coord.z, coord.y, -coord.x)}
-        "North" -> {return BlockPos(-coord.x, coord.y, -coord.z)}
-        "West" -> {return BlockPos(-coord.z, coord.y, coord.x)}}
-        return BlockPos(0, 0,0)
+        "North" -> {
+            return BlockPos(-coord.x, coord.y, -coord.z)
+        }
+
+        "West" -> {
+            return BlockPos(-coord.z, coord.y, coord.x)
+        }
     }
+    return BlockPos(0, 0, 0)
+}

@@ -14,26 +14,26 @@ class fireEvents {
 
     private var lastTimeQuarter = System.currentTimeMillis()
     private var lastTimeSecond = System.currentTimeMillis()
-    private val serverTicked by lazy {ServerTickEvent()}
+    private val serverTicked by lazy { ServerTickEvent() }
 
     @Subscribe
     fun onServerTick(event: ReceivePacketEvent) {
-        if (event.packet is S32PacketConfirmTransaction) {EventManager.INSTANCE.post(serverTicked)}
+        if (event.packet is S32PacketConfirmTransaction) {
+            EventManager.INSTANCE.post(serverTicked)
+        }
     }
 
     @Subscribe
     fun onTick(event: TickEvent) {
         if (event.stage != Stage.START) return
-        if ( System.currentTimeMillis() - lastTimeQuarter > 250) {
+        if (System.currentTimeMillis() - lastTimeQuarter > 250) {
             lastTimeQuarter = System.currentTimeMillis()
             EventManager.INSTANCE.post(QuarterSecondEvent())
         }
-        if ( System.currentTimeMillis() - lastTimeSecond > 1000) {
+        if (System.currentTimeMillis() - lastTimeSecond > 1000) {
             lastTimeSecond = System.currentTimeMillis()
             EventManager.INSTANCE.post(SecondEvent())
         }
-
-
 
 
     }

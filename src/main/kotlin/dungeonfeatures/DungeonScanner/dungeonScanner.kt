@@ -67,12 +67,9 @@ class dungeonScanner {
 
     private fun isIceFill(pos: BlockPos): Boolean {
 
-        return isBlock(BlockPos(pos), Blocks.stone) && isBlock(BlockPos(pos.x - 1, pos.y, pos.z), Blocks.redstone_block)
+        return isBlock(BlockPos(pos.x - 1, pos.y, pos.z), Blocks.redstone_block)
 
     }
-
-
-
 
 
     private fun findWitherDoors(pos: BlockPos): List<String> {

@@ -18,11 +18,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import me.jpaMain.utils.worldUtils.isBlock
 
 
-class iceFillSolver{
+class iceFillSolver {
 
     init {
         EventManager.INSTANCE.register(this)
     }
+
     private lateinit var layer0: determinedVariant
     private lateinit var layer1: determinedVariant
     private lateinit var layer2: determinedVariant
@@ -38,9 +39,14 @@ class iceFillSolver{
     private var inIcefill = false
     private var determinedVariants = false
 
-    private fun determineVariant(variants: List<variantInfo>, room: roomInfo): determinedVariant{
+    private fun determineVariant(variants: List<variantInfo>, room: roomInfo): determinedVariant {
         for (points in variants) {
-            if (points.detectionPoints.count { isBlock(convertToRealCoords(room, it), Blocks.stone) } == points.detectionPoints.size) {
+            if (points.detectionPoints.count {
+                    isBlock(
+                        convertToRealCoords(room, it),
+                        Blocks.stone
+                    )
+                } == points.detectionPoints.size) {
                 return determinedVariant(points.name, points.plotPoints, points.warpPoints, points.tpPoint)
             }
         }
@@ -92,7 +98,6 @@ class iceFillSolver{
             if (determinedVariants) return
 
 
-
             // Check for variants!11!!!!1!!!111 WOOWOOWOWO
             layer0 = determineVariant(listOf(spongecokeVariant, epicVariant, crazyVariant, bfvarroeVariant), position)
             layer1 = determineVariant(
@@ -126,7 +131,7 @@ class iceFillSolver{
 
 
     @SubscribeEvent
-    fun onRender(event: RenderWorldLastEvent){
+    fun onRender(event: RenderWorldLastEvent) {
         if (inIcefill && determinedVariants) {
             drawVariant(layer0plot, layer0warp, null, event.partialTicks)
             drawVariant(layer1plot, layer1warp, layer1tp, event.partialTicks)

@@ -1,18 +1,27 @@
 package me.jpaMain.dungeonfeatures
+
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.jpaMain.mc
 
 
-fun gfsPearl(){
-    if (!pearlKeyToggle) {return}
+fun gfsPearl() {
+    if (!pearlKeyToggle) {
+        return
+    }
     mc.thePlayer?.sendChatMessage("/gfs ender_pearl 16")
 }
-fun gfsSuperboom(){
-    if (!superboomKeyToggle) {return}
+
+fun gfsSuperboom() {
+    if (!superboomKeyToggle) {
+        return
+    }
     mc.thePlayer?.sendChatMessage("/gfs SUPERBOOM_TNT 64")
 }
-fun gfsSpiritleap(){
-    if (!spiritleapKeyToggle) {return}
+
+fun gfsSpiritleap() {
+    if (!spiritleapKeyToggle) {
+        return
+    }
     mc.thePlayer?.sendChatMessage("/gfs SPIRIT_LEAP 16")
 }
 

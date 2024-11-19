@@ -1,4 +1,5 @@
 package me.jpaMain.utils
+
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.LocrawEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
@@ -23,9 +24,11 @@ class dungeonUtils {
         localInDungeon = false
         dungeonFloor = ""
         scoreboard = getSidebarLines().map { line ->
-            line.filter { it in 'a'..'z' || it in 'A'..'Z' || it in '0'..'9' || it == '[' || it == ']'}
+            line.filter { it in 'a'..'z' || it in 'A'..'Z' || it in '0'..'9' || it == '[' || it == ']' }
         }.toTypedArray()
-        if (scoreboard.size < 6) {return}
+        if (scoreboard.size < 6) {
+            return
+        }
 
         scoreboard.forEach({
             when (it) {
@@ -63,6 +66,7 @@ class dungeonUtils {
                     dungeonFloor = "F7"
                     localInDungeon = true
                 }
+
                 "TheCatacombsM1" -> {
                     dungeonFloor = "M1"
                     localInDungeon = true

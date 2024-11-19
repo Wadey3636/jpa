@@ -9,8 +9,8 @@ import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 @Command(value = "testRooms", description = "tester")
 
 class testCommand {
-        @Main
-        private fun scoreboardthingy() {
-           UChat.chat("roomlist:$iceFillPosition")
-        }
+    @Main
+    private fun scoreboardthingy() {
+        UChat.chat("roomlist:$iceFillPosition")
+    }
 }

@@ -2,11 +2,13 @@ package me.jpaMain.utils
 
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
+import cc.polyfrost.oneconfig.libs.universal.UResolution
 import me.jpaMain.jpaMain.mc
 
 
-var screenCenterX =mc.displayWidth.toFloat() / 2
-var screenCenterY = mc.displayHeight.toFloat() / 2
+var screenCenterX = UResolution.scaledWidth / 2
+var screenCenterY = UResolution.scaledHeight / 2
+
 class clientInfo {
 
     init {
@@ -14,8 +16,8 @@ class clientInfo {
     }
 
     fun onWorldLoad(event: WorldLoadEvent) {
-        screenCenterX =mc.displayWidth.toFloat() / 2
-        screenCenterY = mc.displayHeight.toFloat() / 2
+        screenCenterX = UResolution.scaledWidth / 2
+        screenCenterY = UResolution.scaledHeight / 2
 
 
     }

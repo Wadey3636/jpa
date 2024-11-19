@@ -1,4 +1,3 @@
-
 package me.jpaMain.huds
 
 import cc.polyfrost.oneconfig.config.annotations.Color
@@ -17,12 +16,26 @@ class p3StartTimerHud : Hud(true) {
     )
     protected var timerColor = OneColor(0, 255, 0, 255)
     override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
-        if(p3StartTimerticks <= 0f) return
+        if (p3StartTimerticks <= 0f) return
 
         if (p3StartTimerticks % 2 == 0f) {
-            TextRenderer.drawScaledString((p3StartTimerticks /20).toString() + "0", x, y, timerColor.getRGB(), TextRenderer.TextType.toType(0), scale)
+            TextRenderer.drawScaledString(
+                (p3StartTimerticks / 20).toString() + "0",
+                x,
+                y,
+                timerColor.getRGB(),
+                TextRenderer.TextType.toType(0),
+                scale
+            )
         } else {
-            TextRenderer.drawScaledString((p3StartTimerticks /20).toString(), x, y, timerColor.getRGB(), TextRenderer.TextType.toType(0), scale)
+            TextRenderer.drawScaledString(
+                (p3StartTimerticks / 20).toString(),
+                x,
+                y,
+                timerColor.getRGB(),
+                TextRenderer.TextType.toType(0),
+                scale
+            )
         }
 
 
@@ -42,7 +55,6 @@ class p3StartTimerHud : Hud(true) {
     fun getLineWidth(line: String?, scale: Float): Float {
         return Platform.getGLPlatform().getStringWidth(line) * scale
     }
-
 
 
 }

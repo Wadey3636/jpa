@@ -12,19 +12,24 @@ fun pestFarmingKeybind() {
     if (!inGarden || !pestKeyToggle) return
 
     if (
-        isBlock(BlockPos(mc.thePlayer.position.x,mc.thePlayer.position.y,mc.thePlayer.position.z), Blocks.reeds) ||
-        isBlock(BlockPos(mc.thePlayer.position.x - 1,mc.thePlayer.position.y,mc.thePlayer.position.z), Blocks.reeds) ||
-        isBlock(BlockPos(mc.thePlayer.position.x,mc.thePlayer.position.y,mc.thePlayer.position.z - 1), Blocks.reeds) ||
-        isBlock(BlockPos(mc.thePlayer.position.x - 1,mc.thePlayer.position.y,mc.thePlayer.position.z - 1), Blocks.reeds)
-        ) {
+        isBlock(BlockPos(mc.thePlayer.position.x, mc.thePlayer.position.y, mc.thePlayer.position.z), Blocks.reeds) ||
+        isBlock(
+            BlockPos(mc.thePlayer.position.x - 1, mc.thePlayer.position.y, mc.thePlayer.position.z),
+            Blocks.reeds
+        ) ||
+        isBlock(
+            BlockPos(mc.thePlayer.position.x, mc.thePlayer.position.y, mc.thePlayer.position.z - 1),
+            Blocks.reeds
+        ) ||
+        isBlock(
+            BlockPos(mc.thePlayer.position.x - 1, mc.thePlayer.position.y, mc.thePlayer.position.z - 1),
+            Blocks.reeds
+        )
+    ) {
         mc.thePlayer?.sendChatMessage("/setspawn")
-    }
-    else {
+    } else {
         mc.thePlayer?.sendChatMessage("/warp garden")
     }
-
-
-
 
 
 }

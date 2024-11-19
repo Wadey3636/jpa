@@ -5,9 +5,9 @@ import cc.polyfrost.oneconfig.events.event.LocrawEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 
 
-public var inSkyBlock = false
-public var inDungeon = false
-public var inGarden = false
+var inSkyBlock = false
+var inDungeon = false
+var inGarden = false
 
 
 class locationUtils {

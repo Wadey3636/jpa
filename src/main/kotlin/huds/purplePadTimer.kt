@@ -1,45 +1,50 @@
+/*
 package me.jpaMain.huds
 
+import cc.polyfrost.oneconfig.config.annotations.Color
+import cc.polyfrost.oneconfig.config.core.OneColor
 import cc.polyfrost.oneconfig.hud.Hud
 import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
 import cc.polyfrost.oneconfig.platform.Platform
 import cc.polyfrost.oneconfig.renderer.TextRenderer
-import me.jpaMain.dungeonfeatures.padcolor
-import me.jpaMain.dungeonfeatures.padticks
-import me.jpaMain.dungeonfeatures.stormActivated
+import me.jpaMain.dungeonfeatures.p3StartTimerticks
 import kotlin.math.max
 
 
-class padTimerHud : Hud(stormActivated) {
-
-
+class purplePadTimer : Hud(true) {
+    @Color(
+        name = "Timer Color"
+    )
+    protected var timerColor = OneColor(0, 255, 0, 255)
     override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
-        if (!stormActivated) return
-        if (padticks % 2 != 1f) {
+        if (p3StartTimerticks <= 0f) return
+
+        if (p3StartTimerticks % 2 == 0f) {
             TextRenderer.drawScaledString(
-                (padticks / 20).toString() + "0",
+                (p3StartTimerticks / 20).toString() + "0",
                 x,
                 y,
-                padcolor.getRGB(),
+                timerColor.getRGB(),
                 TextRenderer.TextType.toType(0),
                 scale
             )
         } else {
             TextRenderer.drawScaledString(
-                (padticks / 20).toString(),
+                (p3StartTimerticks / 20).toString(),
                 x,
                 y,
-                padcolor.getRGB(),
+                timerColor.getRGB(),
                 TextRenderer.TextType.toType(0),
                 scale
             )
         }
 
+
     }
 
     override fun getWidth(scale: Float, example: Boolean): Float {
         var width = 0f
-        width = max(width.toDouble(), getLineWidth(padticks.toString(), scale).toDouble()).toFloat()
+        width = max(width.toDouble(), getLineWidth((p3StartTimerticks * 5).toString(), scale).toDouble()).toFloat()
         return width
     }
 
@@ -51,4 +56,8 @@ class padTimerHud : Hud(stormActivated) {
     fun getLineWidth(line: String?, scale: Float): Float {
         return Platform.getGLPlatform().getStringWidth(line) * scale
     }
+
+
 }
+
+*/
