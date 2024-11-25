@@ -305,9 +305,9 @@ public class jpaConfig extends Config {
         save();
 
         int i = 0;
-        while (i < 6) {
+        while (i < 7) {
             mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(1).options.
-                    remove(((event.getID() - 1) * 6 + 1));
+                    remove(((event.getID() - 1) * 7 + 1));
             i++;
         }
 
