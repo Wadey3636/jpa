@@ -33,6 +33,7 @@ public class jaquaviouspringletonaddons {
     public static jaquaviouspringletonaddons INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static jpaConfig config;
 
+
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {

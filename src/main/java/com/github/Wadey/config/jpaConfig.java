@@ -3,25 +3,36 @@ package com.github.Wadey.config;
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
-import cc.polyfrost.oneconfig.config.data.PageLocation;
+import cc.polyfrost.oneconfig.config.data.InfoType;
+import cc.polyfrost.oneconfig.events.EventManager;
+import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
+import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.github.Wadey.jaquaviouspringletonaddons;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
-import javafx.scene.control.Toggle;
+import com.google.gson.annotations.Expose;
 import me.jpaMain.dungeonfeatures.*;
+import me.jpaMain.events.deletePlayerEntryEvent;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
 import me.jpaMain.huds.padTimerHud;
 import me.jpaMain.huds.p3StartTimerHud;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
  * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
  */
+
 public class jpaConfig extends Config {
+    @Expose
+    public static List<playerEntry> playerEntries = new ArrayList<>();
+
 
 
     @Switch(
@@ -53,7 +64,6 @@ public class jpaConfig extends Config {
             description = "Use a skill called Critical Thinking for one second"
     )
     public static OneColor icefillTeleportPointColor = new OneColor(255, 0, 0, 255);
-
     @Switch(
             name = "F7/M7 Position messages",
             size = OptionSize.DUAL,
@@ -243,14 +253,6 @@ public class jpaConfig extends Config {
             subcategory = "Timers"
     )
     public p3StartTimerHud starthud = new p3StartTimerHud();
-    /*
-    @HUD(
-            name = "Purple Pad Helper",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public p3StartTimerHud purpleHud = new p3StartTimerHud();
-*/
 
     @Switch(
             name = "Smart Healer Wish Notification",
@@ -271,24 +273,75 @@ public class jpaConfig extends Config {
             subcategory = "Wish",
             min = 1.0F, max = 8f)
     public static float wishNotificationSize = 3f;
-    @Switch(
-            name = "Toggle",
-            category = "General",
-            subcategory = "Player Size Customizer",
+                                                                                                                                                                                 
+
+
+    //PLAYER SIZE CUSTOMIZER
+    @Button(
+            name = "Add Players",
+            text = "Add",
+            size = OptionSize.DUAL,
+            category = "Player Size Customizer",
+            subcategory = "Add Players"
+    )
+    Runnable runnable = () -> {
+
+        playerEntries.add(new playerEntry(playerEntries.size() + 1));
+        save();
+        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
+    };
+
+    @Header(
+            text = "",
+            category = "Player Size Customizer",
+            subcategory = "Players",
             size = OptionSize.DUAL
     )
-    public static boolean playerSizeCustomizer = false;
-    @Page(
-            name = "Player List",
-            location = PageLocation.BOTTOM,
-            category = "General",
-            subcategory = "Player Size Customizer"
-    )
-    public static page
+    public static boolean ignored;
+
+    @Subscribe
+    public void deleteEntry(deletePlayerEntryEvent event) {
+        playerEntries.remove(event.getID() - 1);
+        save();
+
+        int i = 0;
+        while (i < 6) {
+            mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(1).options.
+                    remove(((event.getID() - 1) * 6 + 1));
+            i++;
+        }
+
+
+        reorderIds(playerEntries);
+    }
+    private void reorderIds(@NotNull List<playerEntry> players){
+        int i = 0;
+        while (i < players.size()){
+            players.get(i).setID(i + 1);
+            i++;
+        }
+    }
+
+
+
+    @Override
+    public void reInitialize() {
+        super.reInitialize();
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+        int i = 0;
+        while (playerEntries.size() > i) {
+            generateOptionList(playerEntries.get(i), mod.defaultPage, mod, false);
+            i++;
+        }
+    }
 
     public jpaConfig() {
-
-        super(new Mod(jaquaviouspringletonaddons.NAME, ModType.UTIL_QOL), jaquaviouspringletonaddons.MODID + ".json");
+        super(new Mod(jaquaviouspringletonaddons.NAME, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
+        initialize();
         registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
         registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
         registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
@@ -299,7 +352,7 @@ public class jpaConfig extends Config {
         addDependency("Inner Chamber position message", "F7/M7 Position messages", () -> posMsgs);
         addDependency("Part 5 Position Message", "F7/M7 Position messages", () -> posMsgs);
         addDependency("Middle Position Message", "F7/M7 Position messages", () -> posMsgs);
-        initialize();
+        EventManager.INSTANCE.register(this);
     }
 }
 
