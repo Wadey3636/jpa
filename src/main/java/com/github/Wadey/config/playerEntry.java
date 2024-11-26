@@ -52,7 +52,7 @@ public class playerEntry {
             max = 4.0f,
             subcategory = "Players"
     )
-    public float entryY = 2f;
+    public float entryY = 1f;
 
     @Slider(
             category = "Player Size Customizer",
