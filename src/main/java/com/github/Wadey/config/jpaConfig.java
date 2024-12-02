@@ -291,11 +291,12 @@ public class jpaConfig extends Config {
         generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
     };
 
-    @Header(
-            text = "",
+    @Info(
+            text = "Case Sensitive",
             category = "Player Size Customizer",
             subcategory = "Players",
-            size = OptionSize.DUAL
+            size = OptionSize.DUAL,
+            type = InfoType.INFO
     )
     public static boolean ignored;
 
@@ -305,9 +306,9 @@ public class jpaConfig extends Config {
         save();
 
         int i = 0;
-        while (i < 6) {
+        while (i < 7) {
             mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(1).options.
-                    remove(((event.getID() - 1) * 6 + 1));
+                    remove(((event.getID() - 1) * 7 + 1));
             i++;
         }
 
