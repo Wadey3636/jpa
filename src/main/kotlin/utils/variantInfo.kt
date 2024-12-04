@@ -16,3 +16,4 @@ data class determinedVariant(
     val warpPoints: List<BlockPos>,
     val tpPoint: BlockPos?
 )
+

@@ -7,6 +7,7 @@ import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.libs.universal.UChat
 import cc.polyfrost.oneconfig.platform.Platform
 import me.jpaMain.utils.renderHelper.oneColorToInt
+import me.jpaMain.utils.renderHelper.renderTitle
 
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.command.devMode
@@ -25,8 +26,6 @@ var ee3Triggered = AtomicBoolean(false)
 var ee4Triggered = AtomicBoolean(false)
 var midTriggered = AtomicBoolean(false)
 var berzLeapSpot = AtomicBoolean(false)
-
-var renderTime: Int = 0
 
 class positionDetectors {
     private var textColor = 0xFF0000
@@ -72,7 +71,7 @@ class positionDetectors {
         block: Block,
         detectorActive: AtomicBoolean
     ) {
-        if (!detectconfig || renderTime > 0 || !isBlock(BlockPos(blockPos), block)) return
+        if (!detectconfig || !isBlock(BlockPos(blockPos), block)) return
         val detected = players.firstOrNull {
             it.position.xCoord.toInt() in lowCoords[0]..highCoords[0] &&
                     it.position.yCoord.toInt() in lowCoords[1]..highCoords[1] &&
@@ -83,7 +82,8 @@ class positionDetectors {
         }
         if (detectorActive.get()) return
 
-        renderTime = 12
+        //renderTime = 12
+
         detected.let { player = it.name }
         textColor = oneColorToInt(detectorColor)
         xPos = screenCenterX - (getWidth(player, detectorTextSize) / 4)
@@ -98,18 +98,13 @@ class positionDetectors {
             false
         )
         detectorActive.set(true)
+        renderTitle(player, detectorTextSize, textColor, 3000L)
 
     }
 
 
     @Subscribe
     fun midDetector(event: QuarterSecondEvent) {
-        if (renderTime > 0) {
-            renderTime += -1
-        }
-
-
-
         if (inDungeon) {
             val players = arrayListOf<PlayerPosInfo>()
             if (devMode) {
@@ -186,15 +181,6 @@ class positionDetectors {
             }
         }
 
-    }
-
-
-    @Subscribe
-    fun onHudRender(event: HudRenderEvent) {
-        if (renderTime <= 0) return
-        renderHelper.renderTitleText(player, detectorTextSize, textColor)
-
-//-16776961
     }
 
 }
