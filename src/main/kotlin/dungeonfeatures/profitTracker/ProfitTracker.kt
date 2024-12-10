@@ -12,13 +12,13 @@ class profitTracker {
 
     //it will register the run based on the date
 
-
+/*
     @Subscribe
     fun guiChecker(event: openGuiEvent) {
         if (event.name != "Croesus") return
 
     }
-
+*/
     //give @p minecraft:skull 1 0 {Base:{Type:"",Rarity:"UNCOMMON",RarityColor:'{"text":"","color":"green"}'},HideFlags:63,Unbreakable:1b,Description:['[{"text":"gas","color":"gray","italic":false}]','[{"text":""}]'],display:{Name:"The Catacombs",Lore:['gas','','UNCOMMON']}}
 
 }

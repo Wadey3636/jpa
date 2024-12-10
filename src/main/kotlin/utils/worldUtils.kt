@@ -31,12 +31,7 @@ object worldUtils {
     }
 
 
-    fun getInventory(): Array<out ItemStack>? {
-        return mc.thePlayer?.inventory?.mainInventory
-    }
-    fun getContainer(): MutableList<ItemStack>? {
-        return mc.thePlayer?.inventoryContainer?.inventory
-    }
+
 
     /**
      * Checks if a block at a specified position is a specified Block.

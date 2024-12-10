@@ -1,13 +1,15 @@
 package me.jpaMain.dungeonfeatures
 
+import cc.polyfrost.oneconfig.libs.universal.UChat
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.jpaMain.mc
-
+import me.jpaMain.utils.worldUtils
 
 fun gfsPearl() {
     if (!pearlKeyToggle) {
         return
     }
+    UChat.chat()
     mc.thePlayer?.sendChatMessage("/gfs ender_pearl 16")
 }
 

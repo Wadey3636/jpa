@@ -4,6 +4,7 @@ import cc.polyfrost.oneconfig.libs.universal.UChat
 import me.jpaMain.events.openGuiEvent
 import me.jpaMain.jpaMain.mc
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.ItemStack
 
 object guiUtils {
 
@@ -20,6 +21,15 @@ object guiUtils {
             }
         }
         return items
+    }
+    fun getInventory(): Array<out ItemStack>? {
+        return mc.thePlayer?.inventory?.mainInventory
+    }
+    fun getContainer(): MutableList<ItemStack>? {
+        return mc.thePlayer?.inventoryContainer?.inventory
+    }
+    fun getHotbar(): Array<out ItemStack>? {
+        return mc.thePlayer?.inventory?.mainInventory
     }
 
 
