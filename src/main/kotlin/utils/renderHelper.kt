@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11
 import kotlin.math.cos
 import kotlin.math.sin
+import me.jpaMain.utils.time
 
 object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
@@ -37,6 +38,13 @@ object renderHelper {
     }
     fun oneColorToInt(color: OneColor): Int {
         return (color.alpha shl 24) or (color.red shl 16) or (color.green shl 8) or color.blue
+    }
+    public fun renderTitle(text: String, scale: Float, color: Int, duration: Long){
+        title = text
+        size = scale
+        color1 = color
+        time = duration
+        timeStamp = System.currentTimeMillis()
     }
 
     fun renderTitleText(text: String, scale: Float, color: Int) {

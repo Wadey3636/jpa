@@ -1,6 +1,7 @@
 package com.github.Wadey.config;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
@@ -14,15 +15,19 @@ import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
 import com.google.gson.annotations.Expose;
+import me.jpaMain.devFeatures.HclippaKt;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.events.deletePlayerEntryEvent;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
 import me.jpaMain.huds.padTimerHud;
 import me.jpaMain.huds.p3StartTimerHud;
+
 import org.jetbrains.annotations.NotNull;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
@@ -38,28 +43,28 @@ public class jpaConfig extends Config {
     @Switch(
             name = "Icefill Solver",
             size = OptionSize.SINGLE,
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Solvers",
             description = "Disabled ATM"
     )
     public static boolean icefillSolver = false;
     @Color(
             name = "Line Color",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Solvers",
             description = "The color of the path"
     )
     public static OneColor icefillPathColor = new OneColor(0, 255, 0, 255);
     @Color(
             name = "Etherwarp Point Color",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
     public static OneColor icefillEtherwarpPointColor = new OneColor(0, 0, 255, 255);
     @Color(
             name = "Teleport Point Color",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
@@ -139,7 +144,7 @@ public class jpaConfig extends Config {
     public static OneKeyBind pestKey = new OneKeyBind(UKeyboard.KEY_Q);
     @Switch(
             name = "Pearl GFS Toggle",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Keybinds",
             description = "Toggles the Pearl GFS keybind"
     )
@@ -148,14 +153,14 @@ public class jpaConfig extends Config {
     @KeyBind(
             name = "Pearl GFS",
             description = "/gfs ender_pearl 16",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Keybinds"
     )
     public static OneKeyBind pearlKey = new OneKeyBind(UKeyboard.KEY_1);
 
     @Switch(
             name = "Superboom GFS Toggle",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Keybinds",
             description = "Toggles the Superboom GFS keybind"
     )
@@ -164,14 +169,14 @@ public class jpaConfig extends Config {
     @KeyBind(
             name = "Pearl GFS",
             description = "/gfs SUPERBOOM_TNT 64",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Keybinds"
     )
     public static OneKeyBind superboomKey = new OneKeyBind(UKeyboard.KEY_2);
 
     @Switch(
             name = "Spirit Leap GFS Toggle",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Keybinds",
             description = "Toggles the Spirit Leap GFS keybind"
     )
@@ -180,7 +185,7 @@ public class jpaConfig extends Config {
     @KeyBind(
             name = "Spirit Leap GFS",
             description = "/gfs SPIRIT_LEAP 16",
-            category = "Dungeon",
+            category = "Dungeons",
             subcategory = "Keybinds"
     )
     public static OneKeyBind spiritleapKey = new OneKeyBind(UKeyboard.KEY_3);
@@ -273,10 +278,42 @@ public class jpaConfig extends Config {
             subcategory = "Wish",
             min = 1.0F, max = 8f)
     public static float wishNotificationSize = 3f;
-                                                                                                                                                                                 
-
-
+    @Switch(
+            name = "Milestone 3 reminder",
+            category = "Dungeons",
+            subcategory = "Skill Issue"
+    )
+    public static boolean mileStone3Reminder = false;
+    @Text(
+            category = "Dungeons",
+            name = "Milestone 3 Reminder Text",
+            subcategory = "Skill Issue",
+            placeholder = "Get Milestone 3"
+    )
+    public static String mileStone3ReminderText = "Get Milestone 3";
+    @Number(
+            name = "Reminder Timer (In Seconds)",
+            category = "Dungeons",
+            subcategory = "Skill Issue",
+            min = 1f, max = 500f
+    )
+    public static float mileStone3ReminderTimer = 30f;
+    @Number(
+            name = "Reminder Scale",
+            category = "Dungeons",
+            subcategory = "Skill Issue",
+            min = 1f, max = 10f
+    )
+    public static float mileStone3ReminderScale = 10f;
+    @Color(
+            name = "Reminder Color",
+            category = "Dungeons",
+            subcategory = "Skill Issue"
+    )
+    public static OneColor mileStone3ReminderColor = new OneColor(50, 255, 30, 255);
+//:
     //PLAYER SIZE CUSTOMIZER
+
     @Button(
             name = "Add Players",
             text = "Add",
@@ -284,12 +321,11 @@ public class jpaConfig extends Config {
             category = "Player Size Customizer",
             subcategory = "Add Players"
     )
-    Runnable runnable = () -> {
-
+    private void addPlayers(){
         playerEntries.add(new playerEntry(playerEntries.size() + 1));
         save();
         generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
-    };
+    }
 
     @Info(
             text = "Case Sensitive",
@@ -299,6 +335,27 @@ public class jpaConfig extends Config {
             type = InfoType.INFO
     )
     public static boolean ignored;
+
+
+
+
+    // TOGGLE THIS BEFORE BUILDING
+    //IF ANYONE IS READING THIS, THIS IS FOR DEV ONLY AND CANNOT BE USED ON HYPIXEL. IT WILL BAN
+/*
+    @Switch(
+            name = "HClip",
+            size = OptionSize.SINGLE,
+            category = "Dev Stuff"
+    )
+    public static boolean hClip = false; // The default value for the boolean Switch.
+    @KeyBind(
+            name = "Hclip",
+            category = "Dev Stuff"
+    )
+    public static OneKeyBind theFunny = new OneKeyBind(UKeyboard.KEY_F);
+*/
+
+
 
     @Subscribe
     public void deleteEntry(deletePlayerEntryEvent event) {
@@ -315,6 +372,7 @@ public class jpaConfig extends Config {
 
         reorderIds(playerEntries);
     }
+
     private void reorderIds(@NotNull List<playerEntry> players){
         int i = 0;
         while (i < players.size()){
@@ -347,6 +405,15 @@ public class jpaConfig extends Config {
         registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
         registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
         registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
+
+        //TOGGLE THIS
+        //registerKeyBind(theFunny, HclippaKt::hclippa);
+
+
+
+
+
+
         addDependency("Berserker Leap Position Message", "F7/M7 Position messages", () -> posMsgs);
         addDependency("Early Entry Position Messages", "F7/M7 Position messages", () -> posMsgs);
         addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages", () -> posMsgs);

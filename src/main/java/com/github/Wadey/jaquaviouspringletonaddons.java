@@ -7,6 +7,7 @@ import me.jpaMain.dungeonfeatures.iceFillSolver.iceFillSolver;
 import me.jpaMain.events.fireEvents;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
+import me.jpaMain.utils.titleUtils;
 import net.minecraftforge.common.MinecraftForge;
 import com.github.Wadey.command.jpaCommand;
 import com.github.Wadey.config.jpaConfig;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import me.jpaMain.command.triggerWishHUD;
+import me.jpaMain.dungeonfeatures.profitTracker.profitTracker;
 
 /**
  * The entrypoint of the Example Mod that initializes it.
@@ -39,7 +41,7 @@ public class jaquaviouspringletonaddons {
     public void onInit(FMLInitializationEvent event) {
         config = new jpaConfig();
         CommandManager.INSTANCE.registerCommand(new jpaCommand());
-        CommandManager.INSTANCE.registerCommand(new resetMidDetector());
+        CommandManager.INSTANCE.registerCommand(new fsCommand());
         CommandManager.INSTANCE.registerCommand(new testCommand());
         CommandManager.INSTANCE.registerCommand(new simulateStormActivate());
         CommandManager.INSTANCE.registerCommand(new simulateStormDeactivate());
@@ -55,7 +57,9 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new fireEvents());
         MinecraftForge.EVENT_BUS.register(new iceFillSolver());
         MinecraftForge.EVENT_BUS.register(new wishNotification());
-
+        MinecraftForge.EVENT_BUS.register(new profitTracker());
+        MinecraftForge.EVENT_BUS.register(new titleUtils());
+        MinecraftForge.EVENT_BUS.register(new milestoneReminder());
     }
 
 }

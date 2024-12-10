@@ -39,8 +39,8 @@ public class playerEntry {
     @Slider(
             category = "Player Size Customizer",
             name = "X",
-            min = 0.5f,
-            max = 3.0f,
+            min = 0.3f,
+            max = 10.0f,
             subcategory = "Players"
     )
     public float entryX = 1f;
@@ -48,8 +48,8 @@ public class playerEntry {
     @Slider(
             category = "Player Size Customizer",
             name = "Y",
-            min = 0.5f,
-            max = 4.0f,
+            min = 0.3f,
+            max = 10.0f,
             subcategory = "Players"
     )
     public float entryY = 1f;
@@ -57,8 +57,8 @@ public class playerEntry {
     @Slider(
             category = "Player Size Customizer",
             name = "Z",
-            min = 0.5f,
-            max = 3.0f,
+            min = 0.3f,
+            max = 10.0f,
             subcategory = "Players"
     )
     public float entryZ = 1f;
@@ -72,7 +72,11 @@ public class playerEntry {
     private void deleteEntry(){
     deletePlayerEntryEvent event = new deletePlayerEntryEvent(this.id);
     EventManager.INSTANCE.post(event);
+
 };
+
+
+
 
     public List getPlayerParamenters(){
         List<Object> list = new ArrayList<>();

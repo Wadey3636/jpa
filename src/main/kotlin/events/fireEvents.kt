@@ -1,3 +1,32 @@
+// Function copied from [https://github.com/odtheking/Odin/blob/44062aed8e0307333e45efbde24b9e384e3476ec/src/main/kotlin/me/odinmain/events/EventDispatcher.kt#L21]
+// Copyright (c) 2024, odtheking
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice, this
+//    list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright notice,
+//    this list of conditions and the following disclaimer in the documentation
+//    and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its
+//    contributors may be used to endorse or promote products derived from
+//    this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
 package me.jpaMain.events
 
 import cc.polyfrost.oneconfig.events.EventManager
@@ -5,8 +34,16 @@ import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
 import cc.polyfrost.oneconfig.events.event.Stage
 import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import cc.polyfrost.oneconfig.libs.universal.UChat
+import net.minecraft.client.gui.inventory.GuiChest
+import net.minecraft.inventory.ContainerChest
 import net.minecraft.network.play.server.S32PacketConfirmTransaction
-
+import net.minecraftforge.client.event.GuiOpenEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import me.jpaMain.utils.waitUntilLastItem
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 class fireEvents {
     init {
         EventManager.INSTANCE.register(this)
@@ -37,6 +74,22 @@ class fireEvents {
 
 
     }
+
+    /**
+     * Adapted from odin
+     */
+
+    @SubscribeEvent
+    fun onGUI(event: GuiOpenEvent) = CoroutineScope(EmptyCoroutineContext).launch {
+        if (event.gui !is GuiChest) return@launch
+        val container = (event.gui as GuiChest).inventorySlots
+        if (container !is ContainerChest) return@launch
+        val deferred = waitUntilLastItem(container)
+        try { deferred.await() } catch (_: Exception) {return@launch} // Wait until the last item in the chest isn't null
+        EventManager.INSTANCE.post(openGuiEvent( container.lowerChestInventory.displayName.unformattedText, container, container.lowerChestInventory))
+
+    }
+
 
 
 }
