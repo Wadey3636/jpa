@@ -50,20 +50,12 @@ object renderHelper {
     fun renderTitleText(text: String, scale: Float, color: Int) {
         val fontRenderer = mc.fontRendererObj
         val scaledResolution = ScaledResolution(mc)
-
-        // Scale text width and height
         val scaledWidth = fontRenderer.getStringWidth(text) * scale
         val scaledHeight = fontRenderer.FONT_HEIGHT * scale
-
-        // Calculate centered position
         val centerX = (scaledResolution.scaledWidth / 2f) - (scaledWidth / 2f)
         val centerY = (scaledResolution.scaledHeight / 2f) - (scaledHeight / 2f)
-
-        // Enable scaling
         GlStateManager.pushMatrix()
         GlStateManager.scale(scale, scale, scale)
-
-        // Draw text, accounting for the inverse scale
         fontRenderer.drawStringWithShadow(
             text,
             centerX / scale,
@@ -71,7 +63,6 @@ object renderHelper {
             color
         )
 
-        // Restore scaling
         GlStateManager.popMatrix()
     }
 
