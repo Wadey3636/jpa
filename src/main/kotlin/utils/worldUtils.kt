@@ -38,6 +38,11 @@ object worldUtils {
         return mc.thePlayer?.inventoryContainer?.inventory
     }
 
+    fun countItem(inventory: MutableList<ItemStack>) {
+        inventory
+    }
+
+
     /**
      * Checks if a block at a specified position is a specified Block.
      * Returns as a Boolean
