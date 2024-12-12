@@ -6,7 +6,7 @@ import kotlin.math.sin
 
 
 fun hclippa(){
-        /*
+/*
         if (!hClip) return;
         mc.thePlayer.setVelocity(0.0, mc.thePlayer.motionY, 0.0);
         val CameraYaw = mc.thePlayer.rotationYaw * Math.PI / 180;

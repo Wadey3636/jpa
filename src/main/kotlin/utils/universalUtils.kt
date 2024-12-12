@@ -1,9 +1,10 @@
 package me.jpaMain.utils
 
+import cc.polyfrost.oneconfig.libs.universal.UChat
 import kotlin.math.floor
 import kotlin.math.pow
-
-
+//10,000,000
+//10m
 object universalUtils {
     fun abbreviateNumber(value: Int): String {
         if (value >= 1000) {
@@ -19,16 +20,20 @@ object universalUtils {
                     value.toDouble()
                 }
 
-                val dotLessShortValue = shortValue.toString().replace(Regex("[^a-zA-Z0-9]+"), "")
-                if (dotLessShortValue.length <= 2) {
+                if (shortValue.toString().replace(Regex("[^a-zA-Z0-9]+"), "").length <= 2) {
                     result = shortValue.toString()
                     break
                 }
             }
+            UChat.chat(result)
 
             if (result.contains(".")) {
                 result = String.format("%.1f", result.toDouble())
             }
+            UChat.chat(result)
+
+            //UChat.chat(result)
+            UChat.chat("$result${suffixes[suffixNum]}")
             return "$result${suffixes[suffixNum]}"
         }
         return value.toString()

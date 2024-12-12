@@ -2,8 +2,6 @@ package me.jpaMain.utils
 
 import cc.polyfrost.oneconfig.config.core.OneColor
 import me.jpaMain.jpaMain.mc
-import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
 import net.minecraft.client.renderer.Tessellator
@@ -17,7 +15,6 @@ import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11
 import kotlin.math.cos
 import kotlin.math.sin
-import me.jpaMain.utils.time
 
 object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
@@ -47,24 +44,34 @@ object renderHelper {
         timeStamp = System.currentTimeMillis()
     }
 
-    fun renderTitleText(text: String, scale: Float, color: Int) {
+    fun drawCenteredText(text: String, scale: Float, color: Int, xPos: Float, yPos: Float) {
         val fontRenderer = mc.fontRendererObj
-        val scaledResolution = ScaledResolution(mc)
         val scaledWidth = fontRenderer.getStringWidth(text) * scale
         val scaledHeight = fontRenderer.FONT_HEIGHT * scale
-        val centerX = (scaledResolution.scaledWidth / 2f) - (scaledWidth / 2f)
-        val centerY = (scaledResolution.scaledHeight / 2f) - (scaledHeight / 2f)
         GlStateManager.pushMatrix()
         GlStateManager.scale(scale, scale, scale)
         fontRenderer.drawStringWithShadow(
             text,
-            centerX / scale,
-            centerY / scale,
+            (xPos - (scaledWidth / 2)) / scale,
+            (yPos - (scaledHeight / 2)) / scale,
             color
         )
-
         GlStateManager.popMatrix()
     }
+    fun drawLeftAlignedText(text: String, scale: Float, color: Int, xPos: Float, yPos: Float) {
+        val fontRenderer = mc.fontRendererObj
+        val scaledHeight = fontRenderer.FONT_HEIGHT * scale
+        GlStateManager.pushMatrix()
+        GlStateManager.scale(scale, scale, scale)
+        fontRenderer.drawStringWithShadow(
+            text,
+            (xPos) / scale,
+            (yPos - (scaledHeight / 2)) / scale,
+            color
+        )
+        GlStateManager.popMatrix()
+    }
+
 
 
 

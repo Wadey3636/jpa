@@ -87,6 +87,10 @@ class fireEvents {
         val deferred = waitUntilLastItem(container)
         try { deferred.await() } catch (_: Exception) {return@launch} // Wait until the last item in the chest isn't null
         EventManager.INSTANCE.post(openGuiEvent( container.lowerChestInventory.displayName.unformattedText, container, container.lowerChestInventory))
+    }
+    @SubscribeEvent
+    fun closeGUI(event: GuiOpenEvent) {
+        if (event.gui == null) EventManager.INSTANCE.post(closeGuiEvent())
 
     }
 

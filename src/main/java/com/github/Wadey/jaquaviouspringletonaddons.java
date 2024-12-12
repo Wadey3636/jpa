@@ -15,8 +15,7 @@ import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import me.jpaMain.command.triggerWishHUD;
-import me.jpaMain.dungeonfeatures.profitTracker.profitTracker;
+import me.jpaMain.dungeonfeatures.profitTracker.ProfitTracker;
 
 /**
  * The entrypoint of the Example Mod that initializes it.
@@ -43,9 +42,6 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new jpaCommand());
         CommandManager.INSTANCE.registerCommand(new fsCommand());
         CommandManager.INSTANCE.registerCommand(new testCommand());
-        CommandManager.INSTANCE.registerCommand(new simulateStormActivate());
-        CommandManager.INSTANCE.registerCommand(new simulateStormDeactivate());
-        CommandManager.INSTANCE.registerCommand(new triggerWishHUD());
         CommandManager.INSTANCE.registerCommand(new JPAdevMode());
         MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
@@ -57,7 +53,7 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new fireEvents());
         MinecraftForge.EVENT_BUS.register(new iceFillSolver());
         MinecraftForge.EVENT_BUS.register(new wishNotification());
-        MinecraftForge.EVENT_BUS.register(new profitTracker());
+        MinecraftForge.EVENT_BUS.register(new ProfitTracker());
         MinecraftForge.EVENT_BUS.register(new titleUtils());
         MinecraftForge.EVENT_BUS.register(new milestoneReminder());
     }

@@ -7,7 +7,6 @@ import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.jpaMain.utils.renderHelper
 import com.github.Wadey.config.jpaConfig.*
 
-var wishNotificationRenderTime: Int = 0
 
 class wishNotification {
     private var color = 0
@@ -22,28 +21,16 @@ class wishNotification {
         if (healerWishNotification) {
             when (event.message.unformattedText) {
                 "⚠ Maxor is enraged! ⚠" -> {
-                    wishNotificationRenderTime = 60
                     color = renderHelper.oneColorToInt(healerWishNotificationColor)
+                    renderHelper.renderTitle("Wish", wishNotificationSize, color, 3000)
                 }
 
                 "[BOSS] Goldor: But you have nowhere to hide anymore!" -> {
-                    wishNotificationRenderTime = 60
                     color = renderHelper.oneColorToInt(healerWishNotificationColor)
+                    renderHelper.renderTitle("Wish", wishNotificationSize, color, 3000)
                 }
             }
         }
-    }
-
-
-    @Subscribe
-    fun onTick(event: TickEvent) {
-        if (wishNotificationRenderTime > 0) --wishNotificationRenderTime
-    }
-
-    @Subscribe
-    fun onHud(event: HudRenderEvent) {
-        if (wishNotificationRenderTime > 0) renderHelper.renderTitleText("Wish", wishNotificationSize, color)
-
     }
 
 
