@@ -1,6 +1,7 @@
 package me.jpaMain.utils
 
 import cc.polyfrost.oneconfig.config.core.OneColor
+import cc.polyfrost.oneconfig.libs.universal.UChat
 import me.jpaMain.jpaMain.mc
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
@@ -20,6 +21,17 @@ object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
     private val renderManager: RenderManager = mc.renderManager
 
+    fun phaseCheck(phase: Boolean){
+        if (!phase) GlStateManager.enableDepth() else GlStateManager.disableDepth()
+        GlStateManager.depthMask(!phase)
+    }
+
+    fun resetPhase(){
+        GlStateManager.disableDepth()
+        GlStateManager.depthMask(true)
+    }
+
+
     //from Skytils
     fun getViewerPos(partialTicks: Float): Triple<Double, Double, Double> {
         val viewer = mc.renderViewEntity
@@ -36,6 +48,13 @@ object renderHelper {
     fun oneColorToInt(color: OneColor): Int {
         return (color.alpha shl 24) or (color.red shl 16) or (color.green shl 8) or color.blue
     }
+
+    val OneColor.oneColorToInt: Int
+        get() = oneColorToInt(this)
+
+
+
+
     public fun renderTitle(text: String, scale: Float, color: Int, duration: Long){
         title = text
         size = scale
@@ -75,6 +94,7 @@ object renderHelper {
 
 
 
+
     fun drawLine3d(
         x: Double,
         y: Double,
@@ -89,6 +109,7 @@ object renderHelper {
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
 
+        GlStateManager.pushMatrix()
         GlStateManager.disableTexture2D()
         GlStateManager.disableLighting()
         GlStateManager.disableCull()
@@ -98,7 +119,7 @@ object renderHelper {
         GL11.glLineWidth(thickness)
         GL11.glEnable(GL11.GL_BLEND)
 
-        GlStateManager.pushMatrix()
+
 
 
 
@@ -114,11 +135,11 @@ object renderHelper {
         worldRenderer.pos(x1, y1, z1).endVertex()
 
         tessellator.draw()
-        GlStateManager.popMatrix()
         GlStateManager.enableTexture2D()
         GlStateManager.enableCull()
         GlStateManager.disableBlend()
         GlStateManager.enableLighting()
+        GlStateManager.popMatrix()
     }
 
     fun drawLines3dAboveBlocks(
@@ -131,7 +152,7 @@ object renderHelper {
         if (points.size < 2) return
         val tessellator = Tessellator.getInstance()
         val worldRenderer = tessellator.worldRenderer
-
+        GlStateManager.pushMatrix()
         GlStateManager.disableTexture2D()
         GlStateManager.disableLighting()
         GlStateManager.disableCull()
@@ -141,7 +162,8 @@ object renderHelper {
         GL11.glLineWidth(thickness)
         GL11.glEnable(GL11.GL_BLEND)
 
-        GlStateManager.pushMatrix()
+
+
         GlStateManager.color(
             color.red.toFloat() / 255,
             color.green.toFloat() / 255,
@@ -165,11 +187,11 @@ object renderHelper {
             ).endVertex()
         }
         tessellator.draw()
-        GlStateManager.popMatrix()
         GlStateManager.enableTexture2D()
         GlStateManager.enableCull()
         GlStateManager.disableBlend()
         GlStateManager.enableLighting()
+        GlStateManager.popMatrix()
     }
 
     fun drawBox(

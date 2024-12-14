@@ -28,7 +28,6 @@
 
 package me.jpaMain.utils
 
-import me.jpaMain.events.openGuiEvent
 import me.jpaMain.jpaMain.mc
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
@@ -40,31 +39,50 @@ object guiUtils {
 
     /**
      * Returns the ExtraAttribute Compound
+     * @author odtheking
      */
     val ItemStack?.extraAttributes: NBTTagCompound?
         get() = this?.getSubCompound("ExtraAttributes", false)
 
     /**
      * Returns Item ID for an Item
+     * @author odtheking
      */
     val ItemStack?.skyblockID: String
         get() = this?.extraAttributes?.getString("id") ?: ""
 
+    /**
+     * Removes color codes from a string
+     */
+    val String.deformat: String
+        get() = this.replace(Regex("§[0-9a-fk-or]"), "")
 
-    fun getGUI(inventory: IInventory): HashSet<item> {
-        val items = HashSet<item>()
+    /**
+     * Takes the inputted inventory and fetches all items except glass.
+     * @param inventory IInventory
+     * @return MutableList<Item>
+     */
+
+    fun getGUI(inventory: IInventory):MutableList<Item> {
+        val items: MutableList<Item> = mutableListOf()
         for (i in 0 until inventory.sizeInventory) {
-
-            val itemStack = inventory.getStackInSlot(i)?.displayName?.let { stack ->
-
-                if (!stack.contains("Glass")) {
-                    items.add(item(stack, inventory.getStackInSlot(i).getTooltip(mc.thePlayer, false).mapNotNull { it.split('"').getOrNull(3)}, i))
+            inventory.getStackInSlot(i)?.let { stack ->
+                if (!stack.displayName.contains("Glass")) {
+                    items.add(Item(stack.displayName,
+                        stack.getTooltip(mc.thePlayer, false)
+                            .drop(1)
+                            .map { it.deformat.trim() },
+                        i
+                    ))
                 }
 
             }
         }
         return items
     }
+
+
+
     fun getInventory(): Array<out ItemStack>? {
         return mc.thePlayer?.inventory?.mainInventory
     }
@@ -84,4 +102,4 @@ object guiUtils {
     }
 }
 
-data class item(val name: String, val lore: List<String>, val position: Int)
+data class Item(val name: String, val lore: List<String>, val position: Int)

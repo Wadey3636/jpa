@@ -6,37 +6,28 @@ import kotlin.math.pow
 //10,000,000
 //10m
 object universalUtils {
-    fun abbreviateNumber(value: Int): String {
-        if (value >= 1000) {
-            val suffixes = listOf("", "k", "m", "b", "t")
-            val suffixNum = floor((value.toString().length / 3).toDouble()).toInt()
-            var shortValue: Double
-            var result = ""
 
-            for (precision in 2 downTo 1) {
-                shortValue = if (suffixNum != 0) {
-                    value / 1000.0.pow(suffixNum)
-                } else {
-                    value.toDouble()
-                }
-
-                if (shortValue.toString().replace(Regex("[^a-zA-Z0-9]+"), "").length <= 2) {
-                    result = shortValue.toString()
-                    break
-                }
-            }
-            UChat.chat(result)
-
-            if (result.contains(".")) {
-                result = String.format("%.1f", result.toDouble())
-            }
-            UChat.chat(result)
-
-            //UChat.chat(result)
-            UChat.chat("$result${suffixes[suffixNum]}")
-            return "$result${suffixes[suffixNum]}"
+    /**
+     * Abbreviates a number
+     * Ex: 10,000,000 -> 10.0m
+     *
+     * @param n Double which is abbreviated
+     */
+    fun abbreviateNumber(n: Double): String {
+        return when {
+            n < 1_000 -> n.toString()
+            n in 1_000.0..999_999.0 -> "${"%.1f".format(n / 1_000)}K"
+            n in 1_000_000.0..999_999_999.0 -> "${"%.1f".format(n / 1_000_000)}M"
+            n in 1_000_000_000.0..999_999_999_999.0 -> "${"%.1f".format(n / 1_000_000_000)}B"
+            n >= 1_000_000_000_000.0 -> "${"%.1f".format(n / 1_000_000_000_000)}T"
+            else -> n.toString()
         }
-        return value.toString()
+    }
+    fun abbreviateNumber(n: Int): String {
+        return abbreviateNumber(n.toDouble())
+    }
+    fun abbreviateNumber(n: Float): String {
+        return abbreviateNumber(n.toDouble())
     }
 
 }
