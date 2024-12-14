@@ -124,3 +124,99 @@ class ProfitTracker {
 
 }
 data class chestLine(val chest: String, val profit: Float, val color: Int)
+
+//ALSO MASTER STARS
+//CLAYMORE
+//THUNDERLORD VII
+
+/*
+Bank: 1
+One For All: 1.8m
+Last Stand: 200k
+Ultimate Jerry: 45k
+Combo: 1
+No Pain No Gain: 1
+Ultimate Wise: 120k
+Rejuvenate: 20k
+Infinite Quiver: 5k
+Feather Falling: 5k
+Wisdom: 120k
+
+
+Floor One
+
+Necromancers Brooch: 40k
+Bonzo's Staff: 2.2m
+Recombobulator: 5m
+Fuming Potato Book: 1m
+Bonzo’s Mask: 400k
+Hot Potato Book: 65k
+Red Nose: 2.5k
+
+Floor Two
+
+Scarf’s Studies: 300k
+
+Floor Three
+
+Adaptive Helmet: 1.7m
+Adaptive Chestplate: 3.8m
+Adaptive Leggings: 1m
+Adaptive Boots: 180k
+Adaptive Blade: 800k
+
+Floor Four
+
+Rend: 350k
+Spirit Sword: 2.4m
+Spirit Bow: 1.2m
+Spirit Stone: 750k
+Spirit Bone: 3.8m
+Spirit Wing: 2.3m
+Spirit Boots: 3.6m
+Spirit Pet (Epic): 450k
+Spirit Pet (Legendary): 3.6m
+
+Floor Five
+
+Overload: 1m
+Legion: 2.5m
+Last Breath: 7m
+Shadow Assassin Helmet (Epic/Leg) 1.8m:/ 3m
+Shadow Assassin Chestplate (Epic/Leg): 24m/27m
+Shadow Assassin Leggings (Epic/Leg): 4m/5.1
+Shadow Assassin Boots (Epic/Leg): 1m/2.3
+Shadow Fury: 14.5m
+Livid Dagger: 7m
+Warped Stone: 4.5m
+
+Floor Six
+Swarm: 600k
+Giant Sword: 82m
+Necromancer Lord Helmet: 375k
+Necromancer Lord Chestplate: 15m
+Necromancer Lord Leggings: 3.8m
+Necromancer Lord Boots: 1.2m
+Giant’s Tooth: 400k
+Precursor Eye: 25m
+Ancient Rose: 860k
+Summoning Ring: 10m
+
+Floor Seven
+
+Soul Eater: 1m
+Precursor Gear: 650k
+Wither Catalyst: 1.2m
+Wither Blood: 2.5m
+Necron’s Handle: 350m
+Wither Helmet: 2.6m
+Wither Chestplate: 28m
+Wither Leggings: 5.8m
+Wither Boots: 1.6m
+Wither Cloak Sword: 4.4m
+Implosion: 39m
+Wither Shield: 30m
+Shadow Warp: 26m
+Auto Recombobulator: 10m
+
+ */
