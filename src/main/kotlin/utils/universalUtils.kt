@@ -14,14 +14,17 @@ object universalUtils {
      * @param n Double which is abbreviated
      */
     fun abbreviateNumber(n: Double): String {
+        val nABS = kotlin.math.abs(n)
         return when {
-            n < 1_000 -> n.toString()
-            n in 1_000.0..999_999.0 -> "${"%.1f".format(n / 1_000)}K"
-            n in 1_000_000.0..999_999_999.0 -> "${"%.1f".format(n / 1_000_000)}M"
-            n in 1_000_000_000.0..999_999_999_999.0 -> "${"%.1f".format(n / 1_000_000_000)}B"
-            n >= 1_000_000_000_000.0 -> "${"%.1f".format(n / 1_000_000_000_000)}T"
+            nABS < 1_000 -> n.toString()
+            nABS in 1_000.0..999_999.0 -> "${"%.1f".format(n / 1_000)}K"
+            nABS in 1_000_000.0..999_999_999.0 -> "${"%.1f".format(n / 1_000_000)}M"
+            nABS in 1_000_000_000.0..999_999_999_999.0 -> "${"%.1f".format(n / 1_000_000_000)}B"
+            nABS >= 1_000_000_000_000.0 -> "${"%.1f".format(n / 1_000_000_000_000)}T"
             else -> n.toString()
         }
+
+
     }
     fun abbreviateNumber(n: Int): String {
         return abbreviateNumber(n.toDouble())

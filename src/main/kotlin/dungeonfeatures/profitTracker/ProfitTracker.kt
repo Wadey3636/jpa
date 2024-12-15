@@ -4,7 +4,6 @@ import cc.polyfrost.oneconfig.config.core.OneColor
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.libs.universal.UChat
-import me.jpaMain.events.closeGuiEvent
 import me.jpaMain.events.openGuiEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.guiUtils
@@ -16,6 +15,7 @@ import cc.polyfrost.oneconfig.libs.universal.UResolution
 import me.jpaMain.utils.renderHelper.oneColorToInt
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.changeGuiEvent
+import me.jpaMain.utils.guiUtils.deformat
 
 class ProfitTracker {
     private val possibleLoot: MutableMap<String, Float> = mutableMapOf()
@@ -57,21 +57,39 @@ class ProfitTracker {
 
                 val Chest: String
                 var profit: Float = 0f
-                UChat.chat(item.name)
                 item.lore.forEach{string ->
-                    possibleLoot[string]?.let { profit += it }
-                    UChat.chat(string)
-                    UChat.chat("Necromancer's brooch")
-                    UChat.chat(possibleLoot[string].toString())
+                    val dictionaryValue = possibleLoot[string.deformat]
+
+                    if (dictionaryValue == null) {
+                        when {
+                            string.deformat.contains("Wither Essence", ignoreCase = true) -> {
+
+                                Regex("\\d+").find(string.deformat)?.value?.let{ profit += it.toFloat() * WitherEssence }
+                            }
+
+                            string.deformat.contains("Undead Essence", ignoreCase = true) -> {
+
+                                Regex("\\d+").find(string.deformat)?.value?.let{ profit += it.toFloat() * UndeadEssence }
+                            }
+
+                            string.deformat.contains("Coins") -> {
+                                Regex("\\d+").find(string.deformat.replace(",", ""))?.value?.let{ profit -= it.toFloat()}
+                            }
+                        }
+
+
+                    } else {
+                        profit += dictionaryValue
+                    }
                 }
-                UChat.chat(profit)
-                when {
-                    item.name.contains("Wood") -> Chest = "Wood"
-                    item.name.contains("Gold") -> Chest = "Gold"
-                    item.name.contains("Diamond") -> Chest = "Diamond"
-                    item.name.contains("Emerald") -> Chest = "Emerald"
-                    item.name.contains("Obsidian") -> Chest = "Wood"
-                    item.name.contains("Bedrock") -> Chest = "Wood"
+
+                when (item.name.deformat) {
+                     "Wood Chest" -> Chest = "Wood"
+                     "Gold Chest" -> Chest = "Gold"
+                     "Diamond Chest" -> Chest = "Diamond"
+                     "Emerald Chest" -> Chest = "Emerald"
+                     "Obsidian Chest" -> Chest = "Obsidian Chest"
+                     "Bedrock Chest" -> Chest = "Bedrock Chest"
                     else -> {
                         UChat.chat("[JPA] Unknown Chest Type")
                         Chest = "Unknown"
@@ -215,67 +233,67 @@ class ProfitTracker {
 
 
 
-        possibleLoot["Enchanted Book(Soul Eater I)"] =  SoulEater
-        possibleLoot["Enchanted Book(Soul Eater II)"] = SoulEater * 2
+        possibleLoot["Enchanted Book (Soul Eater I)"] =  SoulEater
+        possibleLoot["Enchanted Book (Soul Eater II)"] = SoulEater * 2
 
-        possibleLoot["Enchanted Book(Bank I)"] =  Bank
-        possibleLoot["Enchanted Book(Bank II)"] = Bank * 2
-        possibleLoot["Enchanted Book(Bank III)"] = Bank * 4
-
-
-        possibleLoot["Enchanted Book(Rend I)"] =  Rend
-        possibleLoot["Enchanted Book(Rend II)"] = Rend * 2
+        possibleLoot["Enchanted Book (Bank I)"] =  Bank
+        possibleLoot["Enchanted Book (Bank II)"] = Bank * 2
+        possibleLoot["Enchanted Book (Bank III)"] = Bank * 4
 
 
-        possibleLoot["Enchanted Book(Rejuvenate I)"] =  Rejuvenate
-        possibleLoot["Enchanted Book(Rejuvenate II)"] = Rejuvenate * 2
-        possibleLoot["Enchanted Book(Rejuvenate III)"] = Rejuvenate * 4
+        possibleLoot["Enchanted Book (Rend I)"] =  Rend
+        possibleLoot["Enchanted Book (Rend II)"] = Rend * 2
 
 
-        possibleLoot["Enchanted Book(Combo I)"] =  Combo
-        possibleLoot["Enchanted Book(Combo II)"] = Combo * 2
-        possibleLoot["Enchanted Book(Combo III)"] = Combo * 4
+        possibleLoot["Enchanted Book (Rejuvenate I)"] =  Rejuvenate
+        possibleLoot["Enchanted Book (Rejuvenate II)"] = Rejuvenate * 2
+        possibleLoot["Enchanted Book (Rejuvenate III)"] = Rejuvenate * 4
 
 
-
-        possibleLoot["Enchanted Book(No Pain No Gain I)"] =  NoPainNoGain
-        possibleLoot["Enchanted Book(No Pain No Gain II)"] = NoPainNoGain * 2
-        possibleLoot["Enchanted Book(No Pain No Gain III)"] = NoPainNoGain * 4
-
-
-        possibleLoot["Enchanted Book(Last Stand I)"] =  LastStand
-        possibleLoot["Enchanted Book(Last Stand II)"] = LastStand * 2
-        possibleLoot["Enchanted Book(Last Stand III)"] = LastStand * 4
+        possibleLoot["Enchanted Book (Combo I)"] =  Combo
+        possibleLoot["Enchanted Book (Combo II)"] = Combo * 2
+        possibleLoot["Enchanted Book (Combo III)"] = Combo * 4
 
 
 
-
-        possibleLoot["Enchanted Book(Ultimate Jerry I)"] =  UltJerry
-        possibleLoot["Enchanted Book(Ultimate Jerry II)"] = UltJerry * 2
-        possibleLoot["Enchanted Book(Ultimate Jerry III)"] = UltJerry * 4
-
-
-        possibleLoot["Enchanted Book(Ultimate Wise I)"] =  UltWise
-        possibleLoot["Enchanted Book(Ultimate Wise II)"] = UltWise * 2
-        possibleLoot["Enchanted Book(Ultimate Wise III)"] = UltWise * 4
+        possibleLoot["Enchanted Book (No Pain No Gain I)"] =  NoPainNoGain
+        possibleLoot["Enchanted Book (No Pain No Gain II)"] = NoPainNoGain * 2
+        possibleLoot["Enchanted Book (No Pain No Gain III)"] = NoPainNoGain * 4
 
 
-        possibleLoot["Enchanted Book(Infinite Quiver VI)"] =  InfQuiver
-        possibleLoot["Enchanted Book(Infinite Quiver VII)"] = InfQuiver * 2
-        possibleLoot["Enchanted Book(Infinite Quiver VIII)"] = InfQuiver * 4
-
-
-        possibleLoot["Enchanted Book(Feather Falling VI)"] =  FeatherFalling
-        possibleLoot["Enchanted Book(Feather Falling VII)"] = FeatherFalling * 2
-        possibleLoot["Enchanted Book(Feather Falling VIII)"] = FeatherFalling * 4
-
-        possibleLoot["Enchanted Book(Wisdom I)"] =  Wisdom
-        possibleLoot["Enchanted Book(Wisdom II)"] = Wisdom * 2
-        possibleLoot["Enchanted Book(Wisdom III)"] = Wisdom * 4
+        possibleLoot["Enchanted Book (Last Stand I)"] =  LastStand
+        possibleLoot["Enchanted Book (Last Stand II)"] = LastStand * 2
+        possibleLoot["Enchanted Book (Last Stand III)"] = LastStand * 4
 
 
 
-        possibleLoot["Enchanted Book(One For All I)"] = OneForAll
+
+        possibleLoot["Enchanted Book (Ultimate Jerry I)"] =  UltJerry
+        possibleLoot["Enchanted Book (Ultimate Jerry II)"] = UltJerry * 2
+        possibleLoot["Enchanted Book (Ultimate Jerry III)"] = UltJerry * 4
+
+
+        possibleLoot["Enchanted Book (Ultimate Wise I)"] =  UltWise
+        possibleLoot["Enchanted Book (Ultimate Wise II)"] = UltWise * 2
+        possibleLoot["Enchanted Book (Ultimate Wise III)"] = UltWise * 4
+
+
+        possibleLoot["Enchanted Book (Infinite Quiver VI)"] =  InfQuiver
+        possibleLoot["Enchanted Book (Infinite Quiver VII)"] = InfQuiver * 2
+        possibleLoot["Enchanted Book (Infinite Quiver VIII)"] = InfQuiver * 4
+
+
+        possibleLoot["Enchanted Book (Feather Falling VI)"] =  FeatherFalling
+        possibleLoot["Enchanted Book (Feather Falling VII)"] = FeatherFalling * 2
+        possibleLoot["Enchanted Book (Feather Falling VIII)"] = FeatherFalling * 4
+
+        possibleLoot["Enchanted Book (Wisdom I)"] =  Wisdom
+        possibleLoot["Enchanted Book (Wisdom II)"] = Wisdom * 2
+        possibleLoot["Enchanted Book (Wisdom III)"] = Wisdom * 4
+
+
+
+        possibleLoot["Enchanted Book (One For All I)"] = OneForAll
         possibleLoot["Lethality VI"] = LethalityVI
         possibleLoot["Overload I"] = Overload
         possibleLoot["Legion I"] = Legion

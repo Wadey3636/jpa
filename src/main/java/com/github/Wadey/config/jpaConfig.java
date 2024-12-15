@@ -387,6 +387,23 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored0;
+
+    @Number(
+            name = "Wither Essence",
+            min = 0f, max = 1000000000,
+            category = "Dungeons",
+            subcategory = "Ironman Profit Calculator"
+    )
+    public static float WitherEssence = 2500f;
+
+    @Number(
+            name = "Undead Essence",
+            min = 0f, max = 1000000000,
+            category = "Dungeons",
+            subcategory = "Ironman Profit Calculator"
+    )
+    public static float UndeadEssence = 1000f;
+
     @Number(
             name = "Feather Falling",
             min = 0f, max = 1000000000,

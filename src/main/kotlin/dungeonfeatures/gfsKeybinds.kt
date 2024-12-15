@@ -10,26 +10,23 @@ fun gfsPearl() {
     if (!pearlKeyToggle) {
         return
     }
-    val count = (getItemCount("ENDER_PEARL", getInventory())) ?: return
-    UChat.chat(16 - count)
-    mc.thePlayer?.sendChatMessage("/gfs ender_pearl ${16 - count}")
+    val count = 16 - (getItemCount("ENDER_PEARL", getInventory()))
+    if (count != 0) mc.thePlayer?.sendChatMessage("/gfs ender_pearl $count")
 }
 
 fun gfsSuperboom() {
     if (!superboomKeyToggle) {
         return
     }
-    val count = (getItemCount("SUPERBOOM_TNT", getInventory())) ?: return
-    UChat.chat(16 - count)
-    mc.thePlayer?.sendChatMessage("/gfs SUPERBOOM_TNT ${64 - count}")
+    val count = 64 -(getItemCount("SUPERBOOM_TNT", getInventory()))
+    if (count != 0) mc.thePlayer?.sendChatMessage("/gfs SUPERBOOM_TNT $count")
 }
 
 fun gfsSpiritleap() {
     if (!spiritleapKeyToggle) {
         return
     }
-    val count = (getItemCount("SPIRIT_LEAP", getInventory())) ?: return
-    UChat.chat(16 - count)
-    mc.thePlayer?.sendChatMessage("/gfs SPIRIT_LEAP ${16 - count}")
+    val count = 16 - (getItemCount("SPIRIT_LEAP", getInventory()))
+    if (count != 0) mc.thePlayer?.sendChatMessage("/gfs SPIRIT_LEAP $count")
 }
 
