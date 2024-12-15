@@ -11,6 +11,7 @@ import java.util.List;
 public class playerEntry {
 
     private int id;
+
     public playerEntry(int id) {
         this.id = id;
     }
@@ -39,7 +40,7 @@ public class playerEntry {
     @Slider(
             category = "Player Size Customizer",
             name = "X",
-            min = 0.3f,
+            min = 0.5f,
             max = 10.0f,
             subcategory = "Players"
     )
@@ -48,7 +49,7 @@ public class playerEntry {
     @Slider(
             category = "Player Size Customizer",
             name = "Y",
-            min = 0.3f,
+            min = 0.5f,
             max = 10.0f,
             subcategory = "Players"
     )
@@ -57,7 +58,7 @@ public class playerEntry {
     @Slider(
             category = "Player Size Customizer",
             name = "Z",
-            min = 0.3f,
+            min = 0.5f,
             max = 10.0f,
             subcategory = "Players"
     )
@@ -69,16 +70,14 @@ public class playerEntry {
             text = "Remove",
             subcategory = "Players"
     )
-    private void deleteEntry(){
-    deletePlayerEntryEvent event = new deletePlayerEntryEvent(this.id);
-    EventManager.INSTANCE.post(event);
+    private void deleteEntry() {
+        deletePlayerEntryEvent event = new deletePlayerEntryEvent(this.id);
+        EventManager.INSTANCE.post(event);
+    }
 
-};
+    ;
 
-
-
-
-    public List getPlayerParamenters(){
+    public List getPlayerParamenters() {
         List<Object> list = new ArrayList<>();
         list.add(entryToggle);
         list.add(name);
@@ -92,7 +91,7 @@ public class playerEntry {
         return id;
     }
 
-    public void setID(int id){
+    public void setID(int id) {
         this.id = id;
     }
 }

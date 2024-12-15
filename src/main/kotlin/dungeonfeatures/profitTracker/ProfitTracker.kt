@@ -14,6 +14,8 @@ import me.jpaMain.utils.universalUtils.abbreviateNumber
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import cc.polyfrost.oneconfig.libs.universal.UResolution
 import me.jpaMain.utils.renderHelper.oneColorToInt
+import com.github.Wadey.config.jpaConfig.*
+import me.jpaMain.events.changeGuiEvent
 
 class ProfitTracker {
     private val possibleLoot: MutableMap<String, Float> = mutableMapOf()
@@ -38,7 +40,7 @@ class ProfitTracker {
 
     @Subscribe
     fun guiChecker(event: openGuiEvent) {
-        if (event.name == "Croesus") {
+        if (toggleCalculator && event.name.contains("The Catacombs")) {
             chests.clear()
             /*
             The Text Renderer scales off of the GUI Scale,
@@ -83,7 +85,7 @@ class ProfitTracker {
 
 
     @Subscribe
-    fun guiClosed(event: closeGuiEvent) {
+    fun guiClosed(event: changeGuiEvent) {
         toggleProfitHud = false
     }
 
@@ -112,12 +114,171 @@ class ProfitTracker {
         return if (chestProfit >= 0f) green else red
     }
 
+    //Add Balloon Snake
 
     //I hate this
     private fun getValues(){
-        possibleLoot["Necromancer's brooch"] = 50000f
-        possibleLoot["Enchanted Book (rejuvenate)"] = 10f
-        possibleLoot["Enchanted Book (Infinite Quiver VI)"] = 0f
+        possibleLoot.clear()
+        possibleLoot["Necromancer's brooch"] = NecromancersBrooch
+        possibleLoot["Hot Potato Book"] = HotPotato
+        possibleLoot["Fuming Potato Book"] = FumingPotato
+        possibleLoot["Recombobulator 3000"] = Recomb
+        possibleLoot["Dungeon Disc"] = DungeonDisc
+        possibleLoot["Clown Disc"] = ClownDisc
+        possibleLoot["Necron Disc"] = NecronDisc
+        possibleLoot["Watcher Disc"] = WatcherDisc
+        possibleLoot["Old Disc"] = OldDisc
+
+        possibleLoot["Master Skull - Tier 1"] = MasterSkullT1
+        possibleLoot["Master Skull - Tier 2"] = MasterSkullT2
+        possibleLoot["Master Skull - Tier 3"] = MasterSkullT3
+        possibleLoot["Master Skull - Tier 4"] = MasterSkullT4
+        possibleLoot["Master Skull - Tier 5"] = MasterSkullT5
+        possibleLoot["First Master Star"] = FirstMasterStar
+        possibleLoot["Second Master Star"] = SecondMasterStar
+        possibleLoot["Third Master Star"] = ThirdMasterStar
+        possibleLoot["Fourth Master Star"] = FourthMasterStar
+        possibleLoot["Fifth Master Star"] = FifthMasterStar
+
+        possibleLoot["Bonzo's Staff"] = BonzoStaff
+        possibleLoot["Bonzo's Mask"] = BonzoMask
+        possibleLoot["Red Nose"] = RedNose
+
+        possibleLoot["Scarf's Studies"] = ScarfStudies
+        possibleLoot["Adaptive Belt"] = AdaptiveBelt
+        possibleLoot["Red Scarf"] = RedScarf
+        possibleLoot["Adaptive Blade"] = AdaptiveBlade
+
+
+        possibleLoot["Adaptive Helmet"] = AdaptiveHelmet
+        possibleLoot["Adaptive Leggings"] = AdaptiveLeggings
+        possibleLoot["Adaptive Chestplate"] = AdaptiveChestplate
+        possibleLoot["Adaptive Boots"] = AdaptiveBoots
+        possibleLoot["Suspicious Vial"] = SussyBaka
+
+        possibleLoot["[Lvl 1] Spirit"] = SpiritPet
+        possibleLoot["Spirit Bone"] = SpiritBone
+        possibleLoot["Spirit Wing"] = SpiritWing
+        possibleLoot["Spirit Sword"] = SpiritSword
+        possibleLoot["Spirit Bow"] = SpiritBow
+        possibleLoot["Spirit Boots"] = SpiritBoots
+        possibleLoot["Spirit Stone"] = SpiritStone
+
+        possibleLoot["Last Breath"] = LastBreath
+        possibleLoot["Livid Dagger"] = LividDagger
+        possibleLoot["Shadow Assassin Helmet"] = SaHelmet
+        possibleLoot["Shadow Assassin Boots"] = SaBoots
+        possibleLoot["Shadow Assassin Chestplate"] = SaChestplate
+        possibleLoot["Shadow Assassin Leggings"] = SaLeggings
+        possibleLoot["Shadow Assassin Cloak"] = SaCloak
+        possibleLoot["Shadow Fury"] = ShadowFury
+        possibleLoot["Warped Stone"] = WarpedStone
+        possibleLoot["Dark Orb"] = DarkOrb
+
+
+        possibleLoot["Ancient Rose"] = ancientRose
+        possibleLoot["Giant Tooth"] = GiantTooth
+        possibleLoot["Giant's Sword"] = GiantsSword
+        possibleLoot["Necromancer Lord Boots"] = NecromancerLordBoots
+        possibleLoot["Necromancer Lord Chestplate"] = NecromancerLordChestplate
+        possibleLoot["Necromancer Lord Leggings"] = NecromancerLordLeggings
+        possibleLoot["Necromancer Lord Helmet"] = NecromancerLordHelmet
+        possibleLoot["Necromancer Sword"] = NecromancerSword
+        possibleLoot["Summoning Ring"] = SummoningRing
+        possibleLoot["Sadan's Brooch"] = SadanBrooch
+        possibleLoot["Precursor Eye"] = PrecursorEye
+        possibleLoot["Fel Skull"] = FelSkull
+        possibleLoot["Soulweaver Gloves"] = SoulweaverGloves
+
+        possibleLoot["Auto Recombobulator"] = AutoRecom
+        possibleLoot["Dark Claymore"] = DarkClaymore
+        possibleLoot["Necron Dye"] = NecronDye
+        possibleLoot["Thunderlord VII"] = ThunderLordVII
+        possibleLoot["Necron's Handle"] = NecronsThickJuicyStick
+        possibleLoot["Implosion"] = Implosion
+        possibleLoot["Shadow Warp"] = ShadowWarp
+        possibleLoot["Wither Shield"] = WitherShield
+        possibleLoot["Wither Blood"] = WitherBlood
+        possibleLoot["Wither Catalyst"] = WitherCatalyst
+        possibleLoot["Wither Helmet"] = WitherHelmet
+        possibleLoot["Wither Chestplate"] = WitherChestplate
+        possibleLoot["Wither Leggings"] = WitherLeggings
+        possibleLoot["Wither Boots"] = WitherBoots
+        possibleLoot["Wither Cloak"] = WitherCloak
+        possibleLoot["Precursor Gear"] = PrecursorGear
+        possibleLoot["Storm the Fish"] = StormFish
+        possibleLoot["Goldor the Fish"] = GoldorFish
+        possibleLoot["Maxor the Fish"] = MaxorFish
+
+
+        //ENCHANTED BOOKS
+
+
+
+        possibleLoot["Enchanted Book(Soul Eater I)"] =  SoulEater
+        possibleLoot["Enchanted Book(Soul Eater II)"] = SoulEater * 2
+
+        possibleLoot["Enchanted Book(Bank I)"] =  Bank
+        possibleLoot["Enchanted Book(Bank II)"] = Bank * 2
+        possibleLoot["Enchanted Book(Bank III)"] = Bank * 4
+
+
+        possibleLoot["Enchanted Book(Rend I)"] =  Rend
+        possibleLoot["Enchanted Book(Rend II)"] = Rend * 2
+
+
+        possibleLoot["Enchanted Book(Rejuvenate I)"] =  Rejuvenate
+        possibleLoot["Enchanted Book(Rejuvenate II)"] = Rejuvenate * 2
+        possibleLoot["Enchanted Book(Rejuvenate III)"] = Rejuvenate * 4
+
+
+        possibleLoot["Enchanted Book(Combo I)"] =  Combo
+        possibleLoot["Enchanted Book(Combo II)"] = Combo * 2
+        possibleLoot["Enchanted Book(Combo III)"] = Combo * 4
+
+
+
+        possibleLoot["Enchanted Book(No Pain No Gain I)"] =  NoPainNoGain
+        possibleLoot["Enchanted Book(No Pain No Gain II)"] = NoPainNoGain * 2
+        possibleLoot["Enchanted Book(No Pain No Gain III)"] = NoPainNoGain * 4
+
+
+        possibleLoot["Enchanted Book(Last Stand I)"] =  LastStand
+        possibleLoot["Enchanted Book(Last Stand II)"] = LastStand * 2
+        possibleLoot["Enchanted Book(Last Stand III)"] = LastStand * 4
+
+
+
+
+        possibleLoot["Enchanted Book(Ultimate Jerry I)"] =  UltJerry
+        possibleLoot["Enchanted Book(Ultimate Jerry II)"] = UltJerry * 2
+        possibleLoot["Enchanted Book(Ultimate Jerry III)"] = UltJerry * 4
+
+
+        possibleLoot["Enchanted Book(Ultimate Wise I)"] =  UltWise
+        possibleLoot["Enchanted Book(Ultimate Wise II)"] = UltWise * 2
+        possibleLoot["Enchanted Book(Ultimate Wise III)"] = UltWise * 4
+
+
+        possibleLoot["Enchanted Book(Infinite Quiver VI)"] =  InfQuiver
+        possibleLoot["Enchanted Book(Infinite Quiver VII)"] = InfQuiver * 2
+        possibleLoot["Enchanted Book(Infinite Quiver VIII)"] = InfQuiver * 4
+
+
+        possibleLoot["Enchanted Book(Feather Falling VI)"] =  FeatherFalling
+        possibleLoot["Enchanted Book(Feather Falling VII)"] = FeatherFalling * 2
+        possibleLoot["Enchanted Book(Feather Falling VIII)"] = FeatherFalling * 4
+
+        possibleLoot["Enchanted Book(Wisdom I)"] =  Wisdom
+        possibleLoot["Enchanted Book(Wisdom II)"] = Wisdom * 2
+        possibleLoot["Enchanted Book(Wisdom III)"] = Wisdom * 4
+
+
+
+        possibleLoot["Enchanted Book(One For All I)"] = OneForAll
+        possibleLoot["Lethality VI"] = LethalityVI
+        possibleLoot["Overload I"] = Overload
+        possibleLoot["Legion I"] = Legion
     }
 
 
@@ -125,98 +286,3 @@ class ProfitTracker {
 }
 data class chestLine(val chest: String, val profit: Float, val color: Int)
 
-//ALSO MASTER STARS
-//CLAYMORE
-//THUNDERLORD VII
-
-/*
-Bank: 1
-One For All: 1.8m
-Last Stand: 200k
-Ultimate Jerry: 45k
-Combo: 1
-No Pain No Gain: 1
-Ultimate Wise: 120k
-Rejuvenate: 20k
-Infinite Quiver: 5k
-Feather Falling: 5k
-Wisdom: 120k
-
-
-Floor One
-
-Necromancers Brooch: 40k
-Bonzo's Staff: 2.2m
-Recombobulator: 5m
-Fuming Potato Book: 1m
-Bonzo’s Mask: 400k
-Hot Potato Book: 65k
-Red Nose: 2.5k
-
-Floor Two
-
-Scarf’s Studies: 300k
-
-Floor Three
-
-Adaptive Helmet: 1.7m
-Adaptive Chestplate: 3.8m
-Adaptive Leggings: 1m
-Adaptive Boots: 180k
-Adaptive Blade: 800k
-
-Floor Four
-
-Rend: 350k
-Spirit Sword: 2.4m
-Spirit Bow: 1.2m
-Spirit Stone: 750k
-Spirit Bone: 3.8m
-Spirit Wing: 2.3m
-Spirit Boots: 3.6m
-Spirit Pet (Epic): 450k
-Spirit Pet (Legendary): 3.6m
-
-Floor Five
-
-Overload: 1m
-Legion: 2.5m
-Last Breath: 7m
-Shadow Assassin Helmet (Epic/Leg) 1.8m:/ 3m
-Shadow Assassin Chestplate (Epic/Leg): 24m/27m
-Shadow Assassin Leggings (Epic/Leg): 4m/5.1
-Shadow Assassin Boots (Epic/Leg): 1m/2.3
-Shadow Fury: 14.5m
-Livid Dagger: 7m
-Warped Stone: 4.5m
-
-Floor Six
-Swarm: 600k
-Giant Sword: 82m
-Necromancer Lord Helmet: 375k
-Necromancer Lord Chestplate: 15m
-Necromancer Lord Leggings: 3.8m
-Necromancer Lord Boots: 1.2m
-Giant’s Tooth: 400k
-Precursor Eye: 25m
-Ancient Rose: 860k
-Summoning Ring: 10m
-
-Floor Seven
-
-Soul Eater: 1m
-Precursor Gear: 650k
-Wither Catalyst: 1.2m
-Wither Blood: 2.5m
-Necron’s Handle: 350m
-Wither Helmet: 2.6m
-Wither Chestplate: 28m
-Wither Leggings: 5.8m
-Wither Boots: 1.6m
-Wither Cloak Sword: 4.4m
-Implosion: 39m
-Wither Shield: 30m
-Shadow Warp: 26m
-Auto Recombobulator: 10m
-
- */

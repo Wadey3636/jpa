@@ -44,11 +44,15 @@ import me.jpaMain.utils.waitUntilLastItem
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import net.minecraft.client.gui.GuiScreen
+import net.minecraft.inventory.IInventory
+
 class fireEvents {
     init {
         EventManager.INSTANCE.register(this)
     }
 
+    private var lastGui: GuiScreen? = null
     private var lastTimeQuarter = System.currentTimeMillis()
     private var lastTimeSecond = System.currentTimeMillis()
     private val serverTicked by lazy { ServerTickEvent() }
@@ -90,8 +94,9 @@ class fireEvents {
     }
     @SubscribeEvent
     fun closeGUI(event: GuiOpenEvent) {
+        if (event.gui != lastGui) EventManager.INSTANCE.post(changeGuiEvent())
         if (event.gui == null) EventManager.INSTANCE.post(closeGuiEvent())
-
+        lastGui = event.gui
     }
 
 

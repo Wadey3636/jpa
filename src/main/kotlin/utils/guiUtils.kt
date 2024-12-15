@@ -67,7 +67,7 @@ object guiUtils {
         val items: MutableList<Item> = mutableListOf()
         for (i in 0 until inventory.sizeInventory) {
             inventory.getStackInSlot(i)?.let { stack ->
-                if (!stack.displayName.contains("Glass")) {
+                if (!stack.item.registryName.contains("Glass")) {
                     items.add(Item(stack.displayName,
                         stack.getTooltip(mc.thePlayer, false)
                             .drop(1)
