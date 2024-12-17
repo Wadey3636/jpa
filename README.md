@@ -6,6 +6,7 @@
 - Player Position Detectors
 - Pad Tick Timer
 - P3 Start Timer
+- Healer Wish Notification
 - -----
 ### Dungeons:
 - Gfs Command Keybindings
