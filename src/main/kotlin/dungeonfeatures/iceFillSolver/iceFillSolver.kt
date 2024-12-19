@@ -3,6 +3,7 @@ package me.jpaMain.dungeonfeatures.iceFillSolver
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import cc.polyfrost.oneconfig.libs.universal.UChat
 import cc.polyfrost.oneconfig.utils.dsl.mc
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
@@ -11,11 +12,11 @@ import me.jpaMain.utils.*
 import me.jpaMain.utils.renderHelper.drawBox
 import me.jpaMain.utils.renderHelper.drawLines3dAboveBlocks
 import me.jpaMain.utils.renderHelper.getViewerPos
+import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import me.jpaMain.utils.worldUtils.isBlock
 
 
 class iceFillSolver {
@@ -50,6 +51,8 @@ class iceFillSolver {
                 return determinedVariant(points.name, points.plotPoints, points.warpPoints, points.tpPoint)
             }
         }
+
+        UChat.chat("§c[Jpa] Error: Variant Undetermined")
         return determinedVariant("none", emptyList(), emptyList(), null)
     }
 
@@ -78,6 +81,8 @@ class iceFillSolver {
     @Subscribe
     fun reset(event: WorldLoadEvent) {
         determinedVariants = false
+        inIcefill = false
+
     }
 
     @Subscribe
@@ -92,9 +97,6 @@ class iceFillSolver {
             }
 
             inIcefill = true
-
-
-
             if (determinedVariants) return
 
 
@@ -114,6 +116,7 @@ class iceFillSolver {
                 listOf(crossVariant, turtleVariant, americaVariant, pistolVariant, neutralVariant),
                 position
             )
+
 
             layer0plot = bulkConvertToRealCoords(layer0.plotPoints, position)
             layer1plot = bulkConvertToRealCoords(layer1.plotPoints, position)

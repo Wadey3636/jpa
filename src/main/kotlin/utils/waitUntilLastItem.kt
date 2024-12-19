@@ -28,11 +28,15 @@
 
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.minecraft.inventory.ContainerChest
 
-
+/**
+ * @author odtheking
+ */
 suspend fun waitUntilLastItem(container: ContainerChest) = coroutineScope {
     val deferredResult = CompletableDeferred<Unit>()
     val startTime = System.currentTimeMillis()

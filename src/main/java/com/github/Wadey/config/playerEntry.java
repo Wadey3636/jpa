@@ -10,12 +10,6 @@ import java.util.List;
 
 public class playerEntry {
 
-    private int id;
-
-    public playerEntry(int id) {
-        this.id = id;
-    }
-
     @Header(
             text = "     ",
             category = "Player Size Customizer",
@@ -29,14 +23,12 @@ public class playerEntry {
             subcategory = "Players"
     )
     public boolean entryToggle = true;
-
     @Text(
             category = "Player Size Customizer",
             name = "Player Name",
             subcategory = "Players"
     )
     public String name = "Name";
-
     @Slider(
             category = "Player Size Customizer",
             name = "X",
@@ -45,7 +37,6 @@ public class playerEntry {
             subcategory = "Players"
     )
     public float entryX = 1f;
-
     @Slider(
             category = "Player Size Customizer",
             name = "Y",
@@ -54,7 +45,6 @@ public class playerEntry {
             subcategory = "Players"
     )
     public float entryY = 1f;
-
     @Slider(
             category = "Player Size Customizer",
             name = "Z",
@@ -63,6 +53,11 @@ public class playerEntry {
             subcategory = "Players"
     )
     public float entryZ = 1f;
+    private int id;
+
+    public playerEntry(int id) {
+        this.id = id;
+    }
 
     @Button(
             category = "Player Size Customizer",
@@ -74,8 +69,6 @@ public class playerEntry {
         deletePlayerEntryEvent event = new deletePlayerEntryEvent(this.id);
         EventManager.INSTANCE.post(event);
     }
-
-    ;
 
     public List getPlayerParamenters() {
         List<Object> list = new ArrayList<>();

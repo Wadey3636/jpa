@@ -1,21 +1,23 @@
 package com.github.Wadey;
 
-import me.jpaMain.command.*;
-import me.jpaMain.dungeonfeatures.*;
+import cc.polyfrost.oneconfig.events.event.InitializationEvent;
+import cc.polyfrost.oneconfig.utils.commands.CommandManager;
+import com.github.Wadey.command.jpaCommand;
+import com.github.Wadey.config.jpaConfig;
+import me.jpaMain.command.JPAdevMode;
+import me.jpaMain.command.fsCommand;
+import me.jpaMain.command.testCommand;
 import me.jpaMain.dungeonfeatures.DungeonScanner.dungeonScanner;
 import me.jpaMain.dungeonfeatures.iceFillSolver.iceFillSolver;
+import me.jpaMain.dungeonfeatures.*;
+import me.jpaMain.dungeonfeatures.profitTracker.ProfitTracker;
 import me.jpaMain.events.fireEvents;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;
 import me.jpaMain.utils.titleUtils;
 import net.minecraftforge.common.MinecraftForge;
-import com.github.Wadey.command.jpaCommand;
-import com.github.Wadey.config.jpaConfig;
-import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
-import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import me.jpaMain.dungeonfeatures.profitTracker.ProfitTracker;
 
 /**
  * The entrypoint of the Example Mod that initializes it.

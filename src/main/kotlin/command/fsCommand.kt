@@ -5,7 +5,6 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Command
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main
 
 
-
 @Command(value = "fs", description = "Gets Farming Speeds")
 
 class fsCommand {

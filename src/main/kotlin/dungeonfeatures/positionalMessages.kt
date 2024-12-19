@@ -92,7 +92,7 @@ class positionalMessages {
                     intArrayOf(61, 111, 135),
                     BlockPos(101, 118, 123),
                     Blocks.cobblestone_wall,
-                    "/pc At Early Entry 2!",
+                    "/pc At ee2!",
                     ee2active
                 )
                 sendPosMessage(
@@ -101,7 +101,7 @@ class positionalMessages {
                     intArrayOf(70, 111, 122),
                     BlockPos(101, 118, 123),
                     Blocks.cobblestone_wall,
-                    "/pc At Early Entry 2 Safe Spot!",
+                    "/pc At ee2 Safe Spot!",
                     ee2safespotactive
                 )
                 sendPosMessage(
@@ -110,7 +110,7 @@ class positionalMessages {
                     intArrayOf(3, 110, 108),
                     BlockPos(17, 118, 132),
                     Blocks.cobblestone_wall,
-                    "/pc At Early Entry 3!",
+                    "/pc At ee3!",
                     ee3active
                 )
                 sendPosMessage(
@@ -119,7 +119,7 @@ class positionalMessages {
                     intArrayOf(20, 126, 100),
                     BlockPos(17, 118, 132),
                     Blocks.cobblestone_wall,
-                    "/pc At Early Entry 3 Safe Spot!",
+                    "/pc At ee3 Safe Spot!",
                     ee3safespotactive
                 )
                 sendPosMessage(
@@ -128,7 +128,7 @@ class positionalMessages {
                     intArrayOf(58, 119, 54),
                     BlockPos(17, 118, 132),
                     Blocks.cobblestone_wall,
-                    "/pc At Early Entry 4!",
+                    "/pc At ee4!",
                     ee4active
                 )
             }
@@ -138,7 +138,7 @@ class positionalMessages {
                 intArrayOf(58, 120, 116),
                 BlockPos(54, 118, 54),
                 Blocks.gold_block,
-                "/pc In Inner Chamber!",
+                "/pc In Core!",
                 goldorposactive
             )
             if (dragonpos) sendPosMessage(
@@ -147,7 +147,7 @@ class positionalMessages {
                 intArrayOf(60, 55, 79),
                 BlockPos(56, 63, 77),
                 Blocks.sea_lantern,
-                "/pc In Part 5!",
+                "/pc In P5!",
                 dragonposactive
             )
             if (midposmsg) sendPosMessage(
@@ -156,16 +156,16 @@ class positionalMessages {
                 intArrayOf(68, 72, 84),
                 BlockPos(56, 63, 77),
                 Blocks.sea_lantern,
-                "/pc At Middle!",
+                "/pc At Mid!",
                 midposactive
             )
             if (stormposmsg) sendPosMessage(
                 coords,
-                intArrayOf(66, 206, 32),
-                intArrayOf(80, 210, 49),
+                intArrayOf(63, 200, 29),
+                intArrayOf(83, 210, 52),
                 BlockPos(70, 220, 33),
                 Blocks.stone_brick_stairs,
-                "/pc In Part 2!",
+                "/pc In Storm!",
                 stormposmsgactive
             )
 

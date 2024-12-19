@@ -2,13 +2,13 @@ package me.jpaMain.utils
 
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.LocrawEvent
+import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 
 
 var inSkyBlock = false
 var inDungeon = false
 var inGarden = false
-
 
 class locationUtils {
 
@@ -28,6 +28,14 @@ class locationUtils {
         //UChat.chat(event.info.gameType)
         //UChat.chat(event.info.serverId)
         //UChat.chat(event.info.rawGameType)
+
+    }
+
+    @Subscribe
+    fun worldLoad(event: WorldLoadEvent) {
+        inDungeon = false
+        inGarden = false
+        inSkyBlock = false
     }
 
 }

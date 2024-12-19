@@ -1,8 +1,5 @@
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import kotlin.math.floor
-import kotlin.math.pow
 //10,000,000
 //10m
 object universalUtils {
@@ -26,9 +23,11 @@ object universalUtils {
 
 
     }
+
     fun abbreviateNumber(n: Int): String {
         return abbreviateNumber(n.toDouble())
     }
+
     fun abbreviateNumber(n: Float): String {
         return abbreviateNumber(n.toDouble())
     }

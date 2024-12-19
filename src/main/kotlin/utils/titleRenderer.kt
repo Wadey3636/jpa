@@ -25,6 +25,7 @@ class titleUtils {
     init {
         EventManager.INSTANCE.register(this)
     }
+
     @Subscribe
     fun worldLoadEvent(event: WorldLoadEvent) {
         scaledResolution = ScaledResolution(mc)
@@ -33,7 +34,7 @@ class titleUtils {
     }
 
     @Subscribe
-    fun titleRenderer(event: HudRenderEvent){
+    fun titleRenderer(event: HudRenderEvent) {
         if (System.currentTimeMillis() - timeStamp < time) drawCenteredText(title, size, color1, centerX, centerY)
     }
 

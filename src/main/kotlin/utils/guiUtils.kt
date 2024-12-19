@@ -36,7 +36,6 @@ import net.minecraft.nbt.NBTTagCompound
 object guiUtils {
 
 
-
     /**
      * Returns the ExtraAttribute Compound
      * @author odtheking
@@ -63,20 +62,23 @@ object guiUtils {
      * @return MutableList<Item>
      */
 
-    fun getGUI(inventory: IInventory):MutableList<Item> {
+    fun getGUI(inventory: IInventory): MutableList<Item> {
         val items: MutableList<Item> = mutableListOf()
         for (i in 0 until inventory.sizeInventory) {
             inventory.getStackInSlot(i)?.let { stack ->
                 if (!stack.item.unlocalizedName.contains("Glass", ignoreCase = true) &&
                     !stack.item.unlocalizedName.contains("Barrier", ignoreCase = true) &&
                     !stack.item.unlocalizedName.contains("Arrow", ignoreCase = true)
-                    ) {
-                    items.add(Item(stack.displayName,
-                        stack.getTooltip(mc.thePlayer, false)
-                            .drop(1)
-                            .map { it.deformat.trim() },
-                        i
-                    ))
+                ) {
+                    items.add(
+                        Item(
+                            stack.displayName,
+                            stack.getTooltip(mc.thePlayer, false)
+                                .drop(1)
+                                .map { it.deformat.trim() },
+                            i
+                        )
+                    )
                 }
 
             }
@@ -85,10 +87,10 @@ object guiUtils {
     }
 
 
-
     fun getInventory(): Array<out ItemStack>? {
         return mc.thePlayer?.inventory?.mainInventory
     }
+
     fun getContainer(): MutableList<ItemStack>? {
         return mc.thePlayer?.inventoryContainer?.inventory
     }

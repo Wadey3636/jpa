@@ -1,28 +1,26 @@
 package com.github.Wadey.config;
 
-import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
+import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
+import cc.polyfrost.oneconfig.config.data.Mod;
+import cc.polyfrost.oneconfig.config.data.ModType;
+import cc.polyfrost.oneconfig.config.data.OptionSize;
 import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.github.Wadey.jaquaviouspringletonaddons;
-import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.data.Mod;
-import cc.polyfrost.oneconfig.config.data.ModType;
-import cc.polyfrost.oneconfig.config.data.OptionSize;
 import com.google.gson.annotations.Expose;
-import me.jpaMain.dungeonfeatures.*;
+import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
 import me.jpaMain.events.deletePlayerEntryEvent;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
-import me.jpaMain.huds.padTimerHud;
 import me.jpaMain.huds.p3StartTimerHud;
-
+import me.jpaMain.huds.padTimerHud;
 import org.jetbrains.annotations.NotNull;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +36,6 @@ public class jpaConfig extends Config {
 
     @Expose
     public static List<playerEntry> playerEntries = new ArrayList<>();
-
-
 
 
     @Switch(
@@ -71,6 +67,9 @@ public class jpaConfig extends Config {
             description = "Use a skill called Critical Thinking for one second"
     )
     public static OneColor icefillTeleportPointColor = new OneColor(255, 0, 0, 255);
+
+    //Positional Messages
+
     @Switch(
             name = "F7/M7 Position messages",
             size = OptionSize.DUAL,
@@ -128,6 +127,7 @@ public class jpaConfig extends Config {
             subcategory = "Positional messages"
     )
     public static boolean midposmsg = false;
+
 
     @Switch(
             name = "Pest Key Toggle",
@@ -247,20 +247,6 @@ public class jpaConfig extends Config {
             subcategory = "Detectors"
     )
     public static OneColor detectorColor = new OneColor(160, 0, 255, 255);
-    @HUD(
-            name = "Pad Timer",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public padTimerHud hud = new padTimerHud();
-
-    @HUD(
-            name = "P3 Start Timer",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public p3StartTimerHud starthud = new p3StartTimerHud();
-
     @Switch(
             name = "Smart Healer Wish Notification",
             category = "F7/M7",
@@ -313,22 +299,6 @@ public class jpaConfig extends Config {
             subcategory = "Skill Issue"
     )
     public static OneColor mileStone3ReminderColor = new OneColor(50, 255, 30, 255);
-//:
-    //PLAYER SIZE CUSTOMIZER
-
-    @Button(
-            name = "Add Players",
-            text = "Add",
-            size = OptionSize.DUAL,
-            category = "Player Size Customizer",
-            subcategory = "Add Players"
-    )
-    private void addPlayers(){
-        playerEntries.add(new playerEntry(playerEntries.size() + 1));
-        save();
-        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
-    }
-
     @Info(
             text = "Case Sensitive",
             category = "Player Size Customizer",
@@ -337,24 +307,6 @@ public class jpaConfig extends Config {
             type = InfoType.INFO
     )
     public static boolean ignored;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //DUNGEON LOOT
     @Switch(
             name = "Toggle Profit Calculator",
@@ -364,7 +316,8 @@ public class jpaConfig extends Config {
 
     )
     public static boolean toggleCalculator = false;
-
+//:
+    //PLAYER SIZE CUSTOMIZER
     @Header(
             text = "",
             size = OptionSize.DUAL,
@@ -379,7 +332,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored10;
-
     @Header(
             text = "Universal",
             size = OptionSize.DUAL,
@@ -387,7 +339,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored0;
-
     @Number(
             name = "Wither Essence",
             min = 0f, max = 1000000000,
@@ -395,7 +346,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherEssence = 2500f;
-
     @Number(
             name = "Undead Essence",
             min = 0f, max = 1000000000,
@@ -403,7 +353,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float UndeadEssence = 1000f;
-
     @Number(
             name = "Feather Falling",
             min = 0f, max = 1000000000,
@@ -411,7 +360,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FeatherFalling = 0f;
-
     @Number(
             name = "Infinite Quiver",
             min = 0f, max = 1000000000,
@@ -419,7 +367,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float InfQuiver = 0f;
-
     @Number(
             name = "Rejuvenate",
             min = 0f, max = 1000000000,
@@ -427,7 +374,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Rejuvenate = 20000f;
-
     @Number(
             name = "Bank",
             min = 0f, max = 1000000000,
@@ -435,7 +381,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Bank = 0f;
-
     @Number(
             name = "Combo",
             min = 0f, max = 1000000000,
@@ -443,7 +388,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Combo = 0f;
-
     @Number(
             name = "No Pain No Gain",
             min = 0f, max = 1000000000,
@@ -451,7 +395,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NoPainNoGain = 0f;
-
     @Number(
             name = "Last Stand",
             min = 0f, max = 1000000000,
@@ -459,7 +402,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float LastStand = 100000f;
-
     @Number(
             name = "Ultimate Jerry",
             min = 0f, max = 1000000000,
@@ -467,7 +409,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float UltJerry = 0f;
-
     @Number(
             name = "Ultimate Wise",
             min = 0f, max = 1000000000,
@@ -475,7 +416,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float UltWise = 120000f;
-
     @Number(
             name = "Wisdom",
             min = 0f, max = 1000000000,
@@ -483,7 +423,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Wisdom = 120000f;
-
     @Number(
             name = "Necromancers Brooch",
             min = 0f, max = 1000000000,
@@ -491,7 +430,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancersBrooch = 40000f;
-
     @Number(
             name = "Hot Potato Book",
             min = 0f, max = 1000000000,
@@ -499,7 +437,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float HotPotato = 80000f;
-
     @Number(
             name = "Fuming Potato Book",
             min = 0f, max = 1000000000,
@@ -507,7 +444,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FumingPotato = 1000000f;
-
     @Number(
             name = "Recombobulator",
             min = 0f, max = 1000000000,
@@ -515,7 +451,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Recomb = 6000000f;
-
     @Number(
             name = "Dungeon Disc",
             min = 0f, max = 1000000000,
@@ -523,7 +458,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float DungeonDisc = 0f;
-
     @Number(
             name = "Clown Disc",
             min = 0f, max = 1000000000,
@@ -531,7 +465,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ClownDisc = 0f;
-
     @Number(
             name = "Necron Disc",
             min = 0f, max = 1000000000,
@@ -539,7 +472,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecronDisc = 0f;
-
     @Number(
             name = "Watcher Disc",
             min = 0f, max = 1000000000,
@@ -547,7 +479,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WatcherDisc = 0f;
-
     @Number(
             name = "Old Disc",
             min = 0f, max = 1000000000,
@@ -555,7 +486,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float OldDisc = 0f;
-
     @Header(
             text = "Master Skulls",
             size = OptionSize.DUAL,
@@ -563,7 +493,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored8;
-
     @Number(
             name = "Master Skull - Tier 1",
             min = 0f, max = 1000000000,
@@ -599,7 +528,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT5 = 500000f;
-
     @Header(
             text = "Floor 1",
             size = OptionSize.DUAL,
@@ -607,7 +535,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored1;
-
     @Number(
             name = "Bonzo's Staff",
             min = 0f, max = 1000000000,
@@ -615,7 +542,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float BonzoStaff = 7000000f;
-
     @Number(
             name = "Bonzo's Mask",
             min = 0f, max = 1000000000,
@@ -623,7 +549,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float BonzoMask = 400000f;
-
     @Number(
             name = "Red Nose",
             min = 0f, max = 1000000000,
@@ -631,7 +556,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float RedNose = 0f;
-
     @Header(
             text = "Floor 2",
             size = OptionSize.DUAL,
@@ -639,7 +563,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored2;
-
     @Number(
             name = "Scarf's Studies",
             min = 0f, max = 1000000000,
@@ -647,7 +570,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ScarfStudies = 300000f;
-
     @Number(
             name = "Adaptive Belt",
             min = 0f, max = 1000000000,
@@ -655,7 +577,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveBelt = 500000f;
-
     @Number(
             name = "Adaptive Blade",
             min = 0f, max = 1000000000,
@@ -663,7 +584,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveBlade = 0f;
-
     @Number(
             name = "Red Scarf",
             min = 0f, max = 1000000000,
@@ -671,8 +591,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float RedScarf = 2500000f;
-
-
     @Header(
             text = "Floor 3",
             size = OptionSize.DUAL,
@@ -680,7 +598,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored3;
-
     @Number(
             name = "Adaptive Helmet",
             min = 0f, max = 1000000000,
@@ -688,7 +605,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveHelmet = 0f;
-
     @Number(
             name = "Adaptive Chestplate",
             min = 0f, max = 1000000000,
@@ -696,7 +612,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveChestplate = 0f;
-
     @Number(
             name = "Adaptive Leggings",
             min = 0f, max = 1000000000,
@@ -704,7 +619,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveLeggings = 0f;
-
     @Number(
             name = "Adaptive Boots",
             min = 0f, max = 1000000000,
@@ -712,7 +626,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveBoots = 0f;
-
     @Number(
             name = "Suspicious Vial",
             min = 0f, max = 1000000000,
@@ -720,7 +633,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SussyBaka = 0f;
-
     @Number(
             name = "First Master Star",
             min = 0f, max = 1000000000,
@@ -728,11 +640,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FirstMasterStar = 0f;
-
-
-
-
-
     @Header(
             text = "Floor 4",
             size = OptionSize.DUAL,
@@ -740,7 +647,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored4;
-
     @Number(
             name = "Spirit Pet",
             min = 0f, max = 1000000000,
@@ -748,7 +654,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritPet = 5000000f;
-
     @Number(
             name = "Spirit Bone",
             min = 0f, max = 1000000000,
@@ -756,7 +661,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritBone = 2000000f;
-
     @Number(
             name = "Spirit Wing",
             min = 0f, max = 1000000000,
@@ -764,7 +668,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritWing = 2000000f;
-
     @Number(
             name = "Spirit Sword",
             min = 0f, max = 1000000000,
@@ -772,7 +675,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritSword = 0f;
-
     @Number(
             name = "Spirit Bow",
             min = 0f, max = 1000000000,
@@ -780,7 +682,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritBow = 0f;
-
     @Number(
             name = "Spirit Boots",
             min = 0f, max = 1000000000,
@@ -788,7 +689,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritBoots = 0f;
-
     @Number(
             name = "Spirit Stone",
             min = 0f, max = 1000000000,
@@ -796,7 +696,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritStone = 0f;
-
     @Number(
             name = "Rend",
             min = 0f, max = 1000000000,
@@ -804,8 +703,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Rend = 0f;
-
-
     @Number(
             name = "Second Master Star",
             min = 0f, max = 1000000000,
@@ -813,7 +710,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SecondMasterStar = 12000000f;
-
     @Header(
             text = "Floor 5",
             size = OptionSize.DUAL,
@@ -821,7 +717,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored5;
-
     @Number(
             name = "Last Breath",
             min = 0f, max = 1000000000,
@@ -829,7 +724,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float LastBreath = 0f;
-
     @Number(
             name = "Livid Dagger",
             min = 0f, max = 1000000000,
@@ -837,7 +731,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float LividDagger = 0f;
-
     @Number(
             name = "Shadow Assassin Helmet",
             min = 0f, max = 1000000000,
@@ -845,7 +738,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaHelmet = 0f;
-
     @Number(
             name = "Shadow Assassin Chestplate",
             min = 0f, max = 1000000000,
@@ -853,7 +745,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaChestplate = 0f;
-
     @Number(
             name = "Shadow Assassin Leggings",
             min = 0f, max = 1000000000,
@@ -861,7 +752,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaLeggings = 0f;
-
     @Number(
             name = "Shadow Assassin Boots",
             min = 0f, max = 1000000000,
@@ -869,7 +759,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaBoots = 0f;
-
     @Number(
             name = "Shadow Assassin Cloak",
             min = 0f, max = 1000000000,
@@ -877,7 +766,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaCloak = 5000000f;
-
     @Number(
             name = "Shadow Fury",
             min = 0f, max = 1000000000,
@@ -885,7 +773,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ShadowFury = 0f;
-
     @Number(
             name = "Warped Stone",
             min = 0f, max = 1000000000,
@@ -893,7 +780,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WarpedStone = 0f;
-
     @Number(
             name = "Dark Orb",
             min = 0f, max = 1000000000,
@@ -901,7 +787,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float DarkOrb = 500000f;
-
     @Number(
             name = "Third Master Star",
             min = 0f, max = 1000000000,
@@ -909,7 +794,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ThirdMasterStar = 0f;
-
     @Number(
             name = "Lethality VI",
             min = 0f, max = 1000000000,
@@ -917,7 +801,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float LethalityVI = 0f;
-
     @Number(
             name = "Overload",
             min = 0f, max = 1000000000,
@@ -925,7 +808,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Overload = 0f;
-
     @Number(
             name = "Legion",
             min = 0f, max = 1000000000,
@@ -933,9 +815,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Legion = 2000000f;
-
-
-
     @Header(
             text = "Floor 6",
             size = OptionSize.DUAL,
@@ -943,7 +822,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored6;
-
     @Number(
             name = "Ancient Rose",
             min = 0f, max = 1000000000,
@@ -951,7 +829,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ancientRose = 50000f;
-
     @Number(
             name = "Giant Tooth",
             min = 0f, max = 1000000000,
@@ -959,7 +836,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float GiantTooth = 250000f;
-
     @Number(
             name = "Giant's Sword",
             min = 0f, max = 1000000000,
@@ -967,7 +843,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float GiantsSword = 150000000f;
-
     @Number(
             name = "Necromancer Lord Helmet",
             min = 0f, max = 1000000000,
@@ -975,7 +850,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordHelmet = 0f;
-
     @Number(
             name = "Necromancer Lord Chestplate",
             min = 0f, max = 1000000000,
@@ -983,7 +857,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordChestplate = 0f;
-
     @Number(
             name = "Necromancer Lord Leggings",
             min = 0f, max = 1000000000,
@@ -991,7 +864,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordLeggings = 0f;
-
     @Number(
             name = "Necromancer Lord Boots",
             min = 0f, max = 1000000000,
@@ -999,7 +871,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordBoots = 0f;
-
     @Number(
             name = "Necromancer Sword",
             min = 0f, max = 1000000000,
@@ -1007,7 +878,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerSword = 5000000f;
-
     @Number(
             name = "Summoning Ring",
             min = 0f, max = 1000000000,
@@ -1015,7 +885,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SummoningRing = 10000000f;
-
     @Number(
             name = "Sadan's Brooch",
             min = 0f, max = 1000000000,
@@ -1023,7 +892,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SadanBrooch = 0f;
-
     @Number(
             name = "Precursor Eye",
             min = 0f, max = 1000000000,
@@ -1031,7 +899,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float PrecursorEye = 40000000f;
-
     @Number(
             name = "Fel Skull",
             min = 0f, max = 1000000000,
@@ -1039,7 +906,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FelSkull = 5000000f;
-
     @Number(
             name = "Soulweaver Gloves",
             min = 0f, max = 1000000000,
@@ -1047,7 +913,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SoulweaverGloves = 6000000f;
-
     @Number(
             name = "Fourth Master Star",
             min = 0f, max = 1000000000,
@@ -1055,8 +920,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FourthMasterStar = 60000000f;
-
-
     @Header(
             text = "Floor 7",
             size = OptionSize.DUAL,
@@ -1064,7 +927,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored7;
-
     @Number(
             name = "Auto Recombobulator",
             min = 0f, max = 1000000000,
@@ -1072,7 +934,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float AutoRecom = 10000000f;
-
     @Number(
             name = "Dark Claymore",
             min = 0f, max = 1000000000,
@@ -1080,7 +941,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float DarkClaymore = 150000000f;
-
     @Number(
             name = "Fifth Master Star",
             min = 0f, max = 1000000000,
@@ -1088,7 +948,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FifthMasterStar = 100000000f;
-
     @Number(
             name = "Necron Dye",
             min = 0f, max = 1000000000,
@@ -1096,7 +955,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecronDye = 50000000f;
-
     @Number(
             name = "Thunderlord VII",
             min = 0f, max = 1000000000,
@@ -1104,7 +962,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ThunderLordVII = 10000000f;
-
     @Number(
             name = "Necron's Handle",
             min = 0f, max = 1000000000,
@@ -1112,7 +969,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecronsThickJuicyStick = 0f;
-
     @Number(
             name = "Implosion",
             min = 0f, max = 1000000000,
@@ -1120,7 +976,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Implosion = 200000000f;
-
     @Number(
             name = "Shadow Warp",
             min = 0f, max = 1000000000,
@@ -1128,7 +983,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float ShadowWarp = 200000000f;
-
     @Number(
             name = "Wither Shield",
             min = 0f, max = 1000000000,
@@ -1136,7 +990,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherShield = 200000000f;
-
     @Number(
             name = "Wither Blood",
             min = 0f, max = 1000000000,
@@ -1144,7 +997,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherBlood = 0f;
-
     @Number(
             name = "Wither Catalyst",
             min = 0f, max = 1000000000,
@@ -1152,7 +1004,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherCatalyst = 0f;
-
     @Number(
             name = "Wither Helmet",
             min = 0f, max = 1000000000,
@@ -1160,7 +1011,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherHelmet = 0f;
-
     @Number(
             name = "Wither Chestplate",
             min = 0f, max = 1000000000,
@@ -1168,7 +1018,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherChestplate = 12000000f;
-
     @Number(
             name = "Wither Leggings",
             min = 0f, max = 1000000000,
@@ -1176,7 +1025,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherLeggings = 0f;
-
     @Number(
             name = "Wither Boots",
             min = 0f, max = 1000000000,
@@ -1184,7 +1032,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherBoots = 0f;
-
     @Number(
             name = "Wither Cloak Sword",
             min = 0f, max = 1000000000,
@@ -1192,7 +1039,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherCloak = 0f;
-
     @Number(
             name = "Precursor Gear",
             min = 0f, max = 1000000000,
@@ -1200,7 +1046,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float PrecursorGear = 600000f;
-
     @Number(
             name = "Soul Eater",
             min = 0f, max = 1000000000,
@@ -1208,7 +1053,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SoulEater = 1000000f;
-
     @Number(
             name = "One For All",
             min = 0f, max = 1000000000,
@@ -1216,7 +1060,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float OneForAll = 0f;
-
     @Number(
             name = "Goldor the Fish",
             min = 0f, max = 1000000000,
@@ -1224,7 +1067,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float GoldorFish = 0f;
-
     @Number(
             name = "Storm the Fish",
             min = 0f, max = 1000000000,
@@ -1232,7 +1074,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float StormFish = 0f;
-
     @Number(
             name = "Maxor The Fish",
             min = 0f, max = 1000000000,
@@ -1240,45 +1081,50 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float MaxorFish = 0f;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // TOGGLE THIS BEFORE BUILDING
-    //IF ANYONE IS READING THIS, THIS IS FOR DEV ONLY AND CANNOT BE USED ON HYPIXEL. IT WILL BAN
-/*
-    @Switch(
-            name = "HClip",
-            size = OptionSize.SINGLE,
-            category = "Dev Stuff"
+    @HUD(
+            name = "Pad Timer",
+            category = "F7/M7",
+            subcategory = "Timers"
     )
-    public static boolean hClip = false; // The default value for the boolean Switch.
-    @KeyBind(
-            name = "Hclip",
-            category = "Dev Stuff"
+    public padTimerHud hud = new padTimerHud();
+    @HUD(
+            name = "P3 Start Timer",
+            category = "F7/M7",
+            subcategory = "Timers"
     )
-    public static OneKeyBind theFunny = new OneKeyBind(UKeyboard.KEY_F);
-*/
+    public p3StartTimerHud starthud = new p3StartTimerHud();
+
+    public jpaConfig() {
+        super(new Mod(jaquaviouspringletonaddons.NAME, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
+        initialize();
+        registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
+        registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
+        registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
+        registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
 
 
+        addDependency("Berserker Leap Position Message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Early Entry Position Messages", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Inner Chamber position message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Part 5 Position Message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("Middle Position Message", "F7/M7 Position messages", () -> posMsgs);
+        EventManager.INSTANCE.register(this);
+    }
+
+
+    @Button(
+            name = "Add Players",
+            text = "Add",
+            size = OptionSize.DUAL,
+            category = "Player Size Customizer",
+            subcategory = "Add Players"
+    )
+    private void addPlayers() {
+        playerEntries.add(new playerEntry(playerEntries.size() + 1));
+        save();
+        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
+    }
 
     @Subscribe
     public void deleteEntry(deletePlayerEntryEvent event) {
@@ -1297,15 +1143,13 @@ public class jpaConfig extends Config {
         reorderIds(playerEntries);
     }
 
-    private void reorderIds(@NotNull List<playerEntry> players){
+    private void reorderIds(@NotNull List<playerEntry> players) {
         int i = 0;
-        while (i < players.size()){
+        while (i < players.size()) {
             players.get(i).setID(i + 1);
             i++;
         }
     }
-
-
 
     @Override
     public void reInitialize() {
@@ -1320,31 +1164,6 @@ public class jpaConfig extends Config {
             generateOptionList(playerEntries.get(i), mod.defaultPage, mod, false);
             i++;
         }
-    }
-
-    public jpaConfig() {
-        super(new Mod(jaquaviouspringletonaddons.NAME, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
-        initialize();
-        registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
-        registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
-        registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
-        registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
-
-        //TOGGLE THIS
-        //registerKeyBind(theFunny, HclippaKt::hclippa);
-
-
-
-
-
-
-        addDependency("Berserker Leap Position Message", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Early Entry Position Messages", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Inner Chamber position message", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Part 5 Position Message", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Middle Position Message", "F7/M7 Position messages", () -> posMsgs);
-        EventManager.INSTANCE.register(this);
     }
 }
 

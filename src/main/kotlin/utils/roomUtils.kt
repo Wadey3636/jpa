@@ -12,10 +12,7 @@ Their GitHub can be found here: https://github.com/UnclaimedBloom6
 
 */
 
-import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
-import me.jpaMain.jpaMain.mc
 import net.minecraft.util.BlockPos
-import me.jpaMain.utils.worldUtils.isWithinBounds
 
 fun playerInRoomBounds(room: roomInfo, pos: BlockPos): Boolean {
     return (pos.x in (room.getX() - 15)..(room.getX() + 15) &&
@@ -46,12 +43,6 @@ fun invertRotation(rotation: String): String? {
     return null
 }
 
-
-fun isPlayerInRoom(): Boolean {
-    if (iceFillPosition == null) return false
-    val roomBounds = getRoomBounds(iceFillPosition!!)
-    return isWithinBounds(mc.thePlayer.position, roomBounds.first, roomBounds.second)
-}
 
 /**
  * Helper method to get the bounds of a room based on its center position and fixed room size.

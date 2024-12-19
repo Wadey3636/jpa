@@ -3,11 +3,9 @@ package me.jpaMain.dungeonfeatures
 import cc.polyfrost.oneconfig.config.core.OneColor
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
 import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.jpaMain.events.ServerTickEvent
-import net.minecraft.network.play.server.S32PacketConfirmTransaction
 
 var purpleTicks = 0
 var stormActivated = false
@@ -41,8 +39,7 @@ class padTimer {
         if (stormActivated) {
             if (padticks > 1) {
                 --padticks
-            }
-            else {
+            } else {
                 padticks = 20f
             }
 

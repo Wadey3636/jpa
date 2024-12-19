@@ -1,13 +1,12 @@
 package me.jpaMain.utils
 
+//import net.minecraft.client.renderer.entity.RenderManager
 import cc.polyfrost.oneconfig.config.core.OneColor
-import cc.polyfrost.oneconfig.libs.universal.UChat
 import me.jpaMain.jpaMain.mc
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.WorldRenderer
-import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
@@ -19,14 +18,14 @@ import kotlin.math.sin
 
 object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
-    private val renderManager: RenderManager = mc.renderManager
+    //private val renderManager: RenderManager = mc.renderManager
 
-    fun phaseCheck(phase: Boolean){
+    fun phaseCheck(phase: Boolean) {
         if (!phase) GlStateManager.enableDepth() else GlStateManager.disableDepth()
         GlStateManager.depthMask(!phase)
     }
 
-    fun resetPhase(){
+    fun resetPhase() {
         GlStateManager.disableDepth()
         GlStateManager.depthMask(true)
     }
@@ -45,6 +44,7 @@ object renderHelper {
     fun argbToInt(alpha: Int, red: Int, green: Int, blue: Int): Int {
         return (alpha shl 24) or (red shl 16) or (green shl 8) or blue
     }
+
     fun oneColorToInt(color: OneColor): Int {
         return (color.alpha shl 24) or (color.red shl 16) or (color.green shl 8) or color.blue
     }
@@ -53,9 +53,7 @@ object renderHelper {
         get() = oneColorToInt(this)
 
 
-
-
-    public fun renderTitle(text: String, scale: Float, color: Int, duration: Long){
+    fun renderTitle(text: String, scale: Float, color: Int, duration: Long) {
         title = text
         size = scale
         color1 = color
@@ -77,6 +75,7 @@ object renderHelper {
         )
         GlStateManager.popMatrix()
     }
+
     fun drawLeftAlignedText(text: String, scale: Float, color: Int, xPos: Float, yPos: Float) {
         val fontRenderer = mc.fontRendererObj
         val scaledHeight = fontRenderer.FONT_HEIGHT * scale
@@ -90,9 +89,6 @@ object renderHelper {
         )
         GlStateManager.popMatrix()
     }
-
-
-
 
 
     fun drawLine3d(

@@ -1,8 +1,9 @@
 package com.github.Wadey.command;
 
-import com.github.Wadey.jaquaviouspringletonaddons;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
+import com.github.Wadey.jaquaviouspringletonaddons;
+
 /**
  * An example command implementing the Command api of OneConfig.
  * Registered in ExampleMod.java with `CommandManager.INSTANCE.registerCommand(new ExampleCommand());`
@@ -15,6 +16,6 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 public class jpaCommand {
     @Main
     private void handle() {
-        jaquaviouspringletonaddons.INSTANCE.config.openGui();
+        jaquaviouspringletonaddons.config.openGui();
     }
 }
