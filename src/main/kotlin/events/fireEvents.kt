@@ -79,6 +79,7 @@ class fireEvents {
 
     /**
      * Adapted from odin
+     * @author odtheking
      */
 
     @SubscribeEvent

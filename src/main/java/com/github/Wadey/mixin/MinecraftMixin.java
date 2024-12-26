@@ -16,6 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftMixin {
     @Inject(method = "startGame", at = @At(value = "HEAD"))
     private void onStartGame(CallbackInfo ci) {
-        System.out.println("[Jpa]: GAY");
+        System.out.println("[JPA]: GAY");
     }
 }

@@ -17,6 +17,13 @@ import me.jpaMain.utils.universalUtils.abbreviateNumber
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
+
+@JvmField
+var toggleProfitHud = false
+
+@JvmField
+var highlightSlots: MutableList<Int> = mutableListOf()
+
 class ProfitTracker {
     private val possibleLoot: MutableMap<String, Float> = mutableMapOf()
     private val chests: MutableList<chestLine> = mutableListOf()
@@ -34,13 +41,14 @@ class ProfitTracker {
 
 
     private var scale = 1f
-    private var toggleProfitHud = false
+
     private var posX = (UResolution.scaledWidth / 1.3f)
     private var posY = (UResolution.scaledHeight / 3f)
 
     @Subscribe
     fun guiChecker(event: openGuiEvent) {
         if (toggleCalculator && event.name.contains("The Catacombs")) {
+            highlightSlots.clear()
             chests.clear()
             /*
             The Text Renderer scales off of the GUI Scale,
@@ -100,11 +108,15 @@ class ProfitTracker {
                         Chest = "Unknown"
                     }
                 }
-                chests.add(chestLine(Chest, profit, determineColor(profit).oneColorToInt))
+                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).oneColorToInt))
             }
+            if (calculatorSort) bubbleSort(chests)
+
             toggleProfitHud = true
         }
     }
+
+
 
 
     @Subscribe
@@ -140,8 +152,11 @@ class ProfitTracker {
     }
 
 
-    private fun determineColor(chestProfit: Float): OneColor {
-        return if (chestProfit >= 0f) green else red
+    private fun determineColor(chestProfit: Float, index: Int): OneColor {
+        if (chestProfit >= 0f) {
+            highlightSlots.add(index)
+            return green
+        } else return red
     }
 
     //Add Balloon Snake
@@ -242,8 +257,6 @@ class ProfitTracker {
 
 
         //ENCHANTED BOOKS
-
-
         possibleLoot["Enchanted Book (Soul Eater I)"] = SoulEater
         possibleLoot["Enchanted Book (Soul Eater II)"] = SoulEater * 2
 
@@ -251,48 +264,36 @@ class ProfitTracker {
         possibleLoot["Enchanted Book (Bank II)"] = Bank * 2
         possibleLoot["Enchanted Book (Bank III)"] = Bank * 4
 
-
         possibleLoot["Enchanted Book (Rend I)"] = Rend
         possibleLoot["Enchanted Book (Rend II)"] = Rend * 2
-
 
         possibleLoot["Enchanted Book (Rejuvenate I)"] = Rejuvenate
         possibleLoot["Enchanted Book (Rejuvenate II)"] = Rejuvenate * 2
         possibleLoot["Enchanted Book (Rejuvenate III)"] = Rejuvenate * 4
 
-
         possibleLoot["Enchanted Book (Combo I)"] = Combo
         possibleLoot["Enchanted Book (Combo II)"] = Combo * 2
         possibleLoot["Enchanted Book (Combo III)"] = Combo * 4
-
-
 
         possibleLoot["Enchanted Book (No Pain No Gain I)"] = NoPainNoGain
         possibleLoot["Enchanted Book (No Pain No Gain II)"] = NoPainNoGain * 2
         possibleLoot["Enchanted Book (No Pain No Gain III)"] = NoPainNoGain * 4
 
-
         possibleLoot["Enchanted Book (Last Stand I)"] = LastStand
         possibleLoot["Enchanted Book (Last Stand II)"] = LastStand * 2
         possibleLoot["Enchanted Book (Last Stand III)"] = LastStand * 4
-
-
-
 
         possibleLoot["Enchanted Book (Ultimate Jerry I)"] = UltJerry
         possibleLoot["Enchanted Book (Ultimate Jerry II)"] = UltJerry * 2
         possibleLoot["Enchanted Book (Ultimate Jerry III)"] = UltJerry * 4
 
-
         possibleLoot["Enchanted Book (Ultimate Wise I)"] = UltWise
         possibleLoot["Enchanted Book (Ultimate Wise II)"] = UltWise * 2
         possibleLoot["Enchanted Book (Ultimate Wise III)"] = UltWise * 4
 
-
         possibleLoot["Enchanted Book (Infinite Quiver VI)"] = InfQuiver
         possibleLoot["Enchanted Book (Infinite Quiver VII)"] = InfQuiver * 2
         possibleLoot["Enchanted Book (Infinite Quiver VIII)"] = InfQuiver * 4
-
 
         possibleLoot["Enchanted Book (Feather Falling VI)"] = FeatherFalling
         possibleLoot["Enchanted Book (Feather Falling VII)"] = FeatherFalling * 2
@@ -302,16 +303,34 @@ class ProfitTracker {
         possibleLoot["Enchanted Book (Wisdom II)"] = Wisdom * 2
         possibleLoot["Enchanted Book (Wisdom III)"] = Wisdom * 4
 
-
-
         possibleLoot["Enchanted Book (One For All I)"] = OneForAll
         possibleLoot["Lethality VI"] = LethalityVI
         possibleLoot["Overload I"] = Overload
         possibleLoot["Legion I"] = Legion
     }
-
+    private fun bubbleSort(arr: MutableList<chestLine>) {
+        val n = arr.size
+        for (i in 0 until n - 1) {
+            for (j in 0 until n - i - 1) {
+                if (arr[j].profit < arr[j + 1].profit) {
+                    // Swap the elements
+                    val temp = arr[j]
+                    arr[j] = arr[j + 1]
+                    arr[j + 1] = temp
+                }
+            }
+        }
+    }
 
 }
+data class chestLine(val chest: String, var profit: Float, val color: Int)
 
-data class chestLine(val chest: String, val profit: Float, val color: Int)
+
+
+/*
+
+
+ */
+
+
 

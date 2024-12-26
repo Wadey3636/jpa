@@ -9,8 +9,10 @@
 - Healer Wish Notification
 - -----
 ### Dungeons:
-- Gfs Command Keybindings
-
+- Smart Gfs Command Keybindings
+- Gamer Icefill solver
+- Milestone Reminder
+- Ironman Profit Tracker
 ----
 ### Garden:
 - Pest Key

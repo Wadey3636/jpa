@@ -307,6 +307,8 @@ public class jpaConfig extends Config {
             type = InfoType.INFO
     )
     public static boolean ignored;
+
+
     //DUNGEON LOOT
     @Switch(
             name = "Toggle Profit Calculator",
@@ -316,8 +318,6 @@ public class jpaConfig extends Config {
 
     )
     public static boolean toggleCalculator = false;
-//:
-    //PLAYER SIZE CUSTOMIZER
     @Header(
             text = "",
             size = OptionSize.DUAL,
@@ -325,6 +325,25 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored9;
+    @Switch(
+            name = "Sort Values",
+            category = "Dungeons",
+            subcategory = "Ironman Profit Calculator"
+
+    )
+    public static boolean calculatorSort = false;
+    @Switch(
+            name = "Highlight Chests",
+            category = "Dungeons",
+            subcategory = "Ironman Profit Calculator"
+
+    )
+    public static boolean calculatorHighlight = false;
+
+//:
+    //PLAYER SIZE CUSTOMIZER
+
+
     @Header(
             text = "",
             size = OptionSize.DUAL,
