@@ -172,11 +172,6 @@ class positionalMessages {
         }
     }
 }
-//Storm phase msg
-
-//     -
-//Block{type=minecraft:stone_brick_stairs, x=70, y=220, z=33} (2)
-
 
 
 

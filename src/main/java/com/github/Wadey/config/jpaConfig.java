@@ -1,5 +1,6 @@
 package com.github.Wadey.config;
 
+
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.*;
@@ -13,6 +14,7 @@ import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
+import cc.polyfrost.oneconfig.utils.gui.GuiUtils;
 import com.github.Wadey.jaquaviouspringletonaddons;
 import com.google.gson.annotations.Expose;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
@@ -226,14 +228,68 @@ public class jpaConfig extends Config {
     public static boolean ee4Detector = false;
     @Switch(
             name = "Include Safespots",
-            size = OptionSize.DUAL,
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Toggles the early entry detectors checking safespots"
 
     )
     public static boolean safespots = false;
+    @Switch(
+            name = "Include Position in Alert",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            description = "Toggles the early entry detectors checking safespots"
 
+    )
+    public static boolean includePosition = false;
+
+    @Text(
+            name = "EE2 Text",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            placeholder = "is at ee2"
+    )
+    public static String ee2Text = "is at ee2!";
+
+    @Text(
+            name = "EE2 Safespot Text",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            placeholder = "is at ee2 Safespot"
+    )
+    public static String ee2TextSS = "is at ee2 Safespot!";
+            
+    @Text(
+            name = "EE3 Text",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            placeholder = "is at ee3"
+    )
+    public static String ee3Text = "is at ee3!";
+    
+    @Text(
+    name = "EE3 Safespot Text",
+    category = "F7/M7",
+    subcategory = "Detectors",
+            placeholder = "is at ee3 Safespot"
+            )
+    public static String ee3TextSS = "is at ee3 Safespot!";
+
+    @Text(
+            name = "EE4 Text",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            placeholder = "is at ee4"
+    )
+    public static String ee4Text = "is at ee4!";
+
+    @Text(
+            name = "Mid Text",
+            category = "F7/M7",
+            subcategory = "Detectors",
+            placeholder = "is at Mid"
+    )
+    public static String midText = "is at Mid!";
 
     @Slider(
             name = "Detector Text Size",
@@ -1100,6 +1156,16 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float MaxorFish = 0f;
+    @Button(
+            name = "Edit Locations",
+            text = "Edit",
+            category = "F7/M7",
+            subcategory = "Timers"
+    )
+    private void editPositions(){
+
+    }
+
     @HUD(
             name = "Pad Timer",
             category = "F7/M7",
@@ -1113,6 +1179,15 @@ public class jpaConfig extends Config {
     )
     public p3StartTimerHud starthud = new p3StartTimerHud();
 
+    /*
+        @Text(
+            name = "EE2 Text",
+            category = "F7/M7",
+            subcategory = "Detectors"
+    )
+    public static String ee2Text = "is at ee2!";
+     */
+
     public jpaConfig() {
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
         initialize();
@@ -1120,14 +1195,21 @@ public class jpaConfig extends Config {
         registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
         registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
         registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
+        hideIf("ee2Text", () -> !includePosition);
+        hideIf("ee3Text", () -> !includePosition);
+        hideIf("ee4Text", () -> !includePosition);
+        hideIf("ee2TextSS", () -> !includePosition || !safespots);
+        hideIf("ee3TextSS", () -> !includePosition || !safespots);
+        hideIf("midText", () -> !includePosition);
 
 
-        addDependency("Berserker Leap Position Message", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Early Entry Position Messages", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Healer Leap Position Message (Simon says)", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Inner Chamber position message", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Part 5 Position Message", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("Middle Position Message", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("berzmsg", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("earlyentrypositions", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("simonsayspos", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("goldorpos", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("dragonpos", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("midposmsg", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("stormposmsg", "F7/M7 Position messages", () -> posMsgs);
         EventManager.INSTANCE.register(this);
     }
 

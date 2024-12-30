@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-import static me.jpaMain.dungeonfeatures.profitTracker.ProfitTrackerKt.toggleProfitHud;
-import static me.jpaMain.dungeonfeatures.profitTracker.ProfitTrackerKt.highlightSlots;
+import static me.jpaMain.dungeonfeatures.ProfitTrackerKt.toggleProfitHud;
+import static me.jpaMain.dungeonfeatures.ProfitTrackerKt.highlightSlots;
 
 
 @Mixin(value = GuiContainer.class, priority = 500)

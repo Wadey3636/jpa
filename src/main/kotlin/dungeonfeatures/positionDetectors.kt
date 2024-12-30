@@ -3,7 +3,6 @@ package me.jpaMain.dungeonfeatures
 import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.platform.Platform
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.command.devMode
 import me.jpaMain.events.QuarterSecondEvent
@@ -12,28 +11,28 @@ import me.jpaMain.utils.PlayerPosInfo
 import me.jpaMain.utils.inDungeon
 import me.jpaMain.utils.renderHelper.oneColorToInt
 import me.jpaMain.utils.renderHelper.renderTitle
-import me.jpaMain.utils.screenCenterX
-import me.jpaMain.utils.screenCenterY
 import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.math.max
 
 var ee2Triggered = AtomicBoolean(false)
 var ee3Triggered = AtomicBoolean(false)
 var ee4Triggered = AtomicBoolean(false)
 var midTriggered = AtomicBoolean(false)
-var berzLeapSpot = AtomicBoolean(false)
+
+var eess2Triggered = AtomicBoolean(false)
+var eess3Triggered = AtomicBoolean(false)
+
+/**
+ * I made this before I knew about engineerclient
+ */
 
 class positionDetectors {
     private var textColor = 0xFF0000
-    private var xPos = 0f
-    private var yPos = 0f
-    private fun getWidth(line: String?, scale: Float): Float {
-        return max(0f, (Platform.getGLPlatform().getStringWidth((player)).toFloat() * scale))
-    }
+
+
 
     init {
         EventManager.INSTANCE.register(this)
@@ -43,13 +42,12 @@ class positionDetectors {
 
     @Subscribe
     fun midReset(event: WorldLoadEvent) {
-
         midTriggered.set(false)
         ee2Triggered.set(false)
         ee3Triggered.set(false)
         ee4Triggered.set(false)
-        berzLeapSpot.set(false)
-
+        eess2Triggered.set(false)
+        eess3Triggered.set(false)
     }
 
     /**
@@ -69,7 +67,7 @@ class positionDetectors {
         highCoords: IntArray,
         blockPos: BlockPos,
         block: Block,
-        detectorActive: AtomicBoolean
+        detectorActive: AtomicBoolean, text: String
     ) {
         if (!detectconfig || !isBlock(BlockPos(blockPos), block)) return
         val detected = players.firstOrNull {
@@ -80,25 +78,23 @@ class positionDetectors {
         if (detected == null) {
             detectorActive.set(false); return
         }
-        if (detectorActive.get()) return
 
-        //renderTime = 12
-
-        detected.let { player = it.name }
-        textColor = detectorColor.oneColorToInt
-        xPos = screenCenterX - (getWidth(player, detectorTextSize) / 4)
-        yPos = screenCenterY - (detectorTextSize * 4)
-        mc.theWorld.playSound(
-            mc.thePlayer.posX,
-            mc.thePlayer.posY,
-            mc.thePlayer.posZ,
-            "minecraft:random.orb",
-            1.0f,
-            1.0f,
-            false
-        )
-        detectorActive.set(true)
-        renderTitle(player, detectorTextSize, textColor, 3000L)
+        if (!detectorActive.get()) {
+            detected.let { player = it.name }
+            textColor = detectorColor.oneColorToInt
+            mc.theWorld.playSound(
+                mc.thePlayer.posX,
+                mc.thePlayer.posY,
+                mc.thePlayer.posZ,
+                "minecraft:random.orb",
+                1.0f,
+                1.0f,
+                false
+            )
+            detectorActive.set(true)
+            if (includePosition) {renderTitle("$player $text", detectorTextSize, textColor, 3000L)}
+            else renderTitle(player, detectorTextSize, textColor, 3000L)
+        }
 
     }
 
@@ -125,8 +121,10 @@ class positionDetectors {
                 intArrayOf(68, 72, 84),
                 BlockPos(53, 63, 110),
                 Blocks.air,
-                midTriggered
+                midTriggered,
+                midText
             )
+
 
             detectPlayers(
                 ee2Detector,
@@ -135,7 +133,8 @@ class positionDetectors {
                 intArrayOf(61, 111, 135),
                 BlockPos(101, 118, 123),
                 Blocks.cobblestone_wall,
-                ee2Triggered
+                ee2Triggered,
+                ee2Text
             )
 
             detectPlayers(
@@ -145,7 +144,8 @@ class positionDetectors {
                 intArrayOf(3, 110, 108),
                 BlockPos(17, 118, 132),
                 Blocks.cobblestone_wall,
-                ee3Triggered
+                ee3Triggered,
+                ee3Text
             )
             detectPlayers(
                 ee4Detector,
@@ -154,30 +154,39 @@ class positionDetectors {
                 intArrayOf(58, 119, 54),
                 BlockPos(17, 118, 132),
                 Blocks.cobblestone_wall,
-                ee4Triggered
+                ee4Triggered,
+                ee4Text
             )
 
 
 
+
+
             if (safespots) {
+
                 detectPlayers(
-                    true,
+                    ee2Detector,
                     players,
                     intArrayOf(68, 108, 120),
                     intArrayOf(70, 111, 122),
                     BlockPos(101, 118, 123),
                     Blocks.cobblestone_wall,
-                    ee2Triggered
+                    eess2Triggered,
+                    ee2TextSS
                 )
+
                 detectPlayers(
-                    true,
+                    ee3Detector,
                     players,
                     intArrayOf(17, 121, 91),
                     intArrayOf(20, 126, 100),
                     BlockPos(17, 118, 132),
                     Blocks.cobblestone_wall,
-                    ee3Triggered
+                    eess3Triggered,
+                    ee3TextSS
                 )
+
+
             }
         }
 

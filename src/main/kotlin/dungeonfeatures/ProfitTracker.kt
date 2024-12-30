@@ -1,4 +1,4 @@
-package me.jpaMain.dungeonfeatures.profitTracker
+package me.jpaMain.dungeonfeatures
 
 import cc.polyfrost.oneconfig.config.core.OneColor
 import cc.polyfrost.oneconfig.events.EventManager
@@ -7,6 +7,7 @@ import cc.polyfrost.oneconfig.libs.universal.UChat
 import cc.polyfrost.oneconfig.libs.universal.UResolution
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.changeGuiEvent
+import me.jpaMain.events.closeConfigEvent
 import me.jpaMain.events.openGuiEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.guiUtils
@@ -46,123 +47,7 @@ class ProfitTracker {
     private var posY = (UResolution.scaledHeight / 3f)
 
     @Subscribe
-    fun guiChecker(event: openGuiEvent) {
-        if (toggleCalculator && event.name.contains("The Catacombs")) {
-            highlightSlots.clear()
-            chests.clear()
-            /*
-            The Text Renderer scales off of the GUI Scale,
-            so to counteract this, the scale of the GUI
-            is increased depending on the GUI Scale
-             */
-            scale = if (mc.gameSettings.guiScale == 0) 1f else (3 / mc.gameSettings.guiScale.toFloat())
-            posX = (UResolution.scaledWidth / 1.3f)
-            posY = (UResolution.scaledHeight / 3f)
-            getValues()
-
-
-            guiUtils.getGUI(event.inventory).forEach { item ->
-
-                val Chest: String
-                var profit: Float = 0f
-                item.lore.forEach { string ->
-                    val dictionaryValue = possibleLoot[string.deformat]
-
-                    if (dictionaryValue == null) {
-                        when {
-                            string.deformat.contains("Wither Essence", ignoreCase = true) -> {
-
-                                Regex("\\d+").find(string.deformat)?.value?.let { profit += it.toFloat() * WitherEssence }
-                            }
-
-                            string.deformat.contains("Undead Essence", ignoreCase = true) -> {
-
-                                Regex("\\d+").find(string.deformat)?.value?.let { profit += it.toFloat() * UndeadEssence }
-                            }
-
-                            string.deformat.contains("Coins") -> {
-                                Regex("\\d+").find(
-                                    string.deformat.replace(
-                                        ",",
-                                        ""
-                                    )
-                                )?.value?.let { profit -= it.toFloat() }
-                            }
-                        }
-
-
-                    } else {
-                        profit += dictionaryValue
-                    }
-                }
-
-                when (item.name.deformat) {
-                    "Wood Chest" -> Chest = "Wood"
-                    "Gold Chest" -> Chest = "Gold"
-                    "Diamond Chest" -> Chest = "Diamond"
-                    "Emerald Chest" -> Chest = "Emerald"
-                    "Obsidian Chest" -> Chest = "Obsidian Chest"
-                    "Bedrock Chest" -> Chest = "Bedrock Chest"
-                    else -> {
-                        UChat.chat("[JPA] Unknown Chest Type")
-                        Chest = "Unknown"
-                    }
-                }
-                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).oneColorToInt))
-            }
-            if (calculatorSort) bubbleSort(chests)
-
-            toggleProfitHud = true
-        }
-    }
-
-
-
-
-    @Subscribe
-    fun guiClosed(event: changeGuiEvent) {
-        toggleProfitHud = false
-    }
-
-    private val font = mc.fontRendererObj
-
-    @SubscribeEvent
-    fun drawProfit(event: GuiScreenEvent.BackgroundDrawnEvent) {
-        if (toggleProfitHud) {
-            renderHelper.drawLeftAlignedText("Profit:", scale, renderHelper.argbToInt(255, 255, 255, 255), posX, posY)
-            drawLines(chests)
-        }
-    }
-
-
-    private fun drawLine(chest: String, profit: Float, color: Int, line: Int) {
-        renderHelper.drawLeftAlignedText(
-            "$chest: ${abbreviateNumber(profit)}",
-            scale,
-            color,
-            posX,
-            (posY + (1.5f * font.FONT_HEIGHT * line * scale))
-        )
-    }
-
-    private fun drawLines(lines: List<chestLine>) {
-        lines.forEachIndexed { index, line ->
-            drawLine(line.chest, line.profit, line.color, index + 1)
-        }
-    }
-
-
-    private fun determineColor(chestProfit: Float, index: Int): OneColor {
-        if (chestProfit >= 0f) {
-            highlightSlots.add(index)
-            return green
-        } else return red
-    }
-
-    //Add Balloon Snake
-
-    //I hate this
-    private fun getValues() {
+    fun onConfigClosed(event: closeConfigEvent) {
         possibleLoot.clear()
         possibleLoot["Necromancer's brooch"] = NecromancersBrooch
         possibleLoot["Hot Potato Book"] = HotPotato
@@ -308,6 +193,125 @@ class ProfitTracker {
         possibleLoot["Overload I"] = Overload
         possibleLoot["Legion I"] = Legion
     }
+
+    @Subscribe
+    fun guiChecker(event: openGuiEvent) {
+        if (toggleCalculator && event.name.contains("The Catacombs")) {
+            highlightSlots.clear()
+            chests.clear()
+            /*
+            The Text Renderer scales off of the GUI Scale,
+            so to counteract this, the scale of the GUI
+            is increased depending on the GUI Scale
+             */
+            scale = if (mc.gameSettings.guiScale == 0) 1f else (3 / mc.gameSettings.guiScale.toFloat())
+            posX = (UResolution.scaledWidth / 1.3f)
+            posY = (UResolution.scaledHeight / 3f)
+
+
+
+            guiUtils.getGUI(event.inventory).forEach { item ->
+
+                val Chest: String
+                var profit: Float = 0f
+                item.lore.forEach { string ->
+                    val dictionaryValue = possibleLoot[string.deformat]
+
+                    if (dictionaryValue == null) {
+                        when {
+                            string.deformat.contains("Wither Essence", ignoreCase = true) -> {
+
+                                Regex("\\d+").find(string.deformat)?.value?.let { profit += it.toFloat() * WitherEssence }
+                            }
+
+                            string.deformat.contains("Undead Essence", ignoreCase = true) -> {
+
+                                Regex("\\d+").find(string.deformat)?.value?.let { profit += it.toFloat() * UndeadEssence }
+                            }
+
+                            string.deformat.contains("Coins") -> {
+                                Regex("\\d+").find(
+                                    string.deformat.replace(
+                                        ",",
+                                        ""
+                                    )
+                                )?.value?.let { profit -= it.toFloat() }
+                            }
+                        }
+
+
+                    } else {
+                        profit += dictionaryValue
+                    }
+                }
+
+                when (item.name.deformat) {
+                    "Wood Chest" -> Chest = "Wood"
+                    "Gold Chest" -> Chest = "Gold"
+                    "Diamond Chest" -> Chest = "Diamond"
+                    "Emerald Chest" -> Chest = "Emerald"
+                    "Obsidian Chest" -> Chest = "Obsidian"
+                    "Bedrock Chest" -> Chest = "Bedrock"
+                    else -> {
+                        UChat.chat("[JPA] Unknown Chest Type")
+                        Chest = "Unknown"
+                    }
+                }
+                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).oneColorToInt))
+            }
+            if (calculatorSort) bubbleSort(chests)
+
+            toggleProfitHud = true
+        }
+    }
+
+
+
+
+    @Subscribe
+    fun guiClosed(event: changeGuiEvent) {
+        toggleProfitHud = false
+    }
+
+    private val font = mc.fontRendererObj
+
+    @SubscribeEvent
+    fun drawProfit(event: GuiScreenEvent.BackgroundDrawnEvent) {
+        if (toggleProfitHud) {
+            renderHelper.drawLeftAlignedText("Profit:", scale, renderHelper.argbToInt(255, 255, 255, 255), posX, posY)
+            drawLines(chests)
+        }
+    }
+
+
+    private fun drawLine(chest: String, profit: Float, color: Int, line: Int) {
+        renderHelper.drawLeftAlignedText(
+            "$chest: ${abbreviateNumber(profit)}",
+            scale,
+            color,
+            posX,
+            (posY + (1.5f * font.FONT_HEIGHT * line * scale))
+        )
+    }
+
+    private fun drawLines(lines: List<chestLine>) {
+        lines.forEachIndexed { index, line ->
+            drawLine(line.chest, line.profit, line.color, index + 1)
+        }
+    }
+
+
+    private fun determineColor(chestProfit: Float, index: Int): OneColor {
+        if (chestProfit >= 0f) {
+            highlightSlots.add(index)
+            return green
+        } else return red
+    }
+
+    //Add Balloon Snake
+
+    //I hate this
+
     private fun bubbleSort(arr: MutableList<chestLine>) {
         val n = arr.size
         for (i in 0 until n - 1) {

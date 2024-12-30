@@ -10,7 +10,7 @@ import me.jpaMain.command.testCommand;
 import me.jpaMain.dungeonfeatures.DungeonScanner.dungeonScanner;
 import me.jpaMain.dungeonfeatures.iceFillSolver.iceFillSolver;
 import me.jpaMain.dungeonfeatures.*;
-import me.jpaMain.dungeonfeatures.profitTracker.ProfitTracker;
+import me.jpaMain.dungeonfeatures.ProfitTracker;
 import me.jpaMain.events.fireEvents;
 import me.jpaMain.utils.dungeonUtils;
 import me.jpaMain.utils.locationUtils;

@@ -34,6 +34,8 @@ import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
 import cc.polyfrost.oneconfig.events.event.Stage
 import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import cc.polyfrost.oneconfig.libs.universal.UChat
+import cc.polyfrost.oneconfig.utils.dsl.openScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.jpaMain.utils.waitUntilLastItem
@@ -50,6 +52,7 @@ class fireEvents {
         EventManager.INSTANCE.register(this)
     }
 
+    private var lastConfigOpen: Boolean = false
     private var lastGui: GuiScreen? = null
     private var lastTimeQuarter = System.currentTimeMillis()
     private var lastTimeSecond = System.currentTimeMillis()
@@ -106,7 +109,9 @@ class fireEvents {
     fun closeGUI(event: GuiOpenEvent) {
         if (event.gui != lastGui) EventManager.INSTANCE.post(changeGuiEvent())
         if (event.gui == null) EventManager.INSTANCE.post(closeGuiEvent())
+        if (event.gui == null && lastConfigOpen) EventManager.INSTANCE.post(closeConfigEvent())
         lastGui = event.gui
+        lastConfigOpen = cc.polyfrost.oneconfig.gui.OneConfigGui.isOpen()
     }
 
 
