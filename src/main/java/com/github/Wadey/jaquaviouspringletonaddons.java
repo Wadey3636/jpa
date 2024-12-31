@@ -1,6 +1,7 @@
 package com.github.Wadey;
 
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
+import me.jpaMain.command.floorCommands.*;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import com.github.Wadey.command.jpaCommand;
 import com.github.Wadey.config.jpaConfig;
@@ -45,6 +46,22 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new fsCommand());
         CommandManager.INSTANCE.registerCommand(new testCommand());
         CommandManager.INSTANCE.registerCommand(new JPAdevMode());
+        CommandManager.INSTANCE.registerCommand(new floorSeven());
+        CommandManager.INSTANCE.registerCommand(new floorSix());
+        CommandManager.INSTANCE.registerCommand(new floorFive());
+        CommandManager.INSTANCE.registerCommand(new floorFour());
+        CommandManager.INSTANCE.registerCommand(new floorThree());
+        CommandManager.INSTANCE.registerCommand(new floorTwo());
+        CommandManager.INSTANCE.registerCommand(new floorOne());
+        CommandManager.INSTANCE.registerCommand(new masterFloorSeven());
+        CommandManager.INSTANCE.registerCommand(new masterFloorSix());
+        CommandManager.INSTANCE.registerCommand(new masterFloorFive());
+        CommandManager.INSTANCE.registerCommand(new masterFloorFour());
+        CommandManager.INSTANCE.registerCommand(new masterFloorThree());
+        CommandManager.INSTANCE.registerCommand(new masterFloorTwo());
+        CommandManager.INSTANCE.registerCommand(new masterFloorOne());
+
+
         MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());
