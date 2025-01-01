@@ -35,11 +35,14 @@ class dungeonScanner {
 
         for (i in 0..6) {
             for (z in 0..6) {
-                uncheckedRooms.add(BlockPos((-25 - (32 * i)), 90, (-25 - (32 * z))))
+                uncheckedRooms.add(BlockPos((-25 - (32 * i)), 70, (-25 - (32 * z))))
             }
         }
     }
     //-186,90,-24 Block{type=minecraft:stone, x=-186, y=90, z=-24} (2)
+    //67 - icepath
+    // 70 icefill
+
 
     @Subscribe
     fun dungeonScanner(event: SecondEvent) {
@@ -66,8 +69,7 @@ class dungeonScanner {
 
 
     private fun isIceFill(pos: BlockPos): Boolean {
-
-        return isBlock(BlockPos(pos.x - 1, pos.y, pos.z), Blocks.redstone_block)
+        return isBlock(BlockPos(pos.x, pos.y, pos.z), Blocks.ice)
 
     }
 
