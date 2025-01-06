@@ -20,13 +20,13 @@ class milestoneReminder {
     @Subscribe
     fun checker(event: ChatReceiveEvent) {
         if (event.message.unformattedText == "[NPC] Mort: Here, I found this map when I first entered the dungeon.") {
-            UChat.chat("[JPA] reminder enabled.")
+            //UChat.chat("[JPA] reminder enabled.")
             renderReminder = true
             timeStamp = System.currentTimeMillis()
 
         }
         if (event.message.unformattedText.contains("Milestone ❸")) {
-            renderReminder = false; UChat.chat("[JPA] Reminder False")
+            renderReminder = false; //UChat.chat("[JPA] Reminder False")
         }
 
     }
