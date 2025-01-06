@@ -62,6 +62,7 @@ public class jaquaviouspringletonaddons {
         CommandManager.INSTANCE.registerCommand(new masterFloorOne());
 
 
+        MinecraftForge.EVENT_BUS.register(new terminalWaypoints());
         MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
         MinecraftForge.EVENT_BUS.register(new positionalMessages());

@@ -60,15 +60,15 @@ class iceFillSolver {
     private fun drawVariant(plot: List<BlockPos>?, warp: List<BlockPos>?, tpPoint: BlockPos?, partialTicks: Float) {
         if (plot == null || warp == null) return
         val viewerPos = getViewerPos(partialTicks)
-        drawLines3dAboveBlocks(plot, icefillPathColor, 3f, false, viewerPos)
+        drawLines3dAboveBlocks(plot, icefillPathColor, 3f, icefillSolverPhase, viewerPos)
         warp.forEachIndexed { i, point ->
             if ((i <= 2 || isBlock(warp[i - 3], Blocks.packed_ice)) && !isBlock(point, Blocks.packed_ice)) {
-                drawBox(point, icefillEtherwarpPointColor, 3f, false, viewerPos)
+                drawBox(point, icefillEtherwarpPointColor, 3f, icefillSolverPhase, viewerPos)
             }
         }
 
         tpPoint?.let {
-            drawBox(it, icefillTeleportPointColor, 3f, false, viewerPos)
+            drawBox(it, icefillTeleportPointColor, 3f, icefillSolverPhase, viewerPos)
         }
     }
 

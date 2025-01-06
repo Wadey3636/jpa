@@ -37,6 +37,20 @@ object guiUtils {
 
 
     /**
+     * @author odtheking
+     *
+     * Checks if the current string contains at least one of the specified strings.
+     *
+     * @param options List of strings to check.
+     * @param ignoreCase If comparison should be case-sensitive or not.
+     * @return `true` if the string contains at least one of the specified options, otherwise `false`.
+     */
+    fun String.containsOneOf(vararg options: String, ignoreCase: Boolean = false): Boolean {
+        return options.any { this.contains(it, ignoreCase) }
+    }
+
+
+    /**
      * Returns the ExtraAttribute Compound
      * @author odtheking
      */
@@ -55,6 +69,7 @@ object guiUtils {
      */
     val String.deformat: String
         get() = this.replace(Regex("§[0-9a-fk-or]"), "")
+
 
     /**
      * Takes the inputted inventory and fetches all items except glass.

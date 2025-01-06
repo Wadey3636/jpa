@@ -6,15 +6,11 @@ import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
-import cc.polyfrost.oneconfig.config.data.InfoType;
-import cc.polyfrost.oneconfig.config.data.Mod;
-import cc.polyfrost.oneconfig.config.data.ModType;
-import cc.polyfrost.oneconfig.config.data.OptionSize;
+import cc.polyfrost.oneconfig.config.data.*;
 import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
-import cc.polyfrost.oneconfig.utils.gui.GuiUtils;
 import com.github.Wadey.jaquaviouspringletonaddons;
 import com.google.gson.annotations.Expose;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
@@ -38,6 +34,8 @@ public class jpaConfig extends Config {
 
     @Expose
     public static List<playerEntry> playerEntries = new ArrayList<>();
+
+
 
 
     @Switch(
@@ -69,6 +67,14 @@ public class jpaConfig extends Config {
             description = "Use a skill called Critical Thinking for one second"
     )
     public static OneColor icefillTeleportPointColor = new OneColor(255, 0, 0, 255);
+
+    @Switch(
+            name = "Phase",
+            category = "Dungeons",
+            subcategory = "Solvers",
+            description = "Disabled ATM"
+    )
+    public static boolean icefillSolverPhase = false;
 
     //Positional Messages
 
@@ -310,6 +316,10 @@ public class jpaConfig extends Config {
             description = "A healer wish notification that only activates while you are healer"
     )
     public static boolean healerWishNotification = false;
+
+
+
+
     @Color(
             name = "Color",
             category = "F7/M7",
@@ -342,7 +352,7 @@ public class jpaConfig extends Config {
             min = 1f, max = 500f
     )
     public static float mileStone3ReminderTimer = 30f;
-    @Number(
+    @Slider(
             name = "Reminder Scale",
             category = "Dungeons",
             subcategory = "Skill Issue",
@@ -355,6 +365,20 @@ public class jpaConfig extends Config {
             subcategory = "Skill Issue"
     )
     public static OneColor mileStone3ReminderColor = new OneColor(50, 255, 30, 255);
+
+    @Button(
+            name = "Add Players",
+            text = "Add",
+            size = OptionSize.DUAL,
+            category = "Player Size Customizer",
+            subcategory = "Add Players"
+    )
+    private void addPlayers() {
+        playerEntries.add(new playerEntry(playerEntries.size() + 1));
+        save();
+        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
+    }
+
     @Info(
             text = "Case Sensitive",
             category = "Player Size Customizer",
@@ -363,6 +387,179 @@ public class jpaConfig extends Config {
             type = InfoType.INFO
     )
     public static boolean ignored;
+
+    @Switch(
+            name = "Toggle",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static boolean terminalWaypoints = false;
+
+    @Color(
+            name = "Waypoint Color",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static OneColor terminalWaypointsColor = new OneColor(0, 0 ,255, 255);
+
+    @Switch(
+            name = "Phase",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            description = "Visible through Walls"
+    )
+    public static boolean terminalWaypointsPhase = true;
+
+    @Info(
+            text = "Tracer requires [View Bobbing] and [Parallax Fix] - (From Patcher) to be off.",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            type = InfoType.WARNING,
+            size = OptionSize.DUAL
+    )
+    static boolean ignored15 = false;
+    //bookmark
+    @Switch(
+            name = "Toggle Tracer",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static boolean terminalWaypointsTracer = false;
+
+    @Color(
+            name = "Tracer Color",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static OneColor terminalWaypointsTracerColor = new OneColor(0, 0 ,255, 255);
+
+    @Dropdown(
+            name = "Presets",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = 2,
+            options = {"Mage", "Tank", "Archer", "Berserker", "Custom"}
+    )
+    public static int terminalPreset = 0;
+
+    @Switch(
+            name = "EE2?",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static boolean ee2 = false;
+
+    @Switch(
+            name = "I4?",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static boolean I4 = false;
+
+    @Switch(
+            name = "Mage Coring?",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints"
+    )
+    public static boolean mageCoring = false;
+
+    @Info(
+            text = "Use slashes (/) to separate values in the list.",
+            type = InfoType.INFO,
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = 2
+    )
+    static boolean ignored11 = false;
+
+    @Info(
+            text = "RL stands for Right Lever, LL Stands for Left Lever.",
+            type = InfoType.INFO,
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = 2
+    )
+    static boolean ignored12 = false;
+
+    @Info(
+            text = "List the terminals in the order you plan to complete them for the tracer to work.",
+            type = InfoType.INFO,
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = 2
+    )
+    static boolean ignored13 = false;
+
+    @Info(
+            text = "Example: 4/3/RL",
+            type = InfoType.SUCCESS,
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = 2
+    )
+    static boolean ignored14 = false;
+    /*
+    Use slashes (/) to separate values in the list.
+    RL stands for Right Lever, LL Stands for Left Lever
+    List the terminals in the order you plan to complete them
+    Example: 4/3/RL
+    */
+
+    @Text(
+            name = "Section 1",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = OptionSize.DUAL
+    )
+    public static String terminalWaypointsTextS1 = "";
+
+    @Text(
+            name = "Section 2",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = OptionSize.DUAL
+    )
+    public static String terminalWaypointsTextS2 = "";
+
+    @Text(
+            name = "Section 3",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = OptionSize.DUAL
+    )
+    public static String terminalWaypointsTextS3 = "";
+
+    @Text(
+            name = "Section 4",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            size = OptionSize.DUAL
+    )
+    public static String terminalWaypointsTextS4 = "";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //DUNGEON LOOT
@@ -1203,7 +1400,50 @@ public class jpaConfig extends Config {
         hideIf("midText", () -> !includePosition);
 
 
+
+        hideIf("terminalWaypointsTextS1", () -> terminalPreset != 4);
+        hideIf("terminalWaypointsTextS2", () -> terminalPreset != 4);
+        hideIf("terminalWaypointsTextS3", () -> terminalPreset != 4);
+        hideIf("terminalWaypointsTextS4", () -> terminalPreset != 4);
+        hideIf("ignored11", () -> terminalPreset != 4);
+        hideIf("ignored12", () -> terminalPreset != 4);
+        hideIf("ignored13", () -> terminalPreset != 4);
+        hideIf("ignored14", () -> terminalPreset != 4);
+        hideIf("mageCoring", () -> !(terminalPreset == 0 || terminalPreset == 2) );
+        hideIf("ee2", () -> !(terminalPreset == 0 || terminalPreset == 2));
+        hideIf("I4", () -> terminalPreset == 4);
+        addDependency("terminalWaypointsTextS1", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsTextS2", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsTextS3", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsTextS4", "Toggle", () -> terminalWaypoints);
+        addDependency("mageCoring", "Toggle", () -> terminalWaypoints);
+        addDependency("ee2", "Toggle", () -> terminalWaypoints);
+        addDependency("I4", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalPreset", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsTracer", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsTracerColor", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsPhase", "Toggle", () -> terminalWaypoints);
+        addDependency("terminalWaypointsColor", "Toggle", () -> terminalWaypoints);
+
+
+        //bookmark
+
+
+
+
+        addDependency("Icefill Solver", "icefillPathColor", () -> icefillSolver);
+        addDependency("Icefill Solver", "icefillEtherwarpPointColor", () -> icefillSolver);
+        addDependency("Icefill Solver", "icefillTeleportPointColor", () -> icefillSolver);
+        addDependency("Icefill Solver", "icefillSolverPhase", () -> icefillSolver);
+        addDependency("Smart Healer Wish Notification", "healerWishNotificationColor", () -> healerWishNotification);
+        addDependency("", "wishNotificationSize", () -> healerWishNotification);
+
+
+
+
+
         addDependency("berzmsg", "F7/M7 Position messages", () -> posMsgs);
+
         addDependency("earlyentrypositions", "F7/M7 Position messages", () -> posMsgs);
         addDependency("simonsayspos", "F7/M7 Position messages", () -> posMsgs);
         addDependency("goldorpos", "F7/M7 Position messages", () -> posMsgs);
@@ -1214,18 +1454,6 @@ public class jpaConfig extends Config {
     }
 
 
-    @Button(
-            name = "Add Players",
-            text = "Add",
-            size = OptionSize.DUAL,
-            category = "Player Size Customizer",
-            subcategory = "Add Players"
-    )
-    private void addPlayers() {
-        playerEntries.add(new playerEntry(playerEntries.size() + 1));
-        save();
-        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
-    }
 
     @Subscribe
     public void deleteEntry(deletePlayerEntryEvent event) {
@@ -1235,7 +1463,7 @@ public class jpaConfig extends Config {
 
         int i = 0;
         while (i < 7) {
-            mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(0).options.
+            mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(1).options.
                     remove(((event.getID() - 1) * 7 + 1));
             i++;
         }
