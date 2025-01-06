@@ -52,6 +52,12 @@ class fireEvents {
         EventManager.INSTANCE.register(this)
     }
 
+    /*
+    dungeonStartEvent is posted in dungeonUtils
+
+     */
+
+
     private var lastConfigOpen: Boolean = false
     private var lastGui: GuiScreen? = null
     private var lastTimeQuarter = System.currentTimeMillis()

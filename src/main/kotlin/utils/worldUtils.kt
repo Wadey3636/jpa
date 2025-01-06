@@ -3,6 +3,7 @@ package me.jpaMain.utils
 import com.google.common.collect.Iterables
 import com.google.common.collect.Lists
 import me.jpaMain.jpaMain.mc
+import me.jpaMain.utils.guiUtils.deformat
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.scoreboard.Score
@@ -73,7 +74,7 @@ object worldUtils {
         }
         for (score in scores) {
             val team = scoreboard.getPlayersTeam(score.playerName)
-            lines.add(ScorePlayerTeam.formatPlayerName(team, score.playerName))
+            lines.add(ScorePlayerTeam.formatPlayerName(team, score.playerName).deformat)
         }
 
         return lines

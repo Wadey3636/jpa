@@ -4,6 +4,7 @@ import cc.polyfrost.oneconfig.events.EventManager
 import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import me.jpaMain.events.dungeonStartEvent
 import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.worldUtils.getSidebarLines
 
@@ -26,12 +27,18 @@ class dungeonUtils {
     fun dungeonInformation(event: ChatReceiveEvent) {
         if (event.fullyUnformattedMessage == "[NPC] Mort: Here, I found this map when I first entered the dungeon.") {
             players.clear()
-            getSidebarLines().map { string -> string.deformat }
-                .forEach { scoreboardLine ->
-                    val result = Regex("\\[([A-Z])]([0-9a-zA-Z-_]+)").find(scoreboardLine)?.value ?: return@forEach
-                    players.add(dungeonPlayerInfo(result.removeRange(IntRange(0, 2)), result[1].toString()))
+            val sidebar = getSidebarLines()
+            sidebar.forEach { scoreboardLine ->
+                Regex("\\[([A-Z])]([0-9a-zA-Z-_]+)").find(scoreboardLine)?.value?.let {
+                    players.add(dungeonPlayerInfo(it.removeRange(IntRange(0, 2)), it[1].toString()))
+                    return@forEach
                 }
 
+                Regex("\\((?<Type>[FM])(?<Floor>\\d)\\)").find(scoreboardLine)?.groupValues?.let {
+                    EventManager.INSTANCE.post(dungeonStartEvent("${it[1]}${it[2]}"))
+                    return@forEach
+                }
+            }
         }
     }
 
