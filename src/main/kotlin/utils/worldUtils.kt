@@ -38,7 +38,8 @@ object worldUtils {
      * @param pos: BlockPos
      * @param blocks: Block
      */
-
+    //The Blocks need to be converted into strings otherwise it doesn't work.
+    // I assume it has to do with Hypixel Supporting different versions
     fun isBlock(pos: BlockPos, blocks: Block): Boolean {
         return blocks.toString() == (mc.theWorld?.getBlockState(pos)?.block ?: Blocks.air).toString()
     }

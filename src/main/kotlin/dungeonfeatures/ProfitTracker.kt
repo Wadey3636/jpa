@@ -310,8 +310,6 @@ class ProfitTracker {
 
     //Add Balloon Snake
 
-    //I hate this
-
     private fun bubbleSort(arr: MutableList<chestLine>) {
         val n = arr.size
         for (i in 0 until n - 1) {
@@ -325,6 +323,8 @@ class ProfitTracker {
             }
         }
     }
+
+
 
 }
 data class chestLine(val chest: String, var profit: Float, val color: Int)
