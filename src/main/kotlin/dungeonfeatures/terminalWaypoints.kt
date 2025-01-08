@@ -120,11 +120,6 @@ class terminalWaypoints {
     }
 
     @Subscribe
-    fun unload(event: WorldLoadEvent){
-        EventManager.INSTANCE.unregister(this)
-    }
-
-    @Subscribe
     fun onQuarterSec(event: QuarterSecondEvent) {
         if (!earlyRender) {
             activeWaypoints.removeIf { waypoint ->
