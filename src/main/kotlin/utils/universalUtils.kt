@@ -1,5 +1,7 @@
 package me.jpaMain.utils
 
+import me.jpaMain.dungeonfeatures.chestLine
+
 //10,000,000
 //10m
 object universalUtils {
@@ -31,5 +33,16 @@ object universalUtils {
     fun abbreviateNumber(n: Float): String {
         return abbreviateNumber(n.toDouble())
     }
+
+
+    val Int.abbreviateNumber: String
+        get() = abbreviateNumber(this)
+
+    val Float.abbreviateNumber: String
+        get() = abbreviateNumber(this)
+
+    val Double.abbreviateNumber: String
+        get() = abbreviateNumber(this)
+
 
 }
