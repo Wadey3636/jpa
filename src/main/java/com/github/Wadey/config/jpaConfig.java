@@ -9,7 +9,6 @@ import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.*;
 import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
-import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.github.Wadey.jaquaviouspringletonaddons;
 import com.google.gson.annotations.Expose;
@@ -24,11 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * The main Config entrypoint that extends the Config type and inits the config options.
- * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
- */
-
 public class jpaConfig extends Config {
 
 
@@ -37,13 +31,12 @@ public class jpaConfig extends Config {
 
 
 
-
     @Switch(
             name = "Icefill Solver",
             size = OptionSize.SINGLE,
             category = "Dungeons",
             subcategory = "Solvers",
-            description = "Disabled ATM"
+            description = "Shows FlameOfWar's Icefill routes"
     )
     public static boolean icefillSolver = false;
     @Color(
@@ -1353,15 +1346,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float MaxorFish = 0f;
-    @Button(
-            name = "Edit Locations",
-            text = "Edit",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    private void editPositions(){
-
-    }
 
     @HUD(
             name = "Pad Timer",
@@ -1375,15 +1359,6 @@ public class jpaConfig extends Config {
             subcategory = "Timers"
     )
     public p3StartTimerHud starthud = new p3StartTimerHud();
-
-    /*
-        @Text(
-            name = "EE2 Text",
-            category = "F7/M7",
-            subcategory = "Detectors"
-    )
-    public static String ee2Text = "is at ee2!";
-     */
 
     public jpaConfig() {
         super(new Mod(jaquaviouspringletonaddons.NAME, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
@@ -1457,18 +1432,14 @@ public class jpaConfig extends Config {
 
     @Subscribe
     public void deleteEntry(deletePlayerEntryEvent event) {
-        UChat.chat("Receiving Attempt");
         playerEntries.remove(event.getID() - 1);
         save();
-
         int i = 0;
         while (i < 7) {
             mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(1).options.
                     remove(((event.getID() - 1) * 7 + 1));
             i++;
         }
-
-
         reorderIds(playerEntries);
     }
 
@@ -1480,10 +1451,6 @@ public class jpaConfig extends Config {
         }
     }
 
-    @Override
-    public void reInitialize() {
-        super.reInitialize();
-    }
 
     @Override
     public void initialize() {
