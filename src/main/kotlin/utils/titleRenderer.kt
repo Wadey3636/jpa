@@ -1,19 +1,19 @@
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.config.core.OneColor
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.HudRenderEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.config.core.PolyColor
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.HudRenderEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.renderHelper.drawCenteredText
-import me.jpaMain.utils.renderHelper.oneColorToInt
+import me.jpaMain.utils.renderHelper.PolyColorToInt
 import net.minecraft.client.gui.ScaledResolution
 
 
 var title = ""
 var size = 0f
-var color1 = oneColorToInt(OneColor(0, 0, 0, 0))
+var color1 = PolyColorToInt(PolyColor(0, 0, 0, 0))
 var time = 0L
 var timeStamp = System.currentTimeMillis()
 var scaledResolution = ScaledResolution(mc)

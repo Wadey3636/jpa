@@ -1,8 +1,8 @@
 package me.jpaMain.command.floorCommands
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main
+import org.polyfrost.oneconfig.libs.universal.UChat
+import org.polyfrost.oneconfig.utils.commands.annotations.Command
+import org.polyfrost.oneconfig.utils.commands.annotations.Main
 import me.jpaMain.jpaMain.mc
 
 

@@ -1,6 +1,6 @@
 package me.jpaMain.events
 
-import cc.polyfrost.oneconfig.events.event.CancellableEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.CancellableEvent
 import net.minecraft.inventory.ContainerChest
 import net.minecraft.inventory.IInventory
 

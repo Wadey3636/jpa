@@ -1,10 +1,10 @@
 package me.jpaMain.dungeonfeatures.iceFillSolver
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.dsl.mc
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.libs.universal.UChat
+import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 import me.jpaMain.events.QuarterSecondEvent

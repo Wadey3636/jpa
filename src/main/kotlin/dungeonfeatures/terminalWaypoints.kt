@@ -1,11 +1,11 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.dsl.mc
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.libs.universal.UChat
+import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import me.jpaMain.utils.renderHelper
 import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.RenderWorldLastEvent

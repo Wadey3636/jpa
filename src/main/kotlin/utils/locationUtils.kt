@@ -1,9 +1,9 @@
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.LocrawEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.LocrawEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 
 
 var inSkyBlock = false

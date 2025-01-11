@@ -1,7 +1,7 @@
 package me.jpaMain.utils
 
 //import net.minecraft.client.renderer.entity.RenderManager
-import cc.polyfrost.oneconfig.config.core.OneColor
+import org.polyfrost.oneconfig.config.core.PolyColor
 import me.jpaMain.jpaMain.mc
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
@@ -45,12 +45,12 @@ object renderHelper {
         return (alpha shl 24) or (red shl 16) or (green shl 8) or blue
     }
 
-    fun oneColorToInt(color: OneColor): Int {
+    fun PolyColorToInt(color: PolyColor): Int {
         return (color.alpha shl 24) or (color.red shl 16) or (color.green shl 8) or color.blue
     }
 
-    val OneColor.oneColorToInt: Int
-        get() = oneColorToInt(this)
+    val PolyColor.PolyColorToInt: Int
+        get() = PolyColorToInt(this)
 
 
     fun renderTitle(text: String, scale: Float, color: Int, duration: Long) {
@@ -90,7 +90,7 @@ object renderHelper {
         GlStateManager.popMatrix()
     }
 
-    fun trace(pos: BlockPos, viewerPos: Triple<Double, Double, Double>, color: OneColor, thickness: Float, phase: Boolean){
+    fun trace(pos: BlockPos, viewerPos: Triple<Double, Double, Double>, color: PolyColor, thickness: Float, phase: Boolean){
         drawLine3d(0.0, cameraHeight(), 0.0, pos.x - viewerPos.first +0.5, pos.y - viewerPos.second + 0.5, pos.z - viewerPos.third + 0.5, color, thickness, phase)
     }
 
@@ -106,7 +106,7 @@ object renderHelper {
         x1: Double,
         y1: Double,
         z1: Double,
-        color: OneColor,
+        color: PolyColor,
         thickness: Float,
         phase: Boolean,
     ) {
@@ -145,7 +145,7 @@ object renderHelper {
 
     fun drawLines3dAboveBlocks(
         points: List<BlockPos>,
-        color: OneColor,
+        color: PolyColor,
         thickness: Float,
         phase: Boolean,
         viewerPos: Triple<Double, Double, Double>
@@ -199,7 +199,7 @@ object renderHelper {
 
     fun drawBox(
         pos: BlockPos,
-        color: OneColor,
+        color: PolyColor,
         thickness: Float,
         phase: Boolean,
         viewerPos: Triple<Double, Double, Double>

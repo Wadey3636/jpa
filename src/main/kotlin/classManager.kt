@@ -1,6 +1,6 @@
 package me.jpaMain
 
-import cc.polyfrost.oneconfig.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
 
 class classManager {
     init {

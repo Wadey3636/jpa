@@ -1,11 +1,11 @@
 package me.jpaMain.huds
 
-import cc.polyfrost.oneconfig.config.annotations.Color
-import cc.polyfrost.oneconfig.config.core.OneColor
-import cc.polyfrost.oneconfig.hud.Hud
-import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
-import cc.polyfrost.oneconfig.platform.Platform
-import cc.polyfrost.oneconfig.renderer.TextRenderer
+import org.polyfrost.oneconfig.config.annotations.Color
+import org.polyfrost.oneconfig.config.core.PolyColor
+import org.polyfrost.oneconfig.hud.Hud
+import org.polyfrost.oneconfig.libs.universal.UMatrixStack
+import org.polyfrost.oneconfig.platform.Platform
+import org.polyfrost.oneconfig.renderer.TextRenderer
 import me.jpaMain.dungeonfeatures.p3StartTimerticks
 import kotlin.math.max
 
@@ -14,7 +14,7 @@ class p3StartTimerHud : Hud(true) {
     @Color(
         name = "Timer Color"
     )
-    protected var timerColor = OneColor(0, 255, 0, 255)
+    protected var timerColor = PolyColor(0, 255, 0, 255)
     override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
         if (p3StartTimerticks <= 0f) return
 

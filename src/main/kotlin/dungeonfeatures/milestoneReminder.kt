@@ -1,12 +1,12 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ChatReceiveEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.libs.universal.UChat
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.SecondEvent
-import me.jpaMain.utils.renderHelper.oneColorToInt
+import me.jpaMain.utils.renderHelper.PolyColorToInt
 import me.jpaMain.utils.renderHelper.renderTitle
 
 class milestoneReminder {
@@ -34,7 +34,7 @@ class milestoneReminder {
     @Subscribe
     fun secondEvent(event: SecondEvent) {
         if (renderReminder && (mileStone3ReminderTimer * 1000) > System.currentTimeMillis() - timeStamp) {
-            renderTitle(mileStone3ReminderText, mileStone3ReminderScale, mileStone3ReminderColor.oneColorToInt, 3000L)
+            renderTitle(mileStone3ReminderText, mileStone3ReminderScale, mileStone3ReminderColor.PolyColorToInt, 3000L)
             renderReminder = false
         }
     }

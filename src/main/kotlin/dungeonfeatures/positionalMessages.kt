@@ -1,7 +1,7 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc

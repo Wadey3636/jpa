@@ -1,9 +1,9 @@
 package me.jpaMain.huds
 
-import cc.polyfrost.oneconfig.hud.Hud
-import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
-import cc.polyfrost.oneconfig.platform.Platform
-import cc.polyfrost.oneconfig.renderer.TextRenderer
+import org.polyfrost.oneconfig.hud.Hud
+import org.polyfrost.oneconfig.libs.universal.UMatrixStack
+import org.polyfrost.oneconfig.platform.Platform
+import org.polyfrost.oneconfig.renderer.TextRenderer
 import me.jpaMain.dungeonfeatures.padcolor
 import me.jpaMain.dungeonfeatures.padticks
 import me.jpaMain.dungeonfeatures.stormActivated

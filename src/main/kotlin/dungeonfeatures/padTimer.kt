@@ -1,16 +1,16 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.config.core.OneColor
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.config.v1.core.PolyColor
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.jpaMain.events.ServerTickEvent
 
 var purpleTicks = 0
 var stormActivated = false
 var padticks = 20f
-var padcolor = OneColor((255 - padticks * 12.75).toInt(), (0 + padticks * 12.75).toInt(), 0, 255)
+var padcolor = PolyColor((255 - padticks * 12.75).toInt(), (0 + padticks * 12.75).toInt(), 0, 255)
 
 class padTimer {
     init {
@@ -45,7 +45,7 @@ class padTimer {
 
             if (purpleTicks > 0) --purpleTicks
 
-            padcolor = OneColor((255 - padticks * 12.75).toInt(), (0 + padticks * 12.75).toInt(), 0, 255)
+            padcolor = PolyColor((255 - padticks * 12.75).toInt(), (0 + padticks * 12.75).toInt(), 0, 255)
         }
     }
 

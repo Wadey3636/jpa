@@ -14,6 +14,5 @@ public class MixinRenderPlayer {
     @Inject(method = "preRenderCallback(Lnet/minecraft/client/entity/AbstractClientPlayer;F)V", at = @At("TAIL"))
     private void onPreRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime, CallbackInfo ci) {
         playerRenderer.INSTANCE.preRenderCallbackScaleHook(entitylivingbaseIn);
-
     }
 }

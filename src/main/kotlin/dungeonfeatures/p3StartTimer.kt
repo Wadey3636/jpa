@@ -1,10 +1,10 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.ReceivePacketEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import net.minecraft.network.play.server.S32PacketConfirmTransaction
 
 var p3StartTimerticks = 0f

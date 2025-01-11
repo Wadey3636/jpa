@@ -1,8 +1,8 @@
 package me.jpaMain.dungeonfeatures.DungeonScanner
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import com.github.Wadey.config.jpaConfig.icefillSolver
 import me.jpaMain.events.SecondEvent
 import me.jpaMain.jpaMain.mc
@@ -20,7 +20,6 @@ val uncheckedRooms = HashSet<BlockPos>()
 
 
 class dungeonScanner {
-
     private var lastScan = currentTimeMillis()
 
     init {

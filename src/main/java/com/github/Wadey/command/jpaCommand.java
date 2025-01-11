@@ -1,7 +1,7 @@
 package com.github.Wadey.command;
 
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
+import org.polyfrost.oneconfig.utils.commands.annotations.Command;
+import org.polyfrost.oneconfig.utils.commands.annotations.Main;
 import com.github.Wadey.jaquaviouspringletonaddons;
 
 /**

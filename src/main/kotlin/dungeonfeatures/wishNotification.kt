@@ -1,11 +1,11 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ChatReceiveEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.utils.renderHelper
-import me.jpaMain.utils.renderHelper.oneColorToInt
+import me.jpaMain.utils.renderHelper.PolyColorToInt
 
 
 class wishNotification {
@@ -25,7 +25,7 @@ class wishNotification {
                     renderHelper.renderTitle(
                         "Wish",
                         wishNotificationSize,
-                        healerWishNotificationColor.oneColorToInt,
+                        healerWishNotificationColor.PolyColorToInt,
                         3000
                     )
                 }
@@ -34,7 +34,7 @@ class wishNotification {
                     renderHelper.renderTitle(
                         "Wish",
                         wishNotificationSize,
-                        healerWishNotificationColor.oneColorToInt,
+                        healerWishNotificationColor.PolyColorToInt,
                         3000
                     )
                 }

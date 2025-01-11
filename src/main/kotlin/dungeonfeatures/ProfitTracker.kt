@@ -1,10 +1,10 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.config.core.OneColor
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.libs.universal.UResolution
+import org.polyfrost.oneconfig.api.config.v1.core.PolyColor
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.libs.universal.UChat
+import org.polyfrost.oneconfig.libs.universal.UResolution
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.changeGuiEvent
 import me.jpaMain.events.closeConfigEvent
@@ -13,7 +13,7 @@ import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.guiUtils
 import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.renderHelper
-import me.jpaMain.utils.renderHelper.oneColorToInt
+import me.jpaMain.utils.renderHelper.PolyColorToInt
 import me.jpaMain.utils.universalUtils.abbreviateNumber
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -37,8 +37,8 @@ class ProfitTracker {
     }
 
 
-    private val red = OneColor(255, 0, 0, 255)
-    private val green = OneColor(0, 255, 0, 255)
+    private val red = PolyColor(255, 0, 0, 255)
+    private val green = PolyColor(0, 255, 0, 255)
 
 
     private var scale = 1f
@@ -257,7 +257,7 @@ class ProfitTracker {
                         Chest = "Unknown"
                     }
                 }
-                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).oneColorToInt))
+                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).PolyColorToInt))
             }
             if (calculatorSort) bubbleSort(chests)
 
@@ -301,7 +301,7 @@ class ProfitTracker {
     }
 
 
-    private fun determineColor(chestProfit: Float, index: Int): OneColor {
+    private fun determineColor(chestProfit: Float, index: Int): PolyColor {
         if (chestProfit >= 0f) {
             highlightSlots.add(index)
             return green

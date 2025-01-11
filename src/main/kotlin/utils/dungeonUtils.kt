@@ -1,9 +1,9 @@
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.TickEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.TickEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.jpaMain.events.dungeonStartEvent
 import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.worldUtils.getSidebarLines

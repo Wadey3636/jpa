@@ -29,13 +29,13 @@
 
 package me.jpaMain.events
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent
-import cc.polyfrost.oneconfig.events.event.Stage
-import cc.polyfrost.oneconfig.events.event.TickEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.dsl.openScreen
+import org.polyfrost.oneconfig.api.event.v1.events.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.event.ReceivePacketEvent
+import org.polyfrost.oneconfig.api.event.v1.events.event.Stage
+import org.polyfrost.oneconfig.api.event.v1.events.event.TickEvent
+import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+import org.polyfrost.oneconfig.libs.universal.UChat
+import org.polyfrost.oneconfig.utils.dsl.openScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.jpaMain.utils.waitUntilLastItem
@@ -117,7 +117,7 @@ class fireEvents {
         if (event.gui == null) EventManager.INSTANCE.post(closeGuiEvent())
         if (event.gui == null && lastConfigOpen) EventManager.INSTANCE.post(closeConfigEvent())
         lastGui = event.gui
-        lastConfigOpen = cc.polyfrost.oneconfig.gui.OneConfigGui.isOpen()
+        lastConfigOpen = org.polyfrost.oneconfig.gui.OneConfigGui.isOpen()
     }
 
 
