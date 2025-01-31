@@ -3,9 +3,8 @@ package com.github.Wadey.config;
 
 import net.minecraftforge.fml.common.Mod;
 import org.polyfrost.oneconfig.api.config.v1.Config;
-import org.polyfrost.oneconfig.api.config.v1.ConfigManager;
+import org.polyfrost.oneconfig.api.config.v1.Tree;
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
-
 import com.github.Wadey.jaquaviouspringletonaddons;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
 import me.jpaMain.events.deletePlayerEntryEvent;
@@ -466,7 +465,7 @@ public class jpaConfig extends Config {
             text = "Use slashes (/) to separate values in the list.",
             type = InfoType.INFO,
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
+            subcategory = "Terminal Waypoints"
             
     )
     static boolean ignored11 = false;
@@ -475,7 +474,7 @@ public class jpaConfig extends Config {
             text = "RL stands for Right Lever, LL Stands for Left Lever.",
             type = InfoType.INFO,
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
+            subcategory = "Terminal Waypoints"
             
     )
     static boolean ignored12 = false;
@@ -484,7 +483,7 @@ public class jpaConfig extends Config {
             text = "List the terminals in the order you plan to complete them for the tracer to work.",
             type = InfoType.INFO,
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
+            subcategory = "Terminal Waypoints"
             
     )
     static boolean ignored13 = false;
@@ -507,7 +506,7 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 1",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
+            subcategory = "Terminal Waypoints"
             
     )
     public static String terminalWaypointsTextS1 = "";
@@ -515,7 +514,7 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 2",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
+            subcategory = "Terminal Waypoints"
             
     )
     public static String terminalWaypointsTextS2 = "";
@@ -523,7 +522,7 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 3",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
+            subcategory = "Terminal Waypoints"
             
     )
     public static String terminalWaypointsTextS3 = "";
@@ -531,8 +530,7 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 4",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
-            
+            subcategory = "Terminal Waypoints"
     )
     public static String terminalWaypointsTextS4 = "";
 
@@ -1442,6 +1440,7 @@ public class jpaConfig extends Config {
         save();
         int i = 0;
         while (i < 7) {
+            tree.
             mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(0).options.
                     remove(((event.getID() - 1) * 7 + 1));
             i++;
@@ -1458,13 +1457,13 @@ public class jpaConfig extends Config {
     }
 
 
-    @Override
-    public void initialize() {
-        super.initialize();
+
+    private void initialize() {
         int i = 0;
         while (playerEntries.size() > i) {
-            tree.put()
+            Tree death = this.getTree().unpack().remove("");
             i++;
+            tree = death
         }
     }
 }
