@@ -29,13 +29,6 @@
 
 package me.jpaMain.events
 
-import org.polyfrost.oneconfig.api.event.v1.events.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.event.ReceivePacketEvent
-import org.polyfrost.oneconfig.api.event.v1.events.event.Stage
-import org.polyfrost.oneconfig.api.event.v1.events.event.TickEvent
-import org.polyfrost.oneconfig.libs.eventbus.Subscribe
-import org.polyfrost.oneconfig.libs.universal.UChat
-import org.polyfrost.oneconfig.utils.dsl.openScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.jpaMain.utils.waitUntilLastItem
@@ -45,6 +38,10 @@ import net.minecraft.inventory.ContainerChest
 import net.minecraft.network.play.server.S32PacketConfirmTransaction
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.ReceivePacketEvent
+import org.polyfrost.oneconfig.api.event.v1.events.TickEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import kotlin.coroutines.EmptyCoroutineContext
 
 class fireEvents {
@@ -64,16 +61,15 @@ class fireEvents {
     private var lastTimeSecond = System.currentTimeMillis()
     private val serverTicked by lazy { ServerTickEvent() }
 
-    @Subscribe
+    @SubscribeEvent
     fun onServerTick(event: ReceivePacketEvent) {
-        if (event.packet is S32PacketConfirmTransaction) {
+        if (event.getPacket<Boolean?>().equals(S32PacketConfirmTransaction())) {
             EventManager.INSTANCE.post(serverTicked)
         }
     }
 
     @Subscribe
-    fun onTick(event: TickEvent) {
-        if (event.stage != Stage.START) return
+    fun onTick(event: TickEvent.Start) {
         if (System.currentTimeMillis() - lastTimeQuarter > 250) {
             lastTimeQuarter = System.currentTimeMillis()
             EventManager.INSTANCE.post(QuarterSecondEvent())
@@ -82,8 +78,6 @@ class fireEvents {
             lastTimeSecond = System.currentTimeMillis()
             EventManager.INSTANCE.post(SecondEvent())
         }
-
-
     }
 
     /**
@@ -111,14 +105,6 @@ class fireEvents {
         )
     }
 
-    @SubscribeEvent
-    fun closeGUI(event: GuiOpenEvent) {
-        if (event.gui != lastGui) EventManager.INSTANCE.post(changeGuiEvent())
-        if (event.gui == null) EventManager.INSTANCE.post(closeGuiEvent())
-        if (event.gui == null && lastConfigOpen) EventManager.INSTANCE.post(closeConfigEvent())
-        lastGui = event.gui
-        lastConfigOpen = org.polyfrost.oneconfig.gui.OneConfigGui.isOpen()
-    }
 
 
 }

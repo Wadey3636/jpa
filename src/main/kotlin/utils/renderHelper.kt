@@ -1,7 +1,7 @@
 package me.jpaMain.utils
 
 //import net.minecraft.client.renderer.entity.RenderManager
-import org.polyfrost.oneconfig.config.core.PolyColor
+
 import me.jpaMain.jpaMain.mc
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderGlobal
@@ -13,8 +13,10 @@ import net.minecraft.util.BlockPos
 import net.minecraft.util.MathHelper
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11
+import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
+import org.polyfrost.polyui.color.PolyColor
 
 object renderHelper {
     private val beaconBeam = ResourceLocation("textures/entity/beacon_beam.png")
@@ -45,12 +47,10 @@ object renderHelper {
         return (alpha shl 24) or (red shl 16) or (green shl 8) or blue
     }
 
-    fun PolyColorToInt(color: PolyColor): Int {
-        return (color.alpha shl 24) or (color.red shl 16) or (color.green shl 8) or color.blue
-    }
 
-    val PolyColor.PolyColorToInt: Int
-        get() = PolyColorToInt(this)
+
+
+
 
 
     fun renderTitle(text: String, scale: Float, color: Int, duration: Long) {
@@ -122,10 +122,10 @@ object renderHelper {
         GlStateManager.blendFunc(770, 771)
         GL11.glLineWidth(thickness)
         GlStateManager.color(
-            color.red.toFloat() / 255,
-            color.green.toFloat() / 255,
-            color.blue.toFloat() / 255,
-            color.alpha.toFloat() / 255
+            color.r.toFloat() / 255,
+            color.g.toFloat() / 255,
+            color.b.toFloat() / 255,
+            color.alpha / 255
         )
 
         worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION)
@@ -167,9 +167,9 @@ object renderHelper {
 
 
         GlStateManager.color(
-            color.red.toFloat() / 255,
-            color.green.toFloat() / 255,
-            color.blue.toFloat() / 255,
+            color.r.toFloat() / 255,
+            color.g.toFloat() / 255,
+            color.b.toFloat() / 255,
             color.alpha.toFloat() / 255
         )
 
@@ -217,9 +217,9 @@ object renderHelper {
         //GL11.glEnable(GL11.GL_LINE_STRIP)
         GL11.glLineWidth(thickness)
         GlStateManager.color(
-            color.red.toFloat() / 255,
-            color.green.toFloat() / 255,
-            color.blue.toFloat() / 255,
+            color.r.toFloat() / 255,
+            color.g.toFloat() / 255,
+            color.b.toFloat() / 255,
             color.alpha.toFloat() / 255
         )
 

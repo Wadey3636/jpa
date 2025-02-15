@@ -1,8 +1,8 @@
 package com.github.Wadey.config;
 
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
-import org.polyfrost.oneconfig.api.event.v1.events.EventManager;
 import me.jpaMain.events.deletePlayerEntryEvent;
+import org.polyfrost.oneconfig.api.event.v1.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;

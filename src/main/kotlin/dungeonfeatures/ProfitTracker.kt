@@ -1,22 +1,23 @@
 package me.jpaMain.dungeonfeatures
 
-import org.polyfrost.oneconfig.api.config.v1.core.PolyColor
-import org.polyfrost.oneconfig.api.event.v1.events.EventManager
-import org.polyfrost.oneconfig.libs.eventbus.Subscribe
-import org.polyfrost.oneconfig.libs.universal.UChat
-import org.polyfrost.oneconfig.libs.universal.UResolution
+
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.events.changeGuiEvent
-import me.jpaMain.events.closeConfigEvent
 import me.jpaMain.events.openGuiEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.guiUtils
 import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.renderHelper
-import me.jpaMain.utils.renderHelper.PolyColorToInt
+
 import me.jpaMain.utils.universalUtils.abbreviateNumber
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
+import org.polyfrost.polyui.color.PolyColor
+import org.polyfrost.universal.UChat
+import org.polyfrost.universal.UResolution
 
 
 @JvmField
@@ -31,14 +32,15 @@ class ProfitTracker {
 
 
     init {
+
         EventManager.INSTANCE.register(this)
         possibleLoot.clear()
         chests.clear()
     }
 
 
-    private val red = PolyColor(255, 0, 0, 255)
-    private val green = PolyColor(0, 255, 0, 255)
+    private val red = PolyColor.Static(0f, 100f, 50f, 255f)
+    private val green = PolyColor.Static(120f, 100f, 50f, 255f)
 
 
     private var scale = 1f
@@ -47,7 +49,8 @@ class ProfitTracker {
     private var posY = (UResolution.scaledHeight / 3f)
 
     @Subscribe
-    fun onConfigClosed(event: closeConfigEvent) {
+    fun onConfigClosed(event: WorldLoadEvent) {
+
         possibleLoot.clear()
         possibleLoot["Necromancer's brooch"] = NecromancersBrooch
         possibleLoot["Hot Potato Book"] = HotPotato
@@ -253,11 +256,12 @@ class ProfitTracker {
                     "Obsidian Chest" -> Chest = "Obsidian"
                     "Bedrock Chest" -> Chest = "Bedrock"
                     else -> {
+
                         UChat.chat("[JPA] Unknown Chest Type")
                         Chest = "Unknown"
                     }
                 }
-                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).PolyColorToInt))
+                chests.add(chestLine(Chest, profit, determineColor(profit, item.position).argb))
             }
             if (calculatorSort) bubbleSort(chests)
 

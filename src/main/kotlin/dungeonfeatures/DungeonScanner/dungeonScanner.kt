@@ -1,8 +1,6 @@
 package me.jpaMain.dungeonfeatures.DungeonScanner
 
-import org.polyfrost.oneconfig.api.event.v1.events.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
-import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+
 import com.github.Wadey.config.jpaConfig.icefillSolver
 import me.jpaMain.events.SecondEvent
 import me.jpaMain.jpaMain.mc
@@ -11,6 +9,9 @@ import me.jpaMain.utils.roomInfo
 import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import java.lang.System.currentTimeMillis
 
 // Each 1x1 unit is 30 by 30

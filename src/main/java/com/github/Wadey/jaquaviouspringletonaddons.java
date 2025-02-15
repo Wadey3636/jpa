@@ -75,7 +75,6 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new wishNotification());
         MinecraftForge.EVENT_BUS.register(new ProfitTracker());
         MinecraftForge.EVENT_BUS.register(new titleUtils());
-        //MinecraftForge.EVENT_BUS.register(new milestoneReminder());
         MinecraftForge.EVENT_BUS.register(config);
     }
 

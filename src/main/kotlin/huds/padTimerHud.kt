@@ -1,17 +1,13 @@
-package me.jpaMain.huds
 
-import org.polyfrost.oneconfig.hud.Hud
-import org.polyfrost.oneconfig.libs.universal.UMatrixStack
-import org.polyfrost.oneconfig.platform.Platform
-import org.polyfrost.oneconfig.renderer.TextRenderer
-import me.jpaMain.dungeonfeatures.padcolor
+import org.polyfrost.oneconfig.api.config.v1.annotations.Color
+import org.polyfrost.oneconfig.api.hud.v1.TextHud
+import org.polyfrost.polyui.color.PolyColor
 import me.jpaMain.dungeonfeatures.padticks
 import me.jpaMain.dungeonfeatures.stormActivated
-import kotlin.math.max
+import org.polyfrost.oneconfig.api.hud.v1.LegacyHud
 
 
-class padTimerHud : Hud(stormActivated) {
-
+class padTimerHud : LegacyHud() {
 
     override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
         if (!stormActivated) return

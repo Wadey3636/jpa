@@ -1,6 +1,7 @@
 package me.jpaMain.utils
 
 import me.jpaMain.dungeonfeatures.chestLine
+import kotlin.math.abs
 
 //10,000,000
 //10m
@@ -25,6 +26,9 @@ object universalUtils {
 
 
     }
+
+
+
 
     fun abbreviateNumber(n: Int): String {
         return abbreviateNumber(n.toDouble())

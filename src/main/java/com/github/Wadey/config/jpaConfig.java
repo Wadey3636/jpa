@@ -1,20 +1,23 @@
 package com.github.Wadey.config;
 
 
+import kotlin.jvm.Transient;
 import net.minecraftforge.fml.common.Mod;
 import org.polyfrost.oneconfig.api.config.v1.Config;
-import org.polyfrost.oneconfig.api.config.v1.Tree;
+import org.polyfrost.oneconfig.api.config.v1.ConfigManager;
+import org.polyfrost.oneconfig.api.config.v1.Node;
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
+
 import com.github.Wadey.jaquaviouspringletonaddons;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
 import me.jpaMain.events.deletePlayerEntryEvent;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
 import me.jpaMain.huds.p3StartTimerHud;
-import me.jpaMain.huds.padTimerHud;
 import org.jetbrains.annotations.NotNull;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Number;
 import org.polyfrost.oneconfig.api.event.v1.EventManager;
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe;
+import org.polyfrost.polyui.PolyUI;
 import org.polyfrost.polyui.color.PolyColor;
 import org.polyfrost.polyui.input.KeyBinder;
 import org.polyfrost.polyui.input.KeybindHelper;
@@ -46,21 +49,21 @@ public class jpaConfig extends Config {
             subcategory = "Solvers",
             description = "The color of the path"
     )
-    public static PolyColor icefillPathColor = new PolyColor.Static(0, 255, 0, 255);
+    public static PolyColor icefillPathColor = new PolyColor.Mutable(0, 255, 0, 255);
     @Color(
             title = "Etherwarp Point Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
-    public static PolyColor icefillEtherwarpPointColor = new PolyColor.Static(0, 0, 255, 255);
+    public static PolyColor icefillEtherwarpPointColor = new PolyColor.Mutable(0, 0, 255, 255);
     @Color(
             title = "Teleport Point Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
-    public static PolyColor icefillTeleportPointColor = new PolyColor.Static(255, 0, 0, 255);
+    public static PolyColor icefillTeleportPointColor = new PolyColor.Mutable(255, 0, 0, 255);
 
     @Switch(
             title = "Phase",
@@ -146,7 +149,7 @@ public class jpaConfig extends Config {
             subcategory = "Pest Farming"
     )
     public static KeyBinder.Bind pestKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(() -> {
-        final Runnable pestFarmingKeybind = PestFarmingKeybindKt::pestFarmingKeybind;
+        PestFarmingKeybindKt::pestFarmingKeybind
     }).build();
 
 
@@ -363,7 +366,7 @@ public class jpaConfig extends Config {
             subcategory = "Skill Issue"
     )
     public static PolyColor mileStone3ReminderColor = new PolyColor.Static(50, 255, 30, 255);
-
+    //bookmark
     @Button(
             title = "Add Players",
             text = "Add",
@@ -374,15 +377,14 @@ public class jpaConfig extends Config {
     private void addPlayers() {
         playerEntries.add(new playerEntry(playerEntries.size() + 1));
         save();
-        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
+        ConfigManager.active().register(playerEntries.get(playerEntries.size() - 1), tree.getID());
     }
 
     @Info(
-            text = "Case Sensitive",
+            title = "Case Sensitive",
             category = "Player Size Customizer",
             subcategory = "Players",
-            
-            type = InfoType.INFO
+            description = ""
     )
     public static boolean ignored;
 
@@ -462,8 +464,8 @@ public class jpaConfig extends Config {
     public static boolean mageCoring = false;
 
     @Info(
-            text = "Use slashes (/) to separate values in the list.",
-            type = InfoType.INFO,
+            title = "Use slashes (/) to separate values in the list.",
+            description = "",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
             
@@ -471,8 +473,8 @@ public class jpaConfig extends Config {
     static boolean ignored11 = false;
 
     @Info(
-            text = "RL stands for Right Lever, LL Stands for Left Lever.",
-            type = InfoType.INFO,
+            title = "RL stands for Right Lever, LL Stands for Left Lever.",
+            description = "",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
             
@@ -480,8 +482,8 @@ public class jpaConfig extends Config {
     static boolean ignored12 = false;
 
     @Info(
-            text = "List the terminals in the order you plan to complete them for the tracer to work.",
-            type = InfoType.INFO,
+            title = "List the terminals in the order you plan to complete them for the tracer to work.",
+            description = "",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
             
@@ -489,10 +491,10 @@ public class jpaConfig extends Config {
     static boolean ignored13 = false;
 
     @Info(
-            text = "Example: 4/3/RL",
-            type = InfoType.SUCCESS,
+            title = "Example: 4/3/RL",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
+            description = ""
             
     )
     static boolean ignored14 = false;
@@ -506,7 +508,8 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 1",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints"
+            subcategory = "Terminal Waypoints",
+            description = ""
             
     )
     public static String terminalWaypointsTextS1 = "";
@@ -514,7 +517,8 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 2",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints"
+            subcategory = "Terminal Waypoints",
+            description = ""
             
     )
     public static String terminalWaypointsTextS2 = "";
@@ -522,7 +526,8 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 3",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints"
+            subcategory = "Terminal Waypoints",
+            description = ""
             
     )
     public static String terminalWaypointsTextS3 = "";
@@ -530,7 +535,9 @@ public class jpaConfig extends Config {
     @Text(
             title = "Section 4",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints"
+            subcategory = "Terminal Waypoints",
+            description = ""
+            
     )
     public static String terminalWaypointsTextS4 = "";
 
@@ -568,13 +575,6 @@ public class jpaConfig extends Config {
 
     )
     public static boolean toggleCalculator = false;
-    @Header(
-            text = "",
-            
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
-    public static boolean ignored9;
     @Switch(
             title = "Sort Values",
             category = "Dungeons",
@@ -594,16 +594,11 @@ public class jpaConfig extends Config {
     //PLAYER SIZE CUSTOMIZER
 
 
-    @Header(
-            text = "",
-            
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
+
     public static boolean ignored10;
-    @Header(
-            text = "Universal",
-            
+    @Info(
+            title = "Universal",
+            description = "",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
@@ -755,9 +750,9 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float OldDisc = 0f;
-    @Header(
-            text = "Master Skulls",
-            
+    @Info(
+            title = "Master Skulls",
+            description = "",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
@@ -797,13 +792,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT5 = 500000f;
-    @Header(
-            text = "Floor 1",
-            
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
-    public static boolean ignored1;
     @Number(
             title = "Bonzo's Staff",
             min = 0f, max = 1000000000,
@@ -825,9 +813,9 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float RedNose = 0f;
-    @Header(
-            text = "Floor 2",
-            
+    @Info(
+            title = "Floor 2",
+            description = "",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
@@ -860,8 +848,9 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float RedScarf = 2500000f;
-    @Header(
-            text = "Floor 3",
+    @Info(
+            title = "Floor 3",
+            description = "",
             
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
@@ -909,8 +898,9 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FirstMasterStar = 0f;
-    @Header(
-            text = "Floor 4",
+    @Info(
+            title = "Floor 4",
+            description = "",
             
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
@@ -979,8 +969,9 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float SecondMasterStar = 12000000f;
-    @Header(
-            text = "Floor 5",
+    @Info(
+            title = "Floor 5",
+            description = "",
             
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
@@ -1084,13 +1075,6 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float Legion = 2000000f;
-    @Header(
-            text = "Floor 6",
-            
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
-    public static boolean ignored6;
     @Number(
             title = "Ancient Rose",
             min = 0f, max = 1000000000,
@@ -1189,8 +1173,9 @@ public class jpaConfig extends Config {
             subcategory = "Ironman Profit Calculator"
     )
     public static float FourthMasterStar = 60000000f;
-    @Header(
-            text = "Floor 7",
+    @Info(
+            title = "Floor 7",
+            description = "",
             
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
@@ -1351,21 +1336,14 @@ public class jpaConfig extends Config {
     )
     public static float MaxorFish = 0f;
 
-    @HUD(
-            title = "Pad Timer",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public padTimerHud hud = new padTimerHud();
-    @HUD(
-            title = "P3 Start Timer",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public p3StartTimerHud starthud = new p3StartTimerHud();
+
+
+
+    public static final jpaConfig INSTANCE = new jpaConfig();
 
     public jpaConfig() {
-        super(new Mod(jaquaviouspringletonaddons.title, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
+        super(jaquaviouspringletonaddons.ID + ".json", jaquaviouspringletonaddons.NAME, Category.OTHER);
+
         initialize();
         registerKeybind(pestKey);
         registerKeybind(pearlKey, GfsKeybindsKt::gfsPearl);
@@ -1429,41 +1407,15 @@ public class jpaConfig extends Config {
         addDependency("dragonpos", "F7/M7 Position messages", () -> posMsgs);
         addDependency("midposmsg", "F7/M7 Position messages", () -> posMsgs);
         addDependency("stormposmsg", "F7/M7 Position messages", () -> posMsgs);
-        EventManager.register(this);
+
     }
 
 
-
-    @Subscribe
-    public void deleteEntry(deletePlayerEntryEvent event) {
-        playerEntries.remove(event.getID() - 1);
-        save();
-        int i = 0;
-        while (i < 7) {
-            tree.
-            mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(0).options.
-                    remove(((event.getID() - 1) * 7 + 1));
-            i++;
-        }
-        reorderIds(playerEntries);
-    }
-
-    private void reorderIds(@NotNull List<playerEntry> players) {
-        int i = 0;
-        while (i < players.size()) {
-            players.get(i).setID(i + 1);
-            i++;
-        }
-    }
-
-
-
-    private void initialize() {
+    //bookmark
+    public void initialize() {
         int i = 0;
         while (playerEntries.size() > i) {
-            Tree death = this.getTree().unpack().remove("");
-            i++;
-            tree = death
+            ConfigManager.active().register(playerEntries.get(i), tree.getID());
         }
     }
 }

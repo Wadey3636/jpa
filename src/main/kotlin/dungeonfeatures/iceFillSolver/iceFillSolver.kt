@@ -1,9 +1,6 @@
 package me.jpaMain.dungeonfeatures.iceFillSolver
 
-import org.polyfrost.oneconfig.api.event.v1.events.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
-import org.polyfrost.oneconfig.libs.eventbus.Subscribe
-import org.polyfrost.oneconfig.libs.universal.UChat
+
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
@@ -17,11 +14,15 @@ import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
+import org.polyfrost.universal.UChat
+import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
 
 class iceFillSolver {
 
     init {
+
         EventManager.INSTANCE.register(this)
     }
 

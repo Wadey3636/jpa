@@ -1,15 +1,15 @@
 package me.jpaMain.command
 
-import org.polyfrost.oneconfig.libs.universal.UChat
-import org.polyfrost.oneconfig.utils.commands.annotations.Command
-import org.polyfrost.oneconfig.utils.commands.annotations.Main
+
 import me.jpaMain.utils.inDungeon
+import org.polyfrost.oneconfig.api.commands.v1.factories.annotated.Command
+import org.polyfrost.universal.UChat
 
 var devMode = false
 
 @Command(value = "jpaDevMode", description = "")
 class JPAdevMode {
-    @Main
+    @Command
     private fun devMode() {
         inDungeon = true
         devMode = true

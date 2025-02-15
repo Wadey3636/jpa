@@ -1,20 +1,20 @@
 package me.jpaMain.dungeonfeatures
 
-import org.polyfrost.oneconfig.api.event.v1.events.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.event.WorldLoadEvent
-import org.polyfrost.oneconfig.libs.eventbus.Subscribe
+
 import com.github.Wadey.config.jpaConfig.*
 import me.jpaMain.command.devMode
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.PlayerPosInfo
 import me.jpaMain.utils.inDungeon
-import me.jpaMain.utils.renderHelper.PolyColorToInt
 import me.jpaMain.utils.renderHelper.renderTitle
 import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import java.util.concurrent.atomic.AtomicBoolean
 
 var ee2Triggered = AtomicBoolean(false)
@@ -35,6 +35,7 @@ class positionDetectors {
 
 
     init {
+
         EventManager.INSTANCE.register(this)
     }
 
@@ -81,7 +82,7 @@ class positionDetectors {
 
         if (!detectorActive.get()) {
             detected.let { player = it.name }
-            textColor = detectorColor.PolyColorToInt
+            textColor = detectorColor.argb
             mc.theWorld.playSound(
                 mc.thePlayer.posX,
                 mc.thePlayer.posY,

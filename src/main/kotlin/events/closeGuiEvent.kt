@@ -1,5 +1,5 @@
 package me.jpaMain.events
 
-import org.polyfrost.oneconfig.api.event.v1.events.event.CancellableEvent
+import org.polyfrost.oneconfig.api.event.v1.events.Event
 
-class closeGuiEvent : CancellableEvent()
+class closeGuiEvent : Event.Cancellable()

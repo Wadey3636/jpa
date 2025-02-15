@@ -1,61 +1,36 @@
 package me.jpaMain.huds
 
-import org.polyfrost.oneconfig.config.annotations.Color
-import org.polyfrost.oneconfig.config.core.PolyColor
-import org.polyfrost.oneconfig.hud.Hud
-import org.polyfrost.oneconfig.libs.universal.UMatrixStack
-import org.polyfrost.oneconfig.platform.Platform
-import org.polyfrost.oneconfig.renderer.TextRenderer
 import me.jpaMain.dungeonfeatures.p3StartTimerticks
+import org.polyfrost.oneconfig.api.config.v1.annotations.Color
+import org.polyfrost.oneconfig.api.hud.v1.TextHud
+import org.polyfrost.universal.UMatrixStack
 import kotlin.math.max
+import org.polyfrost.polyui.color.PolyColor
+import org.polyfrost.oneconfig.api.event.v1.eventHandler
 
-
-class p3StartTimerHud : Hud(true) {
+var p3StartTimerText: String = ""
+class p3StartTimerHud : TextHud("", p3StartTimerText) {
     @Color(
-        name = "Timer Color"
+        title = "Timer Color"
     )
-    protected var timerColor = PolyColor(0, 255, 0, 255)
-    override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
-        if (p3StartTimerticks <= 0f) return
+    protected var timerColor = PolyColor.Mutable(0f ,0f ,0f ,0f)
 
-        if (p3StartTimerticks % 2 == 0f) {
-            TextRenderer.drawScaledString(
-                (p3StartTimerticks / 20).toString() + "0",
-                x,
-                y,
-                timerColor.getRGB(),
-                TextRenderer.TextType.toType(0),
-                scale
-            )
+
+    override fun id() = "p3_start_timer"
+
+    override fun title() = "P3 Start Timer"
+
+    override fun category() = Category.INFO
+    override fun getText(): String? {
+        if (p3StartTimerticks <= 0f) return null
+        return if (p3StartTimerticks % 2 == 0f) {
+            (p3StartTimerticks / 20).toString() + "0"
         } else {
-            TextRenderer.drawScaledString(
-                (p3StartTimerticks / 20).toString(),
-                x,
-                y,
-                timerColor.getRGB(),
-                TextRenderer.TextType.toType(0),
-                scale
-            )
+            (p3StartTimerticks / 20).toString()
         }
-
-
     }
-
-    override fun getWidth(scale: Float, example: Boolean): Float {
-        var width = 0f
-        width = max(width.toDouble(), getLineWidth((p3StartTimerticks * 5).toString(), scale).toDouble()).toFloat()
-        return width
-    }
-
-    override fun getHeight(scale: Float, example: Boolean): Float {
-        return 8 * scale
-    }
-
-
-    fun getLineWidth(line: String?, scale: Float): Float {
-        return Platform.getGLPlatform().getStringWidth(line) * scale
-    }
-
 
 }
+
+
 
