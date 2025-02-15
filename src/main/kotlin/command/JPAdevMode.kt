@@ -7,7 +7,7 @@ import org.polyfrost.universal.UChat
 
 var devMode = false
 
-@Command(value = "jpaDevMode", description = "")
+@Command(value = ["jpaDevMode"], description = "")
 class JPAdevMode {
     @Command
     private fun devMode() {

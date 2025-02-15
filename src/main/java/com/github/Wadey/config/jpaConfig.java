@@ -1,38 +1,23 @@
 package com.github.Wadey.config;
 
-
-import kotlin.jvm.Transient;
-import net.minecraftforge.fml.common.Mod;
 import org.polyfrost.oneconfig.api.config.v1.Config;
-import org.polyfrost.oneconfig.api.config.v1.ConfigManager;
-import org.polyfrost.oneconfig.api.config.v1.Node;
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
-
 import com.github.Wadey.jaquaviouspringletonaddons;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
-import me.jpaMain.events.deletePlayerEntryEvent;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
-import me.jpaMain.huds.p3StartTimerHud;
-import org.jetbrains.annotations.NotNull;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Number;
-import org.polyfrost.oneconfig.api.event.v1.EventManager;
-import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe;
-import org.polyfrost.polyui.PolyUI;
 import org.polyfrost.polyui.color.PolyColor;
 import org.polyfrost.polyui.input.KeyBinder;
 import org.polyfrost.polyui.input.KeybindHelper;
 import org.polyfrost.universal.UKeyboard;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindManager.registerKeybind;
 
 
 public class jpaConfig extends Config {
 
-    @Include
-    public static List<playerEntry> playerEntries = new ArrayList<>();
+    //@Include
+    //public static List<playerEntry> playerEntries = new ArrayList<>();
 
 
 
@@ -148,10 +133,10 @@ public class jpaConfig extends Config {
             category = "Garden",
             subcategory = "Pest Farming"
     )
-    public static KeyBinder.Bind pestKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(() -> {
-        PestFarmingKeybindKt::pestFarmingKeybind
+    public static KeyBinder.Bind pestKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        PestFarmingKeybindKt.pestFarmingKeybind();
+        return null;
     }).build();
-
 
     @Switch(
             title = "Pearl GFS Toggle",
@@ -167,7 +152,11 @@ public class jpaConfig extends Config {
             category = "Dungeons",
             subcategory = "Keybinds"
     )
-    public static OneKeyBind pearlKey = new OneKeyBind(UKeyboard.KEY_1);
+    public static KeyBinder.Bind pearlKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        GfsKeybindsKt.gfsPearl();
+        return null;
+    }).build();
+
 
     @Switch(
             title = "Superboom GFS Toggle",
@@ -183,7 +172,10 @@ public class jpaConfig extends Config {
             category = "Dungeons",
             subcategory = "Keybinds"
     )
-    public static OneKeyBind superboomKey = new OneKeyBind(UKeyboard.KEY_2);
+    public static KeyBinder.Bind superboomKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        GfsKeybindsKt.gfsSuperboom();
+        return null;
+    }).build();
 
     @Switch(
             title = "Spirit Leap GFS Toggle",
@@ -199,7 +191,10 @@ public class jpaConfig extends Config {
             category = "Dungeons",
             subcategory = "Keybinds"
     )
-    public static OneKeyBind spiritleapKey = new OneKeyBind(UKeyboard.KEY_3);
+    public static KeyBinder.Bind spiritleapKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        GfsKeybindsKt.gfsSpiritleap();
+        return null;
+    }).build();
 
     @Checkbox(
             title = "Mid Detector",
@@ -367,6 +362,7 @@ public class jpaConfig extends Config {
     )
     public static PolyColor mileStone3ReminderColor = new PolyColor.Static(50, 255, 30, 255);
     //bookmark
+    /*
     @Button(
             title = "Add Players",
             text = "Add",
@@ -379,6 +375,8 @@ public class jpaConfig extends Config {
         save();
         ConfigManager.active().register(playerEntries.get(playerEntries.size() - 1), tree.getID());
     }
+
+     */
 
     @Info(
             title = "Case Sensitive",
@@ -1342,75 +1340,63 @@ public class jpaConfig extends Config {
     public static final jpaConfig INSTANCE = new jpaConfig();
 
     public jpaConfig() {
-        super(jaquaviouspringletonaddons.ID + ".json", jaquaviouspringletonaddons.NAME, Category.OTHER);
-
-        initialize();
+        super(jaquaviouspringletonaddons.MODID + ".json", jaquaviouspringletonaddons.NAME, Category.OTHER);
         registerKeybind(pestKey);
-        registerKeybind(pearlKey, GfsKeybindsKt::gfsPearl);
-        registerKeybind(superboomKey, GfsKeybindsKt::gfsSuperboom);
-        registerKeybind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
-        hideIf("ee2Text", () -> !includePosition);
-        hideIf("ee3Text", () -> !includePosition);
-        hideIf("ee4Text", () -> !includePosition);
-        hideIf("ee2TextSS", () -> !includePosition || !safespots);
-        hideIf("ee3TextSS", () -> !includePosition || !safespots);
-        hideIf("midText", () -> !includePosition);
-
-
-
-        hideIf("terminalWaypointsTextS1", () -> terminalPreset != 4);
-        hideIf("terminalWaypointsTextS2", () -> terminalPreset != 4);
-        hideIf("terminalWaypointsTextS3", () -> terminalPreset != 4);
-        hideIf("terminalWaypointsTextS4", () -> terminalPreset != 4);
-        hideIf("ignored11", () -> terminalPreset != 4);
-        hideIf("ignored12", () -> terminalPreset != 4);
-        hideIf("ignored13", () -> terminalPreset != 4);
-        hideIf("ignored14", () -> terminalPreset != 4);
-        hideIf("mageCoring", () -> !(terminalPreset == 0 || terminalPreset == 2) );
-        hideIf("ee2", () -> !(terminalPreset == 0 || terminalPreset == 2));
+        registerKeybind(pearlKey);
+        registerKeybind(superboomKey);
+        registerKeybind(spiritleapKey);
+        hideIf("ee2Text", () ->   !includePosition);
+        hideIf("ee3Text", () ->   !includePosition);
+        hideIf("ee4Text", () ->   !includePosition);
+        hideIf("ee2TextSS",  () ->  !includePosition || !safespots);
+        hideIf("ee3TextSS",  () ->  !includePosition || !safespots);
+        hideIf("midText", () ->   !includePosition);
+        hideIf("terminalWaypointsTextS1", () ->   terminalPreset != 4);
+        hideIf("terminalWaypointsTextS2", () ->   terminalPreset != 4);
+        hideIf("terminalWaypointsTextS3", () ->   terminalPreset != 4);
+        hideIf("terminalWaypointsTextS4", () ->   terminalPreset != 4);
+        hideIf("ignored11",  () ->  terminalPreset != 4);
+        hideIf("ignored12", () ->   terminalPreset != 4);
+        hideIf("ignored13", () ->   terminalPreset != 4);
+        hideIf("ignored14", () ->   terminalPreset != 4);
+        hideIf("mageCoring",  () ->  !(terminalPreset == 0 || terminalPreset == 2) );
+        hideIf("ee2", () ->   !(terminalPreset == 0 || terminalPreset == 2));
         hideIf("I4", () -> terminalPreset == 4);
-        addDependency("terminalWaypointsTextS1", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTextS2", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTextS3", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTextS4", "Toggle", () -> terminalWaypoints);
-        addDependency("mageCoring", "Toggle", () -> terminalWaypoints);
-        addDependency("ee2", "Toggle", () -> terminalWaypoints);
-        addDependency("I4", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalPreset", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTracer", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTracerColor", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsPhase", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsColor", "Toggle", () -> terminalWaypoints);
-
-
-        //bookmark
-
-
-
-
-        addDependency("Icefill Solver", "icefillPathColor", () -> icefillSolver);
-        addDependency("Icefill Solver", "icefillEtherwarpPointColor", () -> icefillSolver);
-        addDependency("Icefill Solver", "icefillTeleportPointColor", () -> icefillSolver);
-        addDependency("Icefill Solver", "icefillSolverPhase", () -> icefillSolver);
-        addDependency("Smart Healer Wish Notification", "healerWishNotificationColor", () -> healerWishNotification);
-        addDependency("", "wishNotificationSize", () -> healerWishNotification);
+        addDependency("terminalWaypointsTextS1", "Toggle",   terminalWaypoints);
+        addDependency("terminalWaypointsTextS2", "Toggle",   terminalWaypoints);
+        addDependency("terminalWaypointsTextS3", "Toggle",   terminalWaypoints);
+        addDependency("terminalWaypointsTextS4", "Toggle",   terminalWaypoints);
+        addDependency("mageCoring", "Toggle",   terminalWaypoints);
+        addDependency("ee2", "Toggle",   terminalWaypoints);
+        addDependency("I4", "Toggle",   terminalWaypoints);
+        addDependency("terminalPreset", "Toggle",   terminalWaypoints);
+        addDependency("terminalWaypointsTracer", "Toggle",   terminalWaypoints);
+        addDependency("terminalWaypointsTracerColor", "Toggle",  terminalWaypoints);
+        addDependency("terminalWaypointsPhase", "Toggle", terminalWaypoints);
+        addDependency("terminalWaypointsColor", "Toggle", terminalWaypoints);
+        addDependency("Icefill Solver", "icefillPathColor", icefillSolver);
+        addDependency("Icefill Solver", "icefillEtherwarpPointColor", icefillSolver);
+        addDependency("Icefill Solver", "icefillTeleportPointColor", icefillSolver);
+        addDependency("Icefill Solver", "icefillSolverPhase", icefillSolver);
+        addDependency("Smart Healer Wish Notification", "healerWishNotificationColor", healerWishNotification);
+        addDependency("", "wishNotificationSize", healerWishNotification);
 
 
 
 
 
-        addDependency("berzmsg", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("berzmsg", "F7/M7 Position messages", posMsgs);
 
-        addDependency("earlyentrypositions", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("simonsayspos", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("goldorpos", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("dragonpos", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("midposmsg", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("stormposmsg", "F7/M7 Position messages", () -> posMsgs);
+        addDependency("earlyentrypositions", "F7/M7 Position messages", posMsgs);
+        addDependency("simonsayspos", "F7/M7 Position messages", posMsgs);
+        addDependency("goldorpos", "F7/M7 Position messages", posMsgs);
+        addDependency("dragonpos", "F7/M7 Position messages", posMsgs);
+        addDependency("midposmsg", "F7/M7 Position messages", posMsgs);
+        addDependency("stormposmsg", "F7/M7 Position messages", posMsgs);
 
     }
 
-
+/*
     //bookmark
     public void initialize() {
         int i = 0;
@@ -1418,4 +1404,5 @@ public class jpaConfig extends Config {
             ConfigManager.active().register(playerEntries.get(i), tree.getID());
         }
     }
+*/
 }

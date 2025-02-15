@@ -1,10 +1,10 @@
 package com.github.Wadey;
 
+import com.github.Wadey.config.jpaConfig;
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager;
 import org.polyfrost.oneconfig.api.event.v1.events.InitializationEvent;
 import me.jpaMain.command.floorCommands.*;
 import com.github.Wadey.command.jpaCommand;
-import com.github.Wadey.config.jpaConfig;
 import me.jpaMain.command.JPAdevMode;
 import me.jpaMain.command.fsCommand;
 import me.jpaMain.command.testCommand;
@@ -30,18 +30,18 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class jaquaviouspringletonaddons {
 
     // Sets the variables from `gradle.properties`. See the `blossom` config in `build.gradle.kts`.
-    public static final String MODID = "@ID@";
-    public static final String NAME = "@NAME@";
-    public static final String VERSION = "@VER@";
+    public static final String MODID = "@MOD_ID@";
+    public static final String NAME = "@MOD_NAME@";
+    public static final String VERSION = "@MOD_VERSION@";
     @Mod.Instance(MODID)
     public static jaquaviouspringletonaddons INSTANCE; // Adds the instance of the mod, so we can access other variables.
-    public static jpaConfig config;
+
 
 
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        config = new jpaConfig();
+        jpaConfig.INSTANCE.preload();
         CommandManager.registerCommand(new jpaCommand());
         CommandManager.registerCommand(new fsCommand());
         CommandManager.registerCommand(new testCommand());
@@ -60,8 +60,6 @@ public class jaquaviouspringletonaddons {
         CommandManager.registerCommand(new masterFloorThree());
         CommandManager.registerCommand(new masterFloorTwo());
         CommandManager.registerCommand(new masterFloorOne());
-
-
         MinecraftForge.EVENT_BUS.register(new terminalWaypoints());
         MinecraftForge.EVENT_BUS.register(new dungeonScanner());
         MinecraftForge.EVENT_BUS.register(new p3StartTimer());
@@ -75,7 +73,6 @@ public class jaquaviouspringletonaddons {
         MinecraftForge.EVENT_BUS.register(new wishNotification());
         MinecraftForge.EVENT_BUS.register(new ProfitTracker());
         MinecraftForge.EVENT_BUS.register(new titleUtils());
-        MinecraftForge.EVENT_BUS.register(config);
     }
 
 }

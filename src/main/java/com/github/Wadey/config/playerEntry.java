@@ -1,5 +1,5 @@
 package com.github.Wadey.config;
-
+/*
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
 import me.jpaMain.events.deletePlayerEntryEvent;
 import org.polyfrost.oneconfig.api.event.v1.EventManager;
@@ -87,3 +87,5 @@ public class playerEntry {
         this.id = id;
     }
 }
+
+ */

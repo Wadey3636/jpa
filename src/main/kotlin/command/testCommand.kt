@@ -5,7 +5,7 @@ import org.polyfrost.universal.UChat
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 
 
-@Command(value = "testRooms", description = "tester")
+@Command(value = ["testRooms"], description = "tester")
 
 class testCommand {
     @Command
