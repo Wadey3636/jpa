@@ -1381,10 +1381,6 @@ public class jpaConfig extends Config {
         addDependency("Smart Healer Wish Notification", "healerWishNotificationColor", healerWishNotification);
         addDependency("", "wishNotificationSize", healerWishNotification);
 
-
-
-
-
         addDependency("berzmsg", "F7/M7 Position messages", posMsgs);
 
         addDependency("earlyentrypositions", "F7/M7 Position messages", posMsgs);
