@@ -33,7 +33,7 @@ class p3StartTimerHud : TextHud("", p3StartTimerText) {
 
 }
 
- */
+67 */
 
 
 

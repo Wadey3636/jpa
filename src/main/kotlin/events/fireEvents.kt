@@ -61,11 +61,9 @@ class fireEvents {
     private var lastTimeSecond = System.currentTimeMillis()
     private val serverTicked by lazy { ServerTickEvent() }
 
-    @SubscribeEvent
-    fun onServerTick(event: ReceivePacketEvent) {
-        if (event.getPacket<Boolean?>().equals(S32PacketConfirmTransaction())) {
-            EventManager.INSTANCE.post(serverTicked)
-        }
+    @Subscribe
+    fun onServerTick(event: PacketEvent) {
+        if (event.packet is S32PacketConfirmTransaction) EventManager.INSTANCE.post(ServerTickEvent())
     }
 
     @Subscribe

@@ -551,7 +551,6 @@ public class JpaConfig extends Config {
     //DUNGEON LOOT
     @Switch(
             title = "Toggle Profit Calculator",
-            
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
 
@@ -1348,31 +1347,31 @@ public class JpaConfig extends Config {
         hideIf("ee2", () ->   !(terminalPreset == 0 || terminalPreset == 2));
         hideIf("I4", () -> terminalPreset == 4);
         
-        addDependency("terminalWaypointsTextS1", "Toggle", terminalWaypoints);
-        addDependency("terminalWaypointsTextS2", "Toggle", terminalWaypoints);
-        addDependency("terminalWaypointsTextS3", "Toggle", terminalWaypoints);
-        addDependency("terminalWaypointsTextS4", "Toggle", terminalWaypoints);
-        addDependency("mageCoring", "Toggle", terminalWaypoints);
-        addDependency("ee2", "Toggle", terminalWaypoints);
-        addDependency("I4", "Toggle", terminalWaypoints);
-        addDependency("terminalPreset", "Toggle", terminalWaypoints);
-        addDependency("terminalWaypointsTracer", "Toggle", terminalWaypoints);
-        addDependency("terminalWaypointsTracerColor", "Toggle",  terminalWaypoints);
-        addDependency("terminalWaypointsPhase", "Toggle", terminalWaypoints);
-        addDependency("terminalWaypointsColor", "Toggle", terminalWaypoints);
-        addDependency("Icefill Solver", "icefillPathColor", icefillSolver);
-        addDependency("Icefill Solver", "icefillEtherwarpPointColor", icefillSolver);
-        addDependency("Icefill Solver", "icefillTeleportPointColor", icefillSolver);
-        addDependency("Icefill Solver", "icefillSolverPhase", icefillSolver);
-        addDependency("Smart Healer Wish Notification", "healerWishNotificationColor", healerWishNotification);
-        addDependency("", "wishNotificationSize", healerWishNotification);
+        addDependency("terminalWaypointsTextS1", "terminalWaypoints");
+        addDependency("terminalWaypointsTextS2", "terminalWaypoints");
+        addDependency("terminalWaypointsTextS3", "terminalWaypoints");
+        addDependency("terminalWaypointsTextS4", "terminalWaypoints");
+        addDependency("mageCoring", "terminalWaypoints");
+        addDependency("ee2", "terminalWaypoints");
+        addDependency("I4", "terminalWaypoints");
+        addDependency("terminalPreset", "terminalWaypoints");
+        addDependency("terminalWaypointsTracer", "terminalWaypoints");
+        addDependency("terminalWaypointsTracerColor", "terminalWaypoints");
+        addDependency("terminalWaypointsPhase", "terminalWaypoints");
+        addDependency("terminalWaypointsColor", "terminalWaypoints");
+        addDependency("icefillPathColor", "icefillSolver");
+        addDependency("icefillEtherwarpPointColor", "icefillSolver");
+        addDependency("icefillTeleportPointColor", "icefillSolver");
+        addDependency("icefillSolverPhase", "icefillSolver");
+        addDependency("healerWishNotificationColor", "healerWishNotification");
+        addDependency("wishNotificationSize", "healerWishNotification");
 
-        addDependency("berzmsg", "F7/M7 Position messages", posMsgs);
-        addDependency("earlyentrypositions", "F7/M7 Position messages", posMsgs);
-        addDependency("simonsayspos", "F7/M7 Position messages", posMsgs);
-        addDependency("goldorpos", "F7/M7 Position messages", posMsgs);
-        addDependency("dragonpos", "F7/M7 Position messages", posMsgs);
-        addDependency("midposmsg", "F7/M7 Position messages", posMsgs);
-        addDependency("stormposmsg", "F7/M7 Position messages", posMsgs);
+        addDependency("berzmsg", "posMsgs");
+        addDependency("earlyentrypositions", "posMsgs");
+        addDependency("simonsayspos", "posMsgs");
+        addDependency("goldorpos", "posMsgs");
+        addDependency("dragonpos", "posMsgs");
+        addDependency("midposmsg", "posMsgs");
+        addDependency("stormposmsg", "posMsgs");
     }
 }
