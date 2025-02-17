@@ -6,7 +6,7 @@ import me.jpaMain.utils.renderHelper
 import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.github.Wadey.config.jpaConfig.*
+import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.events.changeGuiEvent
 import me.jpaMain.utils.guiUtils.containsOneOf

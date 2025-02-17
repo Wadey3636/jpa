@@ -1,7 +1,7 @@
 package me.jpaMain.dungeonfeatures.DungeonScanner
 
 
-import com.github.Wadey.config.jpaConfig.icefillSolver
+import com.github.Wadey.config.JpaConfig.icefillSolver
 import me.jpaMain.events.SecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inDungeon

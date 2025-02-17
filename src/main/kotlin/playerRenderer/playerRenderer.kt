@@ -28,7 +28,7 @@
 package me.jpaMain.playerRenderer
 
 
-//import com.github.Wadey.config.jpaConfig.playerEntries
+//import com.github.Wadey.config.JpaConfig.playerEntries
 import net.minecraft.client.entity.AbstractClientPlayer
 import net.minecraft.client.renderer.GlStateManager.scale
 import net.minecraft.client.renderer.GlStateManager.translate

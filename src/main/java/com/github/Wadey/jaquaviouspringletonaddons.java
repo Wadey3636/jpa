@@ -1,6 +1,6 @@
 package com.github.Wadey;
 
-import com.github.Wadey.config.jpaConfig;
+import com.github.Wadey.config.JpaConfig;
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager;
 import org.polyfrost.oneconfig.api.event.v1.events.InitializationEvent;
 import me.jpaMain.command.floorCommands.*;
@@ -41,7 +41,7 @@ public class jaquaviouspringletonaddons {
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        jpaConfig.INSTANCE.preload();
+        JpaConfig.INSTANCE.preload();
         CommandManager.registerCommand(new jpaCommand());
         CommandManager.registerCommand(new fsCommand());
         CommandManager.registerCommand(new testCommand());
@@ -76,4 +76,5 @@ public class jaquaviouspringletonaddons {
     }
 
 }
+
 

@@ -1,7 +1,7 @@
 package me.jpaMain.dungeonfeatures
 
 
-import com.github.Wadey.config.jpaConfig.*
+import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.events.changeGuiEvent
 import me.jpaMain.events.openGuiEvent
 import me.jpaMain.jpaMain.mc

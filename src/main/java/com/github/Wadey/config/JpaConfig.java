@@ -6,6 +6,7 @@ import com.github.Wadey.jaquaviouspringletonaddons;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Number;
+import org.polyfrost.polyui.color.ColorUtils;
 import org.polyfrost.polyui.color.PolyColor;
 import org.polyfrost.polyui.input.KeyBinder;
 import org.polyfrost.polyui.input.KeybindHelper;
@@ -13,8 +14,8 @@ import org.polyfrost.universal.UKeyboard;
 
 import static org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindManager.registerKeybind;
 
-
-public class jpaConfig extends Config {
+@SuppressWarnings("unused")
+public class JpaConfig extends Config {
 
     //@Include
     //public static List<playerEntry> playerEntries = new ArrayList<>();
@@ -34,21 +35,21 @@ public class jpaConfig extends Config {
             subcategory = "Solvers",
             description = "The color of the path"
     )
-    public static PolyColor icefillPathColor = new PolyColor.Mutable(0, 255, 0, 255);
+    public static PolyColor icefillPathColor = ColorUtils.rgba(0, 255, 0);
     @Color(
             title = "Etherwarp Point Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
-    public static PolyColor icefillEtherwarpPointColor = new PolyColor.Mutable(0, 0, 255, 255);
+    public static PolyColor icefillEtherwarpPointColor = ColorUtils.rgba(0, 0, 255);
     @Color(
             title = "Teleport Point Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
-    public static PolyColor icefillTeleportPointColor = new PolyColor.Mutable(255, 0, 0, 255);
+    public static PolyColor icefillTeleportPointColor = ColorUtils.rgba(255, 0, 0);
 
     @Switch(
             title = "Phase",
@@ -62,7 +63,6 @@ public class jpaConfig extends Config {
 
     @Switch(
             title = "F7/M7 Position messages",
-            
             category = "F7/M7",
             subcategory = "Positional messages"
 
@@ -304,7 +304,7 @@ public class jpaConfig extends Config {
             category = "F7/M7",
             subcategory = "Detectors"
     )
-    public static PolyColor detectorColor = new PolyColor.Static(160, 0, 255, 255);
+    public static PolyColor detectorColor = ColorUtils.rgba(135, 0, 200);
     @Switch(
             title = "Smart Healer Wish Notification",
             category = "F7/M7",
@@ -321,7 +321,7 @@ public class jpaConfig extends Config {
             category = "F7/M7",
             subcategory = "Wish"
     )
-    public static PolyColor healerWishNotificationColor = new PolyColor.Static(0, 255, 0, 255);
+    public static PolyColor healerWishNotificationColor = ColorUtils.rgba(0, 255, 130);
     @Slider(
             title = "Size",
             category = "F7/M7",
@@ -360,23 +360,7 @@ public class jpaConfig extends Config {
             category = "Dungeons",
             subcategory = "Skill Issue"
     )
-    public static PolyColor mileStone3ReminderColor = new PolyColor.Static(50, 255, 30, 255);
-    //bookmark
-    /*
-    @Button(
-            title = "Add Players",
-            text = "Add",
-            
-            category = "Player Size Customizer",
-            subcategory = "Add Players"
-    )
-    private void addPlayers() {
-        playerEntries.add(new playerEntry(playerEntries.size() + 1));
-        save();
-        ConfigManager.active().register(playerEntries.get(playerEntries.size() - 1), tree.getID());
-    }
-
-     */
+    public static PolyColor mileStone3ReminderColor = ColorUtils.rgba(0, 255, 0);
 
     @Info(
             title = "Case Sensitive",
@@ -398,7 +382,7 @@ public class jpaConfig extends Config {
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
-    public static PolyColor terminalWaypointsColor = new PolyColor.Static(0, 0 ,255, 255);
+    public static PolyColor terminalWaypointsColor = ColorUtils.rgba(0, 0, 255);
 
     @Switch(
             title = "Phase",
@@ -429,7 +413,7 @@ public class jpaConfig extends Config {
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
-    public static PolyColor terminalWaypointsTracerColor = new PolyColor.Static(0, 0 ,255, 255);
+    public static PolyColor terminalWaypointsTracerColor = ColorUtils.rgba(0, 255, 0);
 
     @Dropdown(
             title = "Presets",
@@ -1337,9 +1321,9 @@ public class jpaConfig extends Config {
 
 
 
-    public static final jpaConfig INSTANCE = new jpaConfig();
+    public static final JpaConfig INSTANCE = new JpaConfig();
 
-    public jpaConfig() {
+    public JpaConfig() {
         super(jaquaviouspringletonaddons.MODID + ".json", jaquaviouspringletonaddons.NAME, Category.OTHER);
         registerKeybind(pestKey);
         registerKeybind(pearlKey);
@@ -1351,26 +1335,28 @@ public class jpaConfig extends Config {
         hideIf("ee2TextSS",  () ->  !includePosition || !safespots);
         hideIf("ee3TextSS",  () ->  !includePosition || !safespots);
         hideIf("midText", () ->   !includePosition);
-        hideIf("terminalWaypointsTextS1", () ->   terminalPreset != 4);
-        hideIf("terminalWaypointsTextS2", () ->   terminalPreset != 4);
-        hideIf("terminalWaypointsTextS3", () ->   terminalPreset != 4);
-        hideIf("terminalWaypointsTextS4", () ->   terminalPreset != 4);
+        
+        hideIf("terminalWaypointsTextS1", () -> terminalPreset != 4);
+        hideIf("terminalWaypointsTextS2", () -> terminalPreset != 4);
+        hideIf("terminalWaypointsTextS3", () -> terminalPreset != 4);
+        hideIf("terminalWaypointsTextS4", () -> terminalPreset != 4);
         hideIf("ignored11",  () ->  terminalPreset != 4);
-        hideIf("ignored12", () ->   terminalPreset != 4);
-        hideIf("ignored13", () ->   terminalPreset != 4);
-        hideIf("ignored14", () ->   terminalPreset != 4);
+        hideIf("ignored12", () -> terminalPreset != 4);
+        hideIf("ignored13", () -> terminalPreset != 4);
+        hideIf("ignored14", () -> terminalPreset != 4);
         hideIf("mageCoring",  () ->  !(terminalPreset == 0 || terminalPreset == 2) );
         hideIf("ee2", () ->   !(terminalPreset == 0 || terminalPreset == 2));
         hideIf("I4", () -> terminalPreset == 4);
-        addDependency("terminalWaypointsTextS1", "Toggle",   terminalWaypoints);
-        addDependency("terminalWaypointsTextS2", "Toggle",   terminalWaypoints);
-        addDependency("terminalWaypointsTextS3", "Toggle",   terminalWaypoints);
-        addDependency("terminalWaypointsTextS4", "Toggle",   terminalWaypoints);
-        addDependency("mageCoring", "Toggle",   terminalWaypoints);
-        addDependency("ee2", "Toggle",   terminalWaypoints);
-        addDependency("I4", "Toggle",   terminalWaypoints);
-        addDependency("terminalPreset", "Toggle",   terminalWaypoints);
-        addDependency("terminalWaypointsTracer", "Toggle",   terminalWaypoints);
+        
+        addDependency("terminalWaypointsTextS1", "Toggle", terminalWaypoints);
+        addDependency("terminalWaypointsTextS2", "Toggle", terminalWaypoints);
+        addDependency("terminalWaypointsTextS3", "Toggle", terminalWaypoints);
+        addDependency("terminalWaypointsTextS4", "Toggle", terminalWaypoints);
+        addDependency("mageCoring", "Toggle", terminalWaypoints);
+        addDependency("ee2", "Toggle", terminalWaypoints);
+        addDependency("I4", "Toggle", terminalWaypoints);
+        addDependency("terminalPreset", "Toggle", terminalWaypoints);
+        addDependency("terminalWaypointsTracer", "Toggle", terminalWaypoints);
         addDependency("terminalWaypointsTracerColor", "Toggle",  terminalWaypoints);
         addDependency("terminalWaypointsPhase", "Toggle", terminalWaypoints);
         addDependency("terminalWaypointsColor", "Toggle", terminalWaypoints);
@@ -1382,23 +1368,11 @@ public class jpaConfig extends Config {
         addDependency("", "wishNotificationSize", healerWishNotification);
 
         addDependency("berzmsg", "F7/M7 Position messages", posMsgs);
-
         addDependency("earlyentrypositions", "F7/M7 Position messages", posMsgs);
         addDependency("simonsayspos", "F7/M7 Position messages", posMsgs);
         addDependency("goldorpos", "F7/M7 Position messages", posMsgs);
         addDependency("dragonpos", "F7/M7 Position messages", posMsgs);
         addDependency("midposmsg", "F7/M7 Position messages", posMsgs);
         addDependency("stormposmsg", "F7/M7 Position messages", posMsgs);
-
     }
-
-/*
-    //bookmark
-    public void initialize() {
-        int i = 0;
-        while (playerEntries.size() > i) {
-            ConfigManager.active().register(playerEntries.get(i), tree.getID());
-        }
-    }
-*/
 }

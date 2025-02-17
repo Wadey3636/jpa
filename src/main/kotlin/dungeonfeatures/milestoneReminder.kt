@@ -1,7 +1,7 @@
 package me.jpaMain.dungeonfeatures
 
 
-import com.github.Wadey.config.jpaConfig.*
+import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.events.SecondEvent
 import me.jpaMain.utils.renderHelper.renderTitle
 import org.polyfrost.oneconfig.api.event.v1.EventManager

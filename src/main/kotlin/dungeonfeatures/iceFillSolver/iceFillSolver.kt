@@ -2,7 +2,7 @@ package me.jpaMain.dungeonfeatures.iceFillSolver
 
 
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
-import com.github.Wadey.config.jpaConfig.*
+import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.utils.*
