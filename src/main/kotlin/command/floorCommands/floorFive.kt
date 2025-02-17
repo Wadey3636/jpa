@@ -1,15 +1,14 @@
 package me.jpaMain.command.floorCommands
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main
+import org.polyfrost.oneconfig.api.commands.v1.factories.annotated.Command
+import org.polyfrost.universal.UChat
 import me.jpaMain.jpaMain.mc
 
 
-@Command(value = "f5", description = "joins F5", aliases = ["F5"])
+@Command(value = ["f5", "F5"], description = "joins F5")
 
 class floorFive {
-    @Main
+    @Command
     private fun resetMidDetector() {
         mc.thePlayer?.sendChatMessage("/joininstance CATACOMBS_FLOOR_FIVE")
     }

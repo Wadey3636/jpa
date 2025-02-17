@@ -1,68 +1,58 @@
 package com.github.Wadey.config;
 
-
-import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Number;
-import cc.polyfrost.oneconfig.config.annotations.*;
-import cc.polyfrost.oneconfig.config.core.OneColor;
-import cc.polyfrost.oneconfig.config.core.OneKeyBind;
-import cc.polyfrost.oneconfig.config.data.*;
-import cc.polyfrost.oneconfig.events.EventManager;
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
-import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
+import org.polyfrost.oneconfig.api.config.v1.Config;
+import org.polyfrost.oneconfig.api.config.v1.annotations.*;
 import com.github.Wadey.jaquaviouspringletonaddons;
-import com.google.gson.annotations.Expose;
 import me.jpaMain.dungeonfeatures.GfsKeybindsKt;
-import me.jpaMain.events.deletePlayerEntryEvent;
 import me.jpaMain.gardenFeatures.PestFarmingKeybindKt;
-import me.jpaMain.huds.p3StartTimerHud;
-import me.jpaMain.huds.padTimerHud;
-import org.jetbrains.annotations.NotNull;
+import org.polyfrost.oneconfig.api.config.v1.annotations.Number;
+import org.polyfrost.polyui.color.ColorUtils;
+import org.polyfrost.polyui.color.PolyColor;
+import org.polyfrost.polyui.input.KeyBinder;
+import org.polyfrost.polyui.input.KeybindHelper;
+import org.polyfrost.universal.UKeyboard;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindManager.registerKeybind;
 
+@SuppressWarnings("unused")
+public class JpaConfig extends Config {
 
-public class jpaConfig extends Config {
-
-
-    @Expose
-    public static List<playerEntry> playerEntries = new ArrayList<>();
+    //@Include
+    //public static List<playerEntry> playerEntries = new ArrayList<>();
 
 
 
     @Switch(
-            name = "Icefill Solver",
-            size = OptionSize.SINGLE,
+            title = "Icefill Solver",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Shows FlameOfWar's Icefill routes"
     )
     public static boolean icefillSolver = false;
     @Color(
-            name = "Line Color",
+            title = "Line Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "The color of the path"
     )
-    public static OneColor icefillPathColor = new OneColor(0, 255, 0, 255);
+    public static PolyColor icefillPathColor = ColorUtils.rgba(0, 255, 0);
     @Color(
-            name = "Etherwarp Point Color",
+            title = "Etherwarp Point Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
-    public static OneColor icefillEtherwarpPointColor = new OneColor(0, 0, 255, 255);
+    public static PolyColor icefillEtherwarpPointColor = ColorUtils.rgba(0, 0, 255);
     @Color(
-            name = "Teleport Point Color",
+            title = "Teleport Point Color",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Use a skill called Critical Thinking for one second"
     )
-    public static OneColor icefillTeleportPointColor = new OneColor(255, 0, 0, 255);
+    public static PolyColor icefillTeleportPointColor = ColorUtils.rgba(255, 0, 0);
 
     @Switch(
-            name = "Phase",
+            title = "Phase",
             category = "Dungeons",
             subcategory = "Solvers",
             description = "Disabled ATM"
@@ -72,8 +62,7 @@ public class jpaConfig extends Config {
     //Positional Messages
 
     @Switch(
-            name = "F7/M7 Position messages",
-            size = OptionSize.DUAL,
+            title = "F7/M7 Position messages",
             category = "F7/M7",
             subcategory = "Positional messages"
 
@@ -81,49 +70,49 @@ public class jpaConfig extends Config {
     public static boolean posMsgs = false;
 
     @Checkbox(
-            name = "Berserker Leap Position Message",
+            title = "Berserker Leap Position Message",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
     public static boolean berzmsg = false;
 
     @Checkbox(
-            name = "Early Entry Position Messages",
+            title = "Early Entry Position Messages",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
     public static boolean earlyentrypositions = false;
 
     @Checkbox(
-            name = "Healer Leap Position Message (Simon says)",
+            title = "Healer Leap Position Message (Simon says)",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
     public static boolean simonsayspos = false;
 
     @Checkbox(
-            name = "Inner Chamber position message",
+            title = "Inner Chamber position message",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
     public static boolean goldorpos = false;
 
     @Checkbox(
-            name = "Part 5 Position Message",
+            title = "Part 5 Position Message",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
     public static boolean dragonpos = false;
 
     @Checkbox(
-            name = "Part 2 Position Message",
+            title = "Part 2 Position Message",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
     public static boolean stormposmsg = false;
 
     @Checkbox(
-            name = "Mid Position Message",
+            title = "Mid Position Message",
             category = "F7/M7",
             subcategory = "Positional messages"
     )
@@ -131,70 +120,84 @@ public class jpaConfig extends Config {
 
 
     @Switch(
-            name = "Pest Key Toggle",
+            title = "Pest Key Toggle",
             category = "Garden",
             subcategory = "Pest Farming",
             description = "Toggles the Pest Farming Key Bind"
     )
     public static boolean pestKeyToggle;
 
-    @KeyBind(
-            name = "Garden Pest Farming Key",
+    @Keybind(
+            title = "Garden Pest Farming Key",
             description = "A keybind for warping/setting spawn, it sets your spawn if you are inside a sugar cane block and warps otherwise",
             category = "Garden",
             subcategory = "Pest Farming"
     )
-    public static OneKeyBind pestKey = new OneKeyBind(UKeyboard.KEY_Q);
+    public static KeyBinder.Bind pestKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        PestFarmingKeybindKt.pestFarmingKeybind();
+        return null;
+    }).build();
+
     @Switch(
-            name = "Pearl GFS Toggle",
+            title = "Pearl GFS Toggle",
             category = "Dungeons",
             subcategory = "Keybinds",
             description = "Toggles the Pearl GFS keybind"
     )
     public static boolean pearlKeyToggle;
 
-    @KeyBind(
-            name = "Pearl GFS",
+    @Keybind(
+            title = "Pearl GFS",
             description = "/gfs ender_pearl 16",
             category = "Dungeons",
             subcategory = "Keybinds"
     )
-    public static OneKeyBind pearlKey = new OneKeyBind(UKeyboard.KEY_1);
+    public static KeyBinder.Bind pearlKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        GfsKeybindsKt.gfsPearl();
+        return null;
+    }).build();
+
 
     @Switch(
-            name = "Superboom GFS Toggle",
+            title = "Superboom GFS Toggle",
             category = "Dungeons",
             subcategory = "Keybinds",
             description = "Toggles the Superboom GFS keybind"
     )
     public static boolean superboomKeyToggle;
 
-    @KeyBind(
-            name = "Pearl GFS",
+    @Keybind(
+            title = "Pearl GFS",
             description = "/gfs SUPERBOOM_TNT 64",
             category = "Dungeons",
             subcategory = "Keybinds"
     )
-    public static OneKeyBind superboomKey = new OneKeyBind(UKeyboard.KEY_2);
+    public static KeyBinder.Bind superboomKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        GfsKeybindsKt.gfsSuperboom();
+        return null;
+    }).build();
 
     @Switch(
-            name = "Spirit Leap GFS Toggle",
+            title = "Spirit Leap GFS Toggle",
             category = "Dungeons",
             subcategory = "Keybinds",
             description = "Toggles the Spirit Leap GFS keybind"
     )
     public static boolean spiritleapKeyToggle;
 
-    @KeyBind(
-            name = "Spirit Leap GFS",
+    @Keybind(
+            title = "Spirit Leap GFS",
             description = "/gfs SPIRIT_LEAP 16",
             category = "Dungeons",
             subcategory = "Keybinds"
     )
-    public static OneKeyBind spiritleapKey = new OneKeyBind(UKeyboard.KEY_3);
+    public static KeyBinder.Bind spiritleapKey = KeybindHelper.builder().keys(UKeyboard.KEY_NONE).does(it -> {
+        GfsKeybindsKt.gfsSpiritleap();
+        return null;
+    }).build();
 
     @Checkbox(
-            name = "Mid Detector",
+            title = "Mid Detector",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Detects when a player is at mid"
@@ -202,7 +205,7 @@ public class jpaConfig extends Config {
     )
     public static boolean midDetector = false;
     @Checkbox(
-            name = "EE2 Detector",
+            title = "EE2 Detector",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Detects when a player is at ee2"
@@ -210,7 +213,7 @@ public class jpaConfig extends Config {
     )
     public static boolean ee2Detector = false;
     @Checkbox(
-            name = "EE3 Detector",
+            title = "EE3 Detector",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Detects when a player is at ee3"
@@ -218,7 +221,7 @@ public class jpaConfig extends Config {
     )
     public static boolean ee3Detector = false;
     @Checkbox(
-            name = "EE4 Detector",
+            title = "EE4 Detector",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Detects when a player is at ee4"
@@ -226,7 +229,7 @@ public class jpaConfig extends Config {
     )
     public static boolean ee4Detector = false;
     @Switch(
-            name = "Include Safespots",
+            title = "Include Safespots",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Toggles the early entry detectors checking safespots"
@@ -234,7 +237,7 @@ public class jpaConfig extends Config {
     )
     public static boolean safespots = false;
     @Switch(
-            name = "Include Position in Alert",
+            title = "Include Position in Alert",
             category = "F7/M7",
             subcategory = "Detectors",
             description = "Toggles the early entry detectors checking safespots"
@@ -243,7 +246,7 @@ public class jpaConfig extends Config {
     public static boolean includePosition = false;
 
     @Text(
-            name = "EE2 Text",
+            title = "EE2 Text",
             category = "F7/M7",
             subcategory = "Detectors",
             placeholder = "is at ee2"
@@ -251,7 +254,7 @@ public class jpaConfig extends Config {
     public static String ee2Text = "is at ee2!";
 
     @Text(
-            name = "EE2 Safespot Text",
+            title = "EE2 Safespot Text",
             category = "F7/M7",
             subcategory = "Detectors",
             placeholder = "is at ee2 Safespot"
@@ -259,7 +262,7 @@ public class jpaConfig extends Config {
     public static String ee2TextSS = "is at ee2 Safespot!";
             
     @Text(
-            name = "EE3 Text",
+            title = "EE3 Text",
             category = "F7/M7",
             subcategory = "Detectors",
             placeholder = "is at ee3"
@@ -267,7 +270,7 @@ public class jpaConfig extends Config {
     public static String ee3Text = "is at ee3!";
     
     @Text(
-    name = "EE3 Safespot Text",
+    title = "EE3 Safespot Text",
     category = "F7/M7",
     subcategory = "Detectors",
             placeholder = "is at ee3 Safespot"
@@ -275,7 +278,7 @@ public class jpaConfig extends Config {
     public static String ee3TextSS = "is at ee3 Safespot!";
 
     @Text(
-            name = "EE4 Text",
+            title = "EE4 Text",
             category = "F7/M7",
             subcategory = "Detectors",
             placeholder = "is at ee4"
@@ -283,7 +286,7 @@ public class jpaConfig extends Config {
     public static String ee4Text = "is at ee4!";
 
     @Text(
-            name = "Mid Text",
+            title = "Mid Text",
             category = "F7/M7",
             subcategory = "Detectors",
             placeholder = "is at Mid"
@@ -291,19 +294,19 @@ public class jpaConfig extends Config {
     public static String midText = "is at Mid!";
 
     @Slider(
-            name = "Detector Text Size",
+            title = "Detector Text Size",
             category = "F7/M7",
             subcategory = "Detectors",
             min = 1.0F, max = 8f)
     public static float detectorTextSize = 3f;
     @Color(
-            name = "Color",
+            title = "Color",
             category = "F7/M7",
             subcategory = "Detectors"
     )
-    public static OneColor detectorColor = new OneColor(160, 0, 255, 255);
+    public static PolyColor detectorColor = ColorUtils.rgba(135, 0, 200);
     @Switch(
-            name = "Smart Healer Wish Notification",
+            title = "Smart Healer Wish Notification",
             category = "F7/M7",
             subcategory = "Wish",
             description = "A healer wish notification that only activates while you are healer"
@@ -314,89 +317,75 @@ public class jpaConfig extends Config {
 
 
     @Color(
-            name = "Color",
+            title = "Color",
             category = "F7/M7",
             subcategory = "Wish"
     )
-    public static OneColor healerWishNotificationColor = new OneColor(0, 255, 0, 255);
+    public static PolyColor healerWishNotificationColor = ColorUtils.rgba(0, 255, 130);
     @Slider(
-            name = "Size",
+            title = "Size",
             category = "F7/M7",
             subcategory = "Wish",
             min = 1.0F, max = 8f)
     public static float wishNotificationSize = 3f;
     @Switch(
-            name = "Milestone 3 reminder",
+            title = "Milestone 3 reminder",
             category = "Dungeons",
             subcategory = "Skill Issue"
     )
     public static boolean mileStone3Reminder = false;
     @Text(
             category = "Dungeons",
-            name = "Milestone 3 Reminder Text",
+            title = "Milestone 3 Reminder Text",
             subcategory = "Skill Issue",
             placeholder = "Get Milestone 3"
     )
     public static String mileStone3ReminderText = "Get Milestone 3";
     @Number(
-            name = "Reminder Timer (In Seconds)",
+            title = "Reminder Timer (In Seconds)",
             category = "Dungeons",
             subcategory = "Skill Issue",
             min = 1f, max = 500f
     )
     public static float mileStone3ReminderTimer = 30f;
     @Slider(
-            name = "Reminder Scale",
+            title = "Reminder Scale",
             category = "Dungeons",
             subcategory = "Skill Issue",
             min = 1f, max = 10f
     )
     public static float mileStone3ReminderScale = 10f;
     @Color(
-            name = "Reminder Color",
+            title = "Reminder Color",
             category = "Dungeons",
             subcategory = "Skill Issue"
     )
-    public static OneColor mileStone3ReminderColor = new OneColor(50, 255, 30, 255);
-
-    @Button(
-            name = "Add Players",
-            text = "Add",
-            size = OptionSize.DUAL,
-            category = "Player Size Customizer",
-            subcategory = "Add Players"
-    )
-    private void addPlayers() {
-        playerEntries.add(new playerEntry(playerEntries.size() + 1));
-        save();
-        generateOptionList(playerEntries.get(playerEntries.size() - 1), mod.defaultPage, mod, false);
-    }
+    public static PolyColor mileStone3ReminderColor = ColorUtils.rgba(0, 255, 0);
 
     @Info(
-            text = "Case Sensitive",
+            title = "Case Sensitive",
             category = "Player Size Customizer",
             subcategory = "Players",
-            size = OptionSize.DUAL,
-            type = InfoType.INFO
+            description = ""
     )
     public static boolean ignored;
 
     @Switch(
-            name = "Toggle",
+            title = "Toggle",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
     public static boolean terminalWaypoints = false;
 
     @Color(
-            name = "Waypoint Color",
+            title = "Waypoint Color",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
-    public static OneColor terminalWaypointsColor = new OneColor(0, 0 ,255, 255);
+    public static PolyColor terminalWaypointsColor = ColorUtils.rgba(0, 0, 255);
 
     @Switch(
-            name = "Phase",
+            title = "Phase",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
             description = "Visible through Walls"
@@ -404,91 +393,91 @@ public class jpaConfig extends Config {
     public static boolean terminalWaypointsPhase = true;
 
     @Info(
-            text = "Tracer requires [View Bobbing] and [Parallax Fix] - (From Patcher) to be off.",
+            title = "Tracer requires [View Bobbing] and [Parallax Fix] - (From Patcher) to be off.",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            type = InfoType.WARNING,
-            size = OptionSize.DUAL
+            description = ""
+            
     )
     static boolean ignored15 = false;
     //bookmark
     @Switch(
-            name = "Toggle Tracer",
+            title = "Toggle Tracer",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
     public static boolean terminalWaypointsTracer = false;
 
     @Color(
-            name = "Tracer Color",
+            title = "Tracer Color",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
-    public static OneColor terminalWaypointsTracerColor = new OneColor(0, 0 ,255, 255);
+    public static PolyColor terminalWaypointsTracerColor = ColorUtils.rgba(0, 255, 0);
 
     @Dropdown(
-            name = "Presets",
+            title = "Presets",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            size = 2,
+            
             options = {"Mage", "Tank", "Archer", "Berserker", "Custom"}
     )
     public static int terminalPreset = 0;
 
     @Switch(
-            name = "EE2?",
+            title = "EE2?",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
     public static boolean ee2 = false;
 
     @Switch(
-            name = "I4?",
+            title = "I4?",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
     public static boolean I4 = false;
 
     @Switch(
-            name = "Mage Coring?",
+            title = "Mage Coring?",
             category = "F7/M7",
             subcategory = "Terminal Waypoints"
     )
     public static boolean mageCoring = false;
 
     @Info(
-            text = "Use slashes (/) to separate values in the list.",
-            type = InfoType.INFO,
+            title = "Use slashes (/) to separate values in the list.",
+            description = "",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
-            size = 2
+            subcategory = "Terminal Waypoints"
+            
     )
     static boolean ignored11 = false;
 
     @Info(
-            text = "RL stands for Right Lever, LL Stands for Left Lever.",
-            type = InfoType.INFO,
+            title = "RL stands for Right Lever, LL Stands for Left Lever.",
+            description = "",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
-            size = 2
+            subcategory = "Terminal Waypoints"
+            
     )
     static boolean ignored12 = false;
 
     @Info(
-            text = "List the terminals in the order you plan to complete them for the tracer to work.",
-            type = InfoType.INFO,
+            title = "List the terminals in the order you plan to complete them for the tracer to work.",
+            description = "",
             category = "F7/M7",
-            subcategory = "Terminal Waypoints",
-            size = 2
+            subcategory = "Terminal Waypoints"
+            
     )
     static boolean ignored13 = false;
 
     @Info(
-            text = "Example: 4/3/RL",
-            type = InfoType.SUCCESS,
+            title = "Example: 4/3/RL",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            size = 2
+            description = ""
+            
     )
     static boolean ignored14 = false;
     /*
@@ -499,34 +488,38 @@ public class jpaConfig extends Config {
     */
 
     @Text(
-            name = "Section 1",
+            title = "Section 1",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            size = OptionSize.DUAL
+            description = ""
+            
     )
     public static String terminalWaypointsTextS1 = "";
 
     @Text(
-            name = "Section 2",
+            title = "Section 2",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            size = OptionSize.DUAL
+            description = ""
+            
     )
     public static String terminalWaypointsTextS2 = "";
 
     @Text(
-            name = "Section 3",
+            title = "Section 3",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            size = OptionSize.DUAL
+            description = ""
+            
     )
     public static String terminalWaypointsTextS3 = "";
 
     @Text(
-            name = "Section 4",
+            title = "Section 4",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            size = OptionSize.DUAL
+            description = ""
+            
     )
     public static String terminalWaypointsTextS4 = "";
 
@@ -557,29 +550,21 @@ public class jpaConfig extends Config {
 
     //DUNGEON LOOT
     @Switch(
-            name = "Toggle Profit Calculator",
-            size = OptionSize.DUAL,
+            title = "Toggle Profit Calculator",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
 
     )
     public static boolean toggleCalculator = false;
-    @Header(
-            text = "",
-            size = OptionSize.DUAL,
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
-    public static boolean ignored9;
     @Switch(
-            name = "Sort Values",
+            title = "Sort Values",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
 
     )
     public static boolean calculatorSort = false;
     @Switch(
-            name = "Highlight Chests",
+            title = "Highlight Chests",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
 
@@ -590,876 +575,803 @@ public class jpaConfig extends Config {
     //PLAYER SIZE CUSTOMIZER
 
 
-    @Header(
-            text = "",
-            size = OptionSize.DUAL,
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
+
     public static boolean ignored10;
-    @Header(
-            text = "Universal",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Universal",
+            description = "",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored0;
     @Number(
-            name = "Wither Essence",
+            title = "Wither Essence",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherEssence = 2500f;
     @Number(
-            name = "Undead Essence",
+            title = "Undead Essence",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float UndeadEssence = 1000f;
     @Number(
-            name = "Feather Falling",
+            title = "Feather Falling",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float FeatherFalling = 0f;
     @Number(
-            name = "Infinite Quiver",
+            title = "Infinite Quiver",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float InfQuiver = 0f;
     @Number(
-            name = "Rejuvenate",
+            title = "Rejuvenate",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Rejuvenate = 20000f;
     @Number(
-            name = "Bank",
+            title = "Bank",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Bank = 0f;
     @Number(
-            name = "Combo",
+            title = "Combo",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Combo = 0f;
     @Number(
-            name = "No Pain No Gain",
+            title = "No Pain No Gain",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NoPainNoGain = 0f;
     @Number(
-            name = "Last Stand",
+            title = "Last Stand",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float LastStand = 100000f;
     @Number(
-            name = "Ultimate Jerry",
+            title = "Ultimate Jerry",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float UltJerry = 0f;
     @Number(
-            name = "Ultimate Wise",
+            title = "Ultimate Wise",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float UltWise = 120000f;
     @Number(
-            name = "Wisdom",
+            title = "Wisdom",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Wisdom = 120000f;
     @Number(
-            name = "Necromancers Brooch",
+            title = "Necromancers Brooch",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancersBrooch = 40000f;
     @Number(
-            name = "Hot Potato Book",
+            title = "Hot Potato Book",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float HotPotato = 80000f;
     @Number(
-            name = "Fuming Potato Book",
+            title = "Fuming Potato Book",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float FumingPotato = 1000000f;
     @Number(
-            name = "Recombobulator",
+            title = "Recombobulator",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Recomb = 6000000f;
     @Number(
-            name = "Dungeon Disc",
+            title = "Dungeon Disc",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float DungeonDisc = 0f;
     @Number(
-            name = "Clown Disc",
+            title = "Clown Disc",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ClownDisc = 0f;
     @Number(
-            name = "Necron Disc",
+            title = "Necron Disc",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecronDisc = 0f;
     @Number(
-            name = "Watcher Disc",
+            title = "Watcher Disc",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WatcherDisc = 0f;
     @Number(
-            name = "Old Disc",
+            title = "Old Disc",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float OldDisc = 0f;
-    @Header(
-            text = "Master Skulls",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Master Skulls",
+            description = "",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored8;
     @Number(
-            name = "Master Skull - Tier 1",
+            title = "Master Skull - Tier 1",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT1 = 500000f;
     @Number(
-            name = "Master Skull - Tier 2",
+            title = "Master Skull - Tier 2",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT2 = 500000f;
     @Number(
-            name = "Master Skull - Tier 3",
+            title = "Master Skull - Tier 3",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT3 = 500000f;
     @Number(
-            name = "Master Skull - Tier 4",
+            title = "Master Skull - Tier 4",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT4 = 500000f;
     @Number(
-            name = "Master Skull - Tier 5",
+            title = "Master Skull - Tier 5",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float MasterSkullT5 = 500000f;
-    @Header(
-            text = "Floor 1",
-            size = OptionSize.DUAL,
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
-    public static boolean ignored1;
     @Number(
-            name = "Bonzo's Staff",
+            title = "Bonzo's Staff",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float BonzoStaff = 7000000f;
     @Number(
-            name = "Bonzo's Mask",
+            title = "Bonzo's Mask",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float BonzoMask = 400000f;
     @Number(
-            name = "Red Nose",
+            title = "Red Nose",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float RedNose = 0f;
-    @Header(
-            text = "Floor 2",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Floor 2",
+            description = "",
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored2;
     @Number(
-            name = "Scarf's Studies",
+            title = "Scarf's Studies",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ScarfStudies = 300000f;
     @Number(
-            name = "Adaptive Belt",
+            title = "Adaptive Belt",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveBelt = 500000f;
     @Number(
-            name = "Adaptive Blade",
+            title = "Adaptive Blade",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveBlade = 0f;
     @Number(
-            name = "Red Scarf",
+            title = "Red Scarf",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float RedScarf = 2500000f;
-    @Header(
-            text = "Floor 3",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Floor 3",
+            description = "",
+            
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored3;
     @Number(
-            name = "Adaptive Helmet",
+            title = "Adaptive Helmet",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveHelmet = 0f;
     @Number(
-            name = "Adaptive Chestplate",
+            title = "Adaptive Chestplate",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveChestplate = 0f;
     @Number(
-            name = "Adaptive Leggings",
+            title = "Adaptive Leggings",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveLeggings = 0f;
     @Number(
-            name = "Adaptive Boots",
+            title = "Adaptive Boots",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AdaptiveBoots = 0f;
     @Number(
-            name = "Suspicious Vial",
+            title = "Suspicious Vial",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SussyBaka = 0f;
     @Number(
-            name = "First Master Star",
+            title = "First Master Star",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float FirstMasterStar = 0f;
-    @Header(
-            text = "Floor 4",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Floor 4",
+            description = "",
+            
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored4;
     @Number(
-            name = "Spirit Pet",
+            title = "Spirit Pet",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritPet = 5000000f;
     @Number(
-            name = "Spirit Bone",
+            title = "Spirit Bone",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritBone = 2000000f;
     @Number(
-            name = "Spirit Wing",
+            title = "Spirit Wing",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritWing = 2000000f;
     @Number(
-            name = "Spirit Sword",
+            title = "Spirit Sword",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritSword = 0f;
     @Number(
-            name = "Spirit Bow",
+            title = "Spirit Bow",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritBow = 0f;
     @Number(
-            name = "Spirit Boots",
+            title = "Spirit Boots",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritBoots = 0f;
     @Number(
-            name = "Spirit Stone",
+            title = "Spirit Stone",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SpiritStone = 0f;
     @Number(
-            name = "Rend",
+            title = "Rend",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Rend = 0f;
     @Number(
-            name = "Second Master Star",
+            title = "Second Master Star",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SecondMasterStar = 12000000f;
-    @Header(
-            text = "Floor 5",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Floor 5",
+            description = "",
+            
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored5;
     @Number(
-            name = "Last Breath",
+            title = "Last Breath",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float LastBreath = 0f;
     @Number(
-            name = "Livid Dagger",
+            title = "Livid Dagger",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float LividDagger = 0f;
     @Number(
-            name = "Shadow Assassin Helmet",
+            title = "Shadow Assassin Helmet",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaHelmet = 0f;
     @Number(
-            name = "Shadow Assassin Chestplate",
+            title = "Shadow Assassin Chestplate",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaChestplate = 0f;
     @Number(
-            name = "Shadow Assassin Leggings",
+            title = "Shadow Assassin Leggings",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaLeggings = 0f;
     @Number(
-            name = "Shadow Assassin Boots",
+            title = "Shadow Assassin Boots",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaBoots = 0f;
     @Number(
-            name = "Shadow Assassin Cloak",
+            title = "Shadow Assassin Cloak",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SaCloak = 5000000f;
     @Number(
-            name = "Shadow Fury",
+            title = "Shadow Fury",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ShadowFury = 0f;
     @Number(
-            name = "Warped Stone",
+            title = "Warped Stone",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WarpedStone = 0f;
     @Number(
-            name = "Dark Orb",
+            title = "Dark Orb",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float DarkOrb = 500000f;
     @Number(
-            name = "Third Master Star",
+            title = "Third Master Star",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ThirdMasterStar = 0f;
     @Number(
-            name = "Lethality VI",
+            title = "Lethality VI",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float LethalityVI = 0f;
     @Number(
-            name = "Overload",
+            title = "Overload",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Overload = 0f;
     @Number(
-            name = "Legion",
+            title = "Legion",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Legion = 2000000f;
-    @Header(
-            text = "Floor 6",
-            size = OptionSize.DUAL,
-            category = "Dungeons",
-            subcategory = "Ironman Profit Calculator"
-    )
-    public static boolean ignored6;
     @Number(
-            name = "Ancient Rose",
+            title = "Ancient Rose",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ancientRose = 50000f;
     @Number(
-            name = "Giant Tooth",
+            title = "Giant Tooth",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float GiantTooth = 250000f;
     @Number(
-            name = "Giant's Sword",
+            title = "Giant's Sword",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float GiantsSword = 150000000f;
     @Number(
-            name = "Necromancer Lord Helmet",
+            title = "Necromancer Lord Helmet",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordHelmet = 0f;
     @Number(
-            name = "Necromancer Lord Chestplate",
+            title = "Necromancer Lord Chestplate",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordChestplate = 0f;
     @Number(
-            name = "Necromancer Lord Leggings",
+            title = "Necromancer Lord Leggings",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordLeggings = 0f;
     @Number(
-            name = "Necromancer Lord Boots",
+            title = "Necromancer Lord Boots",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerLordBoots = 0f;
     @Number(
-            name = "Necromancer Sword",
+            title = "Necromancer Sword",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecromancerSword = 5000000f;
     @Number(
-            name = "Summoning Ring",
+            title = "Summoning Ring",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SummoningRing = 10000000f;
     @Number(
-            name = "Sadan's Brooch",
+            title = "Sadan's Brooch",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SadanBrooch = 0f;
     @Number(
-            name = "Precursor Eye",
+            title = "Precursor Eye",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float PrecursorEye = 40000000f;
     @Number(
-            name = "Fel Skull",
+            title = "Fel Skull",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float FelSkull = 5000000f;
     @Number(
-            name = "Soulweaver Gloves",
+            title = "Soulweaver Gloves",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SoulweaverGloves = 6000000f;
     @Number(
-            name = "Fourth Master Star",
+            title = "Fourth Master Star",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float FourthMasterStar = 60000000f;
-    @Header(
-            text = "Floor 7",
-            size = OptionSize.DUAL,
+    @Info(
+            title = "Floor 7",
+            description = "",
+            
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static boolean ignored7;
     @Number(
-            name = "Auto Recombobulator",
+            title = "Auto Recombobulator",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float AutoRecom = 10000000f;
     @Number(
-            name = "Dark Claymore",
+            title = "Dark Claymore",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float DarkClaymore = 150000000f;
     @Number(
-            name = "Fifth Master Star",
+            title = "Fifth Master Star",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float FifthMasterStar = 100000000f;
     @Number(
-            name = "Necron Dye",
+            title = "Necron Dye",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecronDye = 50000000f;
     @Number(
-            name = "Thunderlord VII",
+            title = "Thunderlord VII",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ThunderLordVII = 10000000f;
     @Number(
-            name = "Necron's Handle",
+            title = "Necron's Handle",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float NecronsThickJuicyStick = 0f;
     @Number(
-            name = "Implosion",
+            title = "Implosion",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float Implosion = 200000000f;
     @Number(
-            name = "Shadow Warp",
+            title = "Shadow Warp",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float ShadowWarp = 200000000f;
     @Number(
-            name = "Wither Shield",
+            title = "Wither Shield",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherShield = 200000000f;
     @Number(
-            name = "Wither Blood",
+            title = "Wither Blood",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherBlood = 0f;
     @Number(
-            name = "Wither Catalyst",
+            title = "Wither Catalyst",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherCatalyst = 0f;
     @Number(
-            name = "Wither Helmet",
+            title = "Wither Helmet",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherHelmet = 0f;
     @Number(
-            name = "Wither Chestplate",
+            title = "Wither Chestplate",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherChestplate = 12000000f;
     @Number(
-            name = "Wither Leggings",
+            title = "Wither Leggings",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherLeggings = 0f;
     @Number(
-            name = "Wither Boots",
+            title = "Wither Boots",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherBoots = 0f;
     @Number(
-            name = "Wither Cloak Sword",
+            title = "Wither Cloak Sword",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float WitherCloak = 0f;
     @Number(
-            name = "Precursor Gear",
+            title = "Precursor Gear",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float PrecursorGear = 600000f;
     @Number(
-            name = "Soul Eater",
+            title = "Soul Eater",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float SoulEater = 1000000f;
     @Number(
-            name = "One For All",
+            title = "One For All",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float OneForAll = 0f;
     @Number(
-            name = "Goldor the Fish",
+            title = "Goldor the Fish",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float GoldorFish = 0f;
     @Number(
-            name = "Storm the Fish",
+            title = "Storm the Fish",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float StormFish = 0f;
     @Number(
-            name = "Maxor The Fish",
+            title = "Maxor The Fish",
             min = 0f, max = 1000000000,
             category = "Dungeons",
             subcategory = "Ironman Profit Calculator"
     )
     public static float MaxorFish = 0f;
 
-    @HUD(
-            name = "Pad Timer",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public padTimerHud hud = new padTimerHud();
-    @HUD(
-            name = "P3 Start Timer",
-            category = "F7/M7",
-            subcategory = "Timers"
-    )
-    public p3StartTimerHud starthud = new p3StartTimerHud();
-
-    public jpaConfig() {
-        super(new Mod(jaquaviouspringletonaddons.NAME, ModType.SKYBLOCK), jaquaviouspringletonaddons.MODID + ".json");
-        initialize();
-        registerKeyBind(pestKey, PestFarmingKeybindKt::pestFarmingKeybind);
-        registerKeyBind(pearlKey, GfsKeybindsKt::gfsPearl);
-        registerKeyBind(superboomKey, GfsKeybindsKt::gfsSuperboom);
-        registerKeyBind(spiritleapKey, GfsKeybindsKt::gfsSpiritleap);
-        hideIf("ee2Text", () -> !includePosition);
-        hideIf("ee3Text", () -> !includePosition);
-        hideIf("ee4Text", () -> !includePosition);
-        hideIf("ee2TextSS", () -> !includePosition || !safespots);
-        hideIf("ee3TextSS", () -> !includePosition || !safespots);
-        hideIf("midText", () -> !includePosition);
 
 
 
+    public static final JpaConfig INSTANCE = new JpaConfig();
+
+    public JpaConfig() {
+        super(jaquaviouspringletonaddons.MODID + ".json", jaquaviouspringletonaddons.NAME, Category.OTHER);
+        registerKeybind(pestKey);
+        registerKeybind(pearlKey);
+        registerKeybind(superboomKey);
+        registerKeybind(spiritleapKey);
+        hideIf("ee2Text", () ->   !includePosition);
+        hideIf("ee3Text", () ->   !includePosition);
+        hideIf("ee4Text", () ->   !includePosition);
+        hideIf("ee2TextSS",  () ->  !includePosition || !safespots);
+        hideIf("ee3TextSS",  () ->  !includePosition || !safespots);
+        hideIf("midText", () ->   !includePosition);
+        
         hideIf("terminalWaypointsTextS1", () -> terminalPreset != 4);
         hideIf("terminalWaypointsTextS2", () -> terminalPreset != 4);
         hideIf("terminalWaypointsTextS3", () -> terminalPreset != 4);
         hideIf("terminalWaypointsTextS4", () -> terminalPreset != 4);
-        hideIf("ignored11", () -> terminalPreset != 4);
+        hideIf("ignored11",  () ->  terminalPreset != 4);
         hideIf("ignored12", () -> terminalPreset != 4);
         hideIf("ignored13", () -> terminalPreset != 4);
         hideIf("ignored14", () -> terminalPreset != 4);
-        hideIf("mageCoring", () -> !(terminalPreset == 0 || terminalPreset == 2) );
-        hideIf("ee2", () -> !(terminalPreset == 0 || terminalPreset == 2));
+        hideIf("mageCoring",  () ->  !(terminalPreset == 0 || terminalPreset == 2) );
+        hideIf("ee2", () ->   !(terminalPreset == 0 || terminalPreset == 2));
         hideIf("I4", () -> terminalPreset == 4);
-        addDependency("terminalWaypointsTextS1", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTextS2", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTextS3", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTextS4", "Toggle", () -> terminalWaypoints);
-        addDependency("mageCoring", "Toggle", () -> terminalWaypoints);
-        addDependency("ee2", "Toggle", () -> terminalWaypoints);
-        addDependency("I4", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalPreset", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTracer", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsTracerColor", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsPhase", "Toggle", () -> terminalWaypoints);
-        addDependency("terminalWaypointsColor", "Toggle", () -> terminalWaypoints);
+        
+        addDependency("terminalWaypointsTextS1", "terminalWaypoints");
+        addDependency("terminalWaypointsTextS2", "terminalWaypoints");
+        addDependency("terminalWaypointsTextS3", "terminalWaypoints");
+        addDependency("terminalWaypointsTextS4", "terminalWaypoints");
+        addDependency("mageCoring", "terminalWaypoints");
+        addDependency("ee2", "terminalWaypoints");
+        addDependency("I4", "terminalWaypoints");
+        addDependency("terminalPreset", "terminalWaypoints");
+        addDependency("terminalWaypointsTracer", "terminalWaypoints");
+        addDependency("terminalWaypointsTracerColor", "terminalWaypoints");
+        addDependency("terminalWaypointsPhase", "terminalWaypoints");
+        addDependency("terminalWaypointsColor", "terminalWaypoints");
+        addDependency("icefillPathColor", "icefillSolver");
+        addDependency("icefillEtherwarpPointColor", "icefillSolver");
+        addDependency("icefillTeleportPointColor", "icefillSolver");
+        addDependency("icefillSolverPhase", "icefillSolver");
+        addDependency("healerWishNotificationColor", "healerWishNotification");
+        addDependency("wishNotificationSize", "healerWishNotification");
 
-
-        //bookmark
-
-
-
-
-        addDependency("Icefill Solver", "icefillPathColor", () -> icefillSolver);
-        addDependency("Icefill Solver", "icefillEtherwarpPointColor", () -> icefillSolver);
-        addDependency("Icefill Solver", "icefillTeleportPointColor", () -> icefillSolver);
-        addDependency("Icefill Solver", "icefillSolverPhase", () -> icefillSolver);
-        addDependency("Smart Healer Wish Notification", "healerWishNotificationColor", () -> healerWishNotification);
-        addDependency("", "wishNotificationSize", () -> healerWishNotification);
-
-
-
-
-
-        addDependency("berzmsg", "F7/M7 Position messages", () -> posMsgs);
-
-        addDependency("earlyentrypositions", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("simonsayspos", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("goldorpos", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("dragonpos", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("midposmsg", "F7/M7 Position messages", () -> posMsgs);
-        addDependency("stormposmsg", "F7/M7 Position messages", () -> posMsgs);
-        EventManager.INSTANCE.register(this);
-    }
-
-
-
-    @Subscribe
-    public void deleteEntry(deletePlayerEntryEvent event) {
-        playerEntries.remove(event.getID() - 1);
-        save();
-        int i = 0;
-        while (i < 7) {
-            mod.defaultPage.categories.get("Player Size Customizer").subcategories.get(1).options.
-                    remove(((event.getID() - 1) * 7 + 1));
-            i++;
-        }
-        reorderIds(playerEntries);
-    }
-
-    private void reorderIds(@NotNull List<playerEntry> players) {
-        int i = 0;
-        while (i < players.size()) {
-            players.get(i).setID(i + 1);
-            i++;
-        }
-    }
-
-
-    @Override
-    public void initialize() {
-        super.initialize();
-        int i = 0;
-        while (playerEntries.size() > i) {
-            generateOptionList(playerEntries.get(i), mod.defaultPage, mod, false);
-            i++;
-        }
+        addDependency("berzmsg", "posMsgs");
+        addDependency("earlyentrypositions", "posMsgs");
+        addDependency("simonsayspos", "posMsgs");
+        addDependency("goldorpos", "posMsgs");
+        addDependency("dragonpos", "posMsgs");
+        addDependency("midposmsg", "posMsgs");
+        addDependency("stormposmsg", "posMsgs");
     }
 }
-

@@ -1,12 +1,12 @@
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.TickEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+
+
 import me.jpaMain.events.dungeonStartEvent
-import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.worldUtils.getSidebarLines
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 var scoreboard: Array<String> = arrayOf()
 var dungeonFloor = ""
@@ -32,6 +32,7 @@ class dungeonUtils {
                 Regex("\\[([A-Z])]([0-9a-zA-Z-_]+)").find(scoreboardLine)?.value?.let {
                     players.add(dungeonPlayerInfo(it.removeRange(IntRange(0, 2)), it[1].toString()))
                     return@forEach
+
                 }
 
                 Regex("\\((?<Type>[FM])(?<Floor>\\d)\\)").find(scoreboardLine)?.groupValues?.let {
@@ -42,9 +43,7 @@ class dungeonUtils {
         }
     }
 
-    @Subscribe
-    fun tickEvent(event: TickEvent) {
-    }
+
 
 
 }

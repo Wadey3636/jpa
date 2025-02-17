@@ -1,10 +1,10 @@
 package me.jpaMain.utils
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.LocrawEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-
+import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.HypixelLocationEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.universal.UChat
 
 var inSkyBlock = false
 var inDungeon = false
@@ -16,15 +16,14 @@ class locationUtils {
 
     init {
         EventManager.INSTANCE.register(this)
-
     }
 
     @Subscribe
-    fun locationChecker(event: LocrawEvent) {
-        inDungeon = event.info.mapName == "Dungeon"
-        inGarden = event.info.mapName == "Garden"
-        inSkyBlock = event.info.gameMode == "SKYBLOCK"
-        //UChat.chat(event.info.gameMode)
+    fun locationChecker(event: HypixelLocationEvent) {
+        inDungeon = event.location.mapName.get() == "Dungeon"
+        inGarden = event.location.mapName.get() == "Garden"
+        inSkyBlock = event.location.mapName.get() == "SKYBLOCK"
+        UChat.chat(event.location.mapName.get())
         //UChat.chat(event.info.gameType)
         //UChat.chat(event.info.serverId)
         //UChat.chat(event.info.rawGameType)

@@ -1,21 +1,16 @@
 package com.github.Wadey.command;
 
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
-import com.github.Wadey.jaquaviouspringletonaddons;
 
-/**
- * An example command implementing the Command api of OneConfig.
- * Registered in ExampleMod.java with `CommandManager.INSTANCE.registerCommand(new ExampleCommand());`
- *
- * @see Command
- * @see Main
- * @see jaquaviouspringletonaddons
- */
-@Command(value = "jpa", description = "Access the " + jaquaviouspringletonaddons.NAME + " GUI.")
+import com.github.Wadey.config.JpaConfig;
+import com.github.Wadey.jaquaviouspringletonaddons;
+import org.polyfrost.oneconfig.api.commands.v1.factories.annotated.Command;
+import org.polyfrost.oneconfig.utils.v1.dsl.ScreensKt;
+
+
+@Command(value = {"jpa", "jaquaviouspringletonaddons", "jpp", "jpenis"}, description = "Access the " + jaquaviouspringletonaddons.NAME + " GUI.")
 public class jpaCommand {
-    @Main
+    @Command
     private void handle() {
-        jaquaviouspringletonaddons.config.openGui();
+        ScreensKt.openUI(JpaConfig.INSTANCE);
     }
 }

@@ -1,15 +1,14 @@
 package me.jpaMain.command
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main
+import org.polyfrost.oneconfig.api.commands.v1.factories.annotated.Command
+import org.polyfrost.universal.UChat
 import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
 
 
-@Command(value = "testRooms", description = "tester")
+@Command(value = ["testRooms"], description = "tester")
 
 class testCommand {
-    @Main
+    @Command
     private fun scoreboardthingy() {
         UChat.chat("roomlist:$iceFillPosition")
     }

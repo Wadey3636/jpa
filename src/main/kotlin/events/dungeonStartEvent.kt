@@ -1,8 +1,8 @@
 package me.jpaMain.events
 
-import cc.polyfrost.oneconfig.events.event.CancellableEvent
+import org.polyfrost.oneconfig.api.event.v1.events.Event
 
-class dungeonStartEvent(Floor: String) : CancellableEvent() {
+class dungeonStartEvent(Floor: String) : Event.Cancellable() {
     private var floor = Floor
 
        fun getFloor(): String {

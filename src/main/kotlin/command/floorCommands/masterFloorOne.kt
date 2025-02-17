@@ -1,15 +1,14 @@
 package me.jpaMain.command.floorCommands
 
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main
+
 import me.jpaMain.jpaMain.mc
+import org.polyfrost.oneconfig.api.commands.v1.factories.annotated.Command
 
 
-@Command(value = "m1", description = "joins M1", aliases = ["M1"])
+@Command(value = ["m1", "M1"], description = "joins M1")
 
 class masterFloorOne {
-    @Main
+    @Command
     private fun resetMidDetector() {
         mc.thePlayer?.sendChatMessage("/joininstance MASTER_CATACOMBS_FLOOR_ONE")
     }

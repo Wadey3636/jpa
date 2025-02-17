@@ -2,14 +2,15 @@
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.7",
   "package": "com.github.Wadey.mixin",
-  "refmap": "mixins.${id}.refmap.json",
+  "refmap": "mixins.${mod_id}.refmap.json",
   "injectors": {
     "maxShiftBy": 5
   },
   "client": [
     "MinecraftMixin",
     "MixinRenderPlayer",
-    "MixinContainerGui"
+    "MixinContainerGui",
+    "MixinNetworkManager"
   ],
   "verbose": true
 }

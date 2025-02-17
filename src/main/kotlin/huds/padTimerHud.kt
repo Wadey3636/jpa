@@ -1,54 +1,51 @@
-package me.jpaMain.huds
-
-import cc.polyfrost.oneconfig.hud.Hud
-import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
-import cc.polyfrost.oneconfig.platform.Platform
-import cc.polyfrost.oneconfig.renderer.TextRenderer
+/*
 import me.jpaMain.dungeonfeatures.padcolor
+import org.polyfrost.oneconfig.api.config.v1.annotations.Color
+import org.polyfrost.oneconfig.api.hud.v1.TextHud
+import org.polyfrost.polyui.color.PolyColor
 import me.jpaMain.dungeonfeatures.padticks
 import me.jpaMain.dungeonfeatures.stormActivated
-import kotlin.math.max
+import me.jpaMain.utils.renderHelper
+import org.polyfrost.oneconfig.api.hud.v1.LegacyHud
+import org.polyfrost.universal.UMatrixStack
 
 
-class padTimerHud : Hud(stormActivated) {
+class padTimerHud(override var width: Float, override var height: Float) : LegacyHud() {
 
 
-    override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
+    override fun category(): Category {
+        return Category.INFO
+    }
+
+    override fun render(stack: UMatrixStack, x: Float, y: Float, scaleX: Float, scaleY: Float) {
         if (!stormActivated) return
         if (padticks % 2 != 1f) {
-            TextRenderer.drawScaledString(
+            renderHelper.drawCenteredText(
                 (padticks / 20).toString() + "0",
+                scaleX,
+                padcolor,
                 x,
-                y,
-                padcolor.getRGB(),
-                TextRenderer.TextType.toType(0),
-                scale
+                y
             )
         } else {
-            TextRenderer.drawScaledString(
+            renderHelper.drawCenteredText(
                 (padticks / 20).toString(),
+                scaleX,
+                padcolor,
                 x,
-                y,
-                padcolor.getRGB(),
-                TextRenderer.TextType.toType(0),
-                scale
+                y
             )
         }
 
     }
 
-    override fun getWidth(scale: Float, example: Boolean): Float {
-        var width = 0f
-        width = max(width.toDouble(), getLineWidth(padticks.toString(), scale).toDouble()).toFloat()
-        return width
+    override fun title(): String {
+        return "Pad Timer"
     }
 
-    override fun getHeight(scale: Float, example: Boolean): Float {
-        return 8 * scale
-    }
-
-
-    fun getLineWidth(line: String?, scale: Float): Float {
-        return Platform.getGLPlatform().getStringWidth(line) * scale
+    override fun update(): Boolean {
+        return true
     }
 }
+
+ */

@@ -1,6 +1,6 @@
 package me.jpaMain.gardenFeatures
 
-import com.github.Wadey.config.jpaConfig.pestKeyToggle
+import com.github.Wadey.config.JpaConfig.pestKeyToggle
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.inGarden
 import me.jpaMain.utils.worldUtils.isBlock

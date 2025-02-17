@@ -1,11 +1,11 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import com.github.Wadey.config.jpaConfig.*
+
+import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.utils.renderHelper
-import me.jpaMain.utils.renderHelper.oneColorToInt
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 
 class wishNotification {
@@ -19,13 +19,14 @@ class wishNotification {
 
     @Subscribe
     fun onChat(event: ChatReceiveEvent) {
+
         if (healerWishNotification) {
-            when (event.message.unformattedText) {
+            when (event.fullyUnformattedMessage) {
                 "⚠ Maxor is enraged! ⚠" -> {
                     renderHelper.renderTitle(
                         "Wish",
                         wishNotificationSize,
-                        healerWishNotificationColor.oneColorToInt,
+                        healerWishNotificationColor.argb,
                         3000
                     )
                 }
@@ -34,7 +35,7 @@ class wishNotification {
                     renderHelper.renderTitle(
                         "Wish",
                         wishNotificationSize,
-                        healerWishNotificationColor.oneColorToInt,
+                        healerWishNotificationColor.argb,
                         3000
                     )
                 }

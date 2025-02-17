@@ -1,16 +1,12 @@
 package me.jpaMain.dungeonfeatures
 
-import cc.polyfrost.oneconfig.events.EventManager
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
-import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
-import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
-import cc.polyfrost.oneconfig.libs.universal.UChat
-import cc.polyfrost.oneconfig.utils.dsl.mc
+
+import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import me.jpaMain.utils.renderHelper
 import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.github.Wadey.config.jpaConfig.*
+import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.events.changeGuiEvent
 import me.jpaMain.utils.guiUtils.containsOneOf
@@ -18,7 +14,9 @@ import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.renderHelper.getViewerPos
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.util.AxisAlignedBB
-import net.minecraftforge.fml.common.eventhandler.Event
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 class terminalWaypoints {
     init {
@@ -145,7 +143,7 @@ class terminalWaypoints {
     @Subscribe
     fun chatReceived(event: ChatReceiveEvent) {
         if (!terminalWaypoints) return
-        when (event.message.unformattedText) {
+        when (event.fullyUnformattedMessage) {
             "[BOSS] Storm: I should have known that I stood no chance." ->
                 {
                     terminalSection = 0
@@ -158,7 +156,7 @@ class terminalWaypoints {
                 }
         }
 
-        if (event.message.unformattedText.containsOneOf("! (7/7)", "! (8/8)")) {
+        if (event.fullyUnformattedMessage.containsOneOf("! (7/7)", "! (8/8)")) {
             terminalSection += 1
             when (terminalSection) {
                 1 -> addS2()
