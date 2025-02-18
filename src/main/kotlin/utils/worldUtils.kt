@@ -8,6 +8,8 @@ import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.scoreboard.Score
 import net.minecraft.scoreboard.ScorePlayerTeam
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityChest
 import net.minecraft.util.BlockPos
 import java.util.stream.Collectors
 
@@ -42,6 +44,22 @@ object worldUtils {
     // I assume it has to do with Hypixel Supporting different versions
     fun isBlock(pos: BlockPos, blocks: Block): Boolean {
         return blocks.toString() == (mc.theWorld?.getBlockState(pos)?.block ?: Blocks.air).toString()
+    }
+
+    fun isChest(pos: BlockPos): Boolean{
+        return mc.theWorld?.getTileEntity(pos) is TileEntityChest
+    }
+    fun findDoubleChest(pos: BlockPos): List<BlockPos> {
+        val possibleChests = arrayOf(
+            BlockPos(pos.x - 1, pos.y, pos.z),
+            BlockPos(pos.x + 1, pos.y, pos.z),
+            BlockPos(pos.x, pos.y, pos.z -1),
+            BlockPos(pos.x, pos.y, pos.z + 1)
+            )
+        for (location in possibleChests) {
+            if (isChest(location)) return listOf(pos, location)
+        }
+        return listOf(pos)
     }
 
 

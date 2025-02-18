@@ -1,5 +1,6 @@
 package com.github.Wadey.config;
 
+import me.jpaMain.utils.InventoryInfo;
 import org.polyfrost.oneconfig.api.config.v1.Config;
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
 import com.github.Wadey.jaquaviouspringletonaddons;
@@ -12,6 +13,10 @@ import org.polyfrost.polyui.input.KeyBinder;
 import org.polyfrost.polyui.input.KeybindHelper;
 import org.polyfrost.universal.UKeyboard;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindManager.registerKeybind;
 
 @SuppressWarnings("unused")
@@ -19,7 +24,8 @@ public class JpaConfig extends Config {
 
     //@Include
     //public static List<playerEntry> playerEntries = new ArrayList<>();
-
+    @Include
+    public static List<InventoryInfo> chestEntries = new ArrayList<>();
 
 
     @Switch(

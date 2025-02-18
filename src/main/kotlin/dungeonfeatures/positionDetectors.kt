@@ -3,6 +3,7 @@ package me.jpaMain.dungeonfeatures
 
 import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.command.devMode
+import me.jpaMain.events.P3StartEvent
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.jpaMain.mc
 import me.jpaMain.utils.PlayerPosInfo
@@ -13,6 +14,7 @@ import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.eventHandler
 import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import java.util.concurrent.atomic.AtomicBoolean
@@ -49,6 +51,12 @@ class positionDetectors {
         ee4Triggered.set(false)
         eess2Triggered.set(false)
         eess3Triggered.set(false)
+        EventManager.INSTANCE.unregister(Detector)
+    }
+
+    @Subscribe
+    fun onP3Start(event: P3StartEvent) {
+        Detector.register()
     }
 
     /**
@@ -100,8 +108,8 @@ class positionDetectors {
     }
 
 
-    @Subscribe
-    fun midDetector(event: QuarterSecondEvent) {
+
+    val Detector = eventHandler { event: QuarterSecondEvent  ->
         if (inDungeon) {
             val players = arrayListOf<PlayerPosInfo>()
             if (devMode) {
@@ -114,7 +122,6 @@ class positionDetectors {
                 }
             }
 
-
             detectPlayers(
                 midDetector,
                 players,
@@ -125,7 +132,6 @@ class positionDetectors {
                 midTriggered,
                 midText
             )
-
 
             detectPlayers(
                 ee2Detector,
