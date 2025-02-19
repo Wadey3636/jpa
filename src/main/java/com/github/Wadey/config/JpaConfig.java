@@ -1,5 +1,6 @@
 package com.github.Wadey.config;
 
+import me.jpaMain.dungeonfeatures.TerminalWaypointsKt;
 import me.jpaMain.utils.InventoryInfo;
 import org.polyfrost.oneconfig.api.config.v1.Config;
 import org.polyfrost.oneconfig.api.config.v1.annotations.*;
@@ -25,7 +26,7 @@ public class JpaConfig extends Config {
     //@Include
     //public static List<playerEntry> playerEntries = new ArrayList<>();
     @Include
-    public static List<InventoryInfo> chestEntries = new ArrayList<>();
+     public static List<InventoryInfo> chestEntries = new ArrayList<>();
 
 
     @Switch(
@@ -382,7 +383,15 @@ public class JpaConfig extends Config {
             subcategory = "Terminal Waypoints"
     )
     public static boolean terminalWaypoints = false;
-
+    @Button(
+            title = "Clear Waypoints",
+            category = "F7/M7",
+            subcategory = "Terminal Waypoints",
+            description = "Useful if the waypoints bug out"
+    )
+    public void clearWaypoints() {
+        TerminalWaypointsKt.activeWaypoints.clear();
+    }
     @Color(
             title = "Waypoint Color",
             category = "F7/M7",
@@ -486,12 +495,7 @@ public class JpaConfig extends Config {
             
     )
     static boolean ignored14 = false;
-    /*
-    Use slashes (/) to separate values in the list.
-    RL stands for Right Lever, LL Stands for Left Lever
-    List the terminals in the order you plan to complete them
-    Example: 4/3/RL
-    */
+
 
     @Text(
             title = "Section 1",
@@ -577,8 +581,7 @@ public class JpaConfig extends Config {
     )
     public static boolean calculatorHighlight = false;
 
-//:
-    //PLAYER SIZE CUSTOMIZER
+
 
 
 
@@ -1329,7 +1332,7 @@ public class JpaConfig extends Config {
     public static final JpaConfig INSTANCE = new JpaConfig();
 
     public JpaConfig() {
-        super(jaquaviouspringletonaddons.MODID + ".json", jaquaviouspringletonaddons.NAME, Category.OTHER);
+        super(jaquaviouspringletonaddons.MODID + ".json", jaquaviouspringletonaddons.NAME, Category.QOL);
         registerKeybind(pestKey);
         registerKeybind(pearlKey);
         registerKeybind(superboomKey);

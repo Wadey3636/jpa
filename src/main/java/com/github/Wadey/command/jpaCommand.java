@@ -10,7 +10,7 @@ import org.polyfrost.oneconfig.utils.v1.dsl.ScreensKt;
 @Command(value = {"jpa", "jaquaviouspringletonaddons", "jpp", "jpenis"}, description = "Access the " + jaquaviouspringletonaddons.NAME + " GUI.")
 public class jpaCommand {
     @Command
-    private void handle() {
+    private void main() {
         ScreensKt.openUI(JpaConfig.INSTANCE);
     }
 }

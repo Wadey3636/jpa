@@ -16,17 +16,17 @@ import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.util.AxisAlignedBB
 import org.polyfrost.oneconfig.api.event.v1.EventManager
 import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
+@JvmField
+public var activeWaypoints: MutableList<BlockPos> = mutableListOf()
 class terminalWaypoints {
     init {
         EventManager.INSTANCE.register(this)
     }
 
-    private var activeWaypoints: MutableList<BlockPos> = mutableListOf()
     private var terminalSection: Int = 0
-    private var earlyRender: Boolean = false
-
 
     private fun addS1(){
         when (terminalPreset) {
@@ -119,25 +119,22 @@ class terminalWaypoints {
 
     @Subscribe
     fun onQuarterSec(event: QuarterSecondEvent) {
-        if (!earlyRender) {
-            activeWaypoints.removeIf { waypoint ->
-                val armorStands = mc.theWorld.getEntitiesWithinAABB(
-                    EntityArmorStand::class.java,
-                    AxisAlignedBB(
-                        waypoint.x - 3.0, waypoint.y - 3.0, waypoint.z - 3.0,
-                        waypoint.x + 3.0, waypoint.y + 3.0, waypoint.z + 3.0
-                    )
+        activeWaypoints.removeIf { waypoint ->
+            val armorStands = mc.theWorld.getEntitiesWithinAABB(
+                EntityArmorStand::class.java,
+                AxisAlignedBB(
+                    waypoint.x - 3.0, waypoint.y - 3.0, waypoint.z - 3.0,
+                    waypoint.x + 3.0, waypoint.y + 3.0, waypoint.z + 3.0
                 )
-                armorStands.isNotEmpty() && armorStands.none {
-                    it.name.deformat.containsOneOf(
-                        "Inactive",
-                        "Not Activated",
-                        "CLICK HERE",
-                        ignoreCase = true
-                    )
-                }
+            )
+            armorStands.isNotEmpty() && armorStands.any {
+                it.name.deformat.containsOneOf("active", "terminal active", "activated", "device active", ignoreCase = true)
             }
         }
+    }
+
+    @Subscribe fun worldLoad(event: WorldLoadEvent) {
+        activeWaypoints.clear()
     }
 
     @Subscribe
@@ -147,15 +144,9 @@ class terminalWaypoints {
             "[BOSS] Storm: I should have known that I stood no chance." ->
                 {
                     terminalSection = 0
-                    earlyRender = true
                     addS1()
                 }
-            "[BOSS] Goldor: Little ants, plotting and scheming, thinking they are invincible…" ->
-                {
-                    earlyRender = false
-                }
         }
-
         if (event.fullyUnformattedMessage.containsOneOf("! (7/7)", "! (8/8)")) {
             terminalSection += 1
             when (terminalSection) {
@@ -175,15 +166,6 @@ class terminalWaypoints {
             renderHelper.drawBox(it, terminalWaypointsColor, 3f, terminalWaypointsPhase, viewerPos)
         }
         if (terminalWaypointsTracer && activeWaypoints.isNotEmpty()) renderHelper.trace(activeWaypoints[0], viewerPos, terminalWaypointsTracerColor, 3f, true)
-    }
-
-
-    //@Subscribe
-    fun balls(event: changeGuiEvent) {
-        addS1()
-        addS2()
-        addS3()
-        addS4()
     }
 }
 
