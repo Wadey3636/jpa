@@ -78,6 +78,15 @@ class fireEvents {
             EventManager.INSTANCE.post(SecondEvent())
         }
     }
+    @Subscribe
+    fun onChat(event: ChatReceiveEvent) {
+        when (event.fullyUnformattedMessage) {
+            "[BOSS] Storm: I should have known that I stood no chance." -> {
+                EventManager.INSTANCE.post(P3StartEvent())
+            }
+            else -> return
+        }
+    }
 
     /**
      * Adapted from odin
