@@ -5,7 +5,7 @@ import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.events.SecondEvent
 import me.jpaMain.utils.renderHelper.renderTitle
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.ChatEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 
@@ -19,7 +19,7 @@ class milestoneReminder {
     }
 
     @Subscribe
-    fun checker(event: ChatReceiveEvent) {
+    fun checker(event: ChatEvent.Receive) {
         if (event.fullyUnformattedMessage == "[NPC] Mort: Here, I found this map when I first entered the dungeon.") {
             //UChat.chat("[JPA] reminder enabled.")
             renderReminder = true

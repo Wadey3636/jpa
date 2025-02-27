@@ -1,12 +1,12 @@
 package me.jpaMain.dungeonfeatures
 
+import me.jpaMain.events.P3StartEvent
 import me.jpaMain.events.ServerTickEvent
 //import me.jpaMain.huds.p3StartTimerText
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.eventHandler
-import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
-import org.polyfrost.oneconfig.api.event.v1.events.TickEvent
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.ChatEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
+
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import org.polyfrost.universal.UChat
 
@@ -19,10 +19,8 @@ class p3StartTimer {
 
 
     @Subscribe
-    fun p3StartTimer(event: ChatReceiveEvent) {
-        if (event.fullyUnformattedMessage == "[BOSS] Storm: I should have known that I stood no chance.") {
-            p3StartTimerticks = 104f
-        }
+    fun p3StartTimer(event: P3StartEvent) {
+        p3StartTimerticks = 104f
     }
 
 
@@ -40,7 +38,7 @@ class p3StartTimer {
     }
 
     @Subscribe
-    fun reset(event: WorldLoadEvent) {
+    fun reset(event: WorldEvent.Load) {
         p3StartTimerticks = 0f
     }
 

@@ -23,8 +23,6 @@ import static org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindManager.registerK
 @SuppressWarnings("unused")
 public class JpaConfig extends Config {
 
-    //@Include
-    //public static List<playerEntry> playerEntries = new ArrayList<>();
     @Include
      public static List<InventoryInfo> chestEntries = new ArrayList<>();
 
@@ -61,8 +59,7 @@ public class JpaConfig extends Config {
     @Switch(
             title = "Phase",
             category = "Dungeons",
-            subcategory = "Solvers",
-            description = "Disabled ATM"
+            subcategory = "Solvers"
     )
     public static boolean icefillSolverPhase = false;
 
@@ -304,6 +301,7 @@ public class JpaConfig extends Config {
             title = "Detector Text Size",
             category = "F7/M7",
             subcategory = "Detectors",
+            step = 8f,
             min = 1.0F, max = 8f)
     public static float detectorTextSize = 3f;
     @Color(
@@ -389,7 +387,7 @@ public class JpaConfig extends Config {
             subcategory = "Terminal Waypoints",
             description = "Useful if the waypoints bug out"
     )
-    public void clearWaypoints() {
+    private void clearWaypoints() {
         TerminalWaypointsKt.activeWaypoints.clear();
     }
     @Color(
@@ -411,7 +409,7 @@ public class JpaConfig extends Config {
             title = "Tracer requires [View Bobbing] and [Parallax Fix] - (From Patcher) to be off.",
             category = "F7/M7",
             subcategory = "Terminal Waypoints",
-            description = ""
+            description = "Draws a line from your curser to the next waypoint"
             
     )
     static boolean ignored15 = false;
@@ -533,18 +531,107 @@ public class JpaConfig extends Config {
     )
     public static String terminalWaypointsTextS4 = "";
 
+    @Info(
+            title = "Features in this category are morally questionable, but do not ban. Use at your own digression.",
+            description = "",
+            category = "Trajectories"
+    )
 
+    @Switch(
+            title = "Toggle",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "Predicts the trajectories of arrows and ender pearls"
+    )
+    public static boolean trajectories = false;
 
+    @Switch(
+            title = "Bows",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "Render trajectories of bow arrows."
+    )
+    public static boolean trajectoriesBowsToggle = false;
 
+    @Switch(
+            title = "Pearls",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "Render trajectories of ender pearls."
+    )
+    public static boolean trajectoriesPearlsToggle = false;
 
+    @Switch(
+            title = "Show Plane",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "Shows a flat square rotated relative to the predicted block that will be hit."
+    )
+    public static boolean trajectoriesPlane = false;
 
+    @Switch(
+            title = "Show Boxs",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "Shows boxes displaying where arrows or pearls will hit, if this is disabled it will only highlight entities your arrows will hit."
+    )
+    public static boolean trajectoriesBox = true;
 
+    @Switch(
+            title = "Show Lines",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "Shows the trajectory as a line."
+    )
+    public static boolean trajectoriesLines = true;
 
+    @Number(
+            title = "Solver Range",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "How many ticks are simulated, performance impact scales with this.",
+            min = 30f,
+            max = 120f
+    )
+    public static float trajectoriesRange = 70f;
 
+    @Number(
+            title = "Line Width",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "The width of the line.",
+            min = 1f,
+            max = 5f
+    )
+    public static float trajectoriesLineWidth = 3f;
 
+    @Number(
+            title = "Plane Size",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "The size of the plane.",
+            min = 2f,
+            max = 5f
+    )
+    public static float trajectoriesPlaneSize = 3f;
 
+    @Number(
+            title = "Box Size",
+            category = "Questionable",
+            subcategory = "Trajectories",
+            description = "The size of the box.",
+            min = 2f,
+            max = 5f
+    )
+    public static float trajectoriesBoxSize = 3f;
 
-
+    @Color(
+            title = "Color",
+            description = "The color of the trajectory.",
+            category = "Questionable",
+            subcategory = "Trajectories"
+    )
+    public static PolyColor trajectoriesColor = ColorUtils.rgba(0, 150, 255, 1f);
 
 
 
@@ -1333,6 +1420,7 @@ public class JpaConfig extends Config {
 
     public JpaConfig() {
         super(jaquaviouspringletonaddons.MODID + ".json", jaquaviouspringletonaddons.NAME, Category.QOL);
+        /*
         registerKeybind(pestKey);
         registerKeybind(pearlKey);
         registerKeybind(superboomKey);
@@ -1382,5 +1470,7 @@ public class JpaConfig extends Config {
         addDependency("dragonpos", "posMsgs");
         addDependency("midposmsg", "posMsgs");
         addDependency("stormposmsg", "posMsgs");
+
+         */
     }
 }

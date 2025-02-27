@@ -10,7 +10,8 @@
     "MinecraftMixin",
     "MixinRenderPlayer",
     "MixinContainerGui",
-    "MixinNetworkManager"
+    "MixinNetworkManager",
+    "MixinModList"
   ],
   "verbose": true
 }

@@ -4,8 +4,8 @@ package me.jpaMain.dungeonfeatures
 import me.jpaMain.events.ServerTickEvent
 import me.jpaMain.utils.renderHelper
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.ChatEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 
@@ -23,12 +23,12 @@ class padTimer {
 
 
     @Subscribe
-    fun reset(event: WorldLoadEvent) {
+    fun reset(event: WorldEvent.Load) {
         stormActivated = false
     }
 
     @Subscribe
-    fun stormPhaseStart(event: ChatReceiveEvent) {
+    fun stormPhaseStart(event: ChatEvent.Receive) {
         if (event.fullyUnformattedMessage.toString() == "[BOSS] Storm: Pathetic Maxor, just like expected.") {
             padticks = 20f
             purpleTicks = 650

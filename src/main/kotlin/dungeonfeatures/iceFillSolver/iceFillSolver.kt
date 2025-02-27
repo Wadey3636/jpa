@@ -3,7 +3,7 @@ package me.jpaMain.dungeonfeatures.iceFillSolver
 
 import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import com.github.Wadey.config.JpaConfig.*
-import me.jpaMain.dungeonfeatures.DungeonScanner.iceFillPosition
+import me.jpaMain.dungeonfeatures.dungeonScanner.iceFillPosition
 import me.jpaMain.events.QuarterSecondEvent
 import me.jpaMain.utils.*
 import me.jpaMain.utils.renderHelper.drawBox
@@ -17,12 +17,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.polyfrost.oneconfig.api.event.v1.EventManager
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import org.polyfrost.universal.UChat
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 
 class iceFillSolver {
 
     init {
-
         EventManager.INSTANCE.register(this)
     }
 
@@ -80,7 +79,7 @@ class iceFillSolver {
 
 
     @Subscribe
-    fun reset(event: WorldLoadEvent) {
+    fun reset(event: WorldEvent.Load) {
         determinedVariants = false
         inIcefill = false
 

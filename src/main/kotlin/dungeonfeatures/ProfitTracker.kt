@@ -13,7 +13,7 @@ import me.jpaMain.utils.universalUtils.abbreviateNumber
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import org.polyfrost.polyui.color.PolyColor
 import org.polyfrost.universal.UChat
@@ -49,7 +49,7 @@ class ProfitTracker {
     private var posY = (UResolution.scaledHeight / 3f)
 
     @Subscribe
-    fun onConfigClosed(event: WorldLoadEvent) {
+    fun onConfigClosed(event: WorldEvent.Load) {
 
         possibleLoot.clear()
         possibleLoot["Necromancer's brooch"] = NecromancersBrooch

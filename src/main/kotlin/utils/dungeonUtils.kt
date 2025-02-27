@@ -5,7 +5,7 @@ package me.jpaMain.utils
 import me.jpaMain.events.dungeonStartEvent
 import me.jpaMain.utils.worldUtils.getSidebarLines
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.ChatEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 var scoreboard: Array<String> = arrayOf()
@@ -24,7 +24,7 @@ class dungeonUtils {
     //val testvalue = arrayOf("www.hypixel.ne🎂t","            🎉"," Auto-closing in:🎁 1:57","          👹"," ","        ⚽","  ♲ Ironman🍭","  ⏣ The Catac👽ombs (F7),  2:40pm👾","  Early Winter 13🐍th"," 🔮10/29/24 m14👽1A")
 
     @Subscribe
-    fun dungeonInformation(event: ChatReceiveEvent) {
+    fun dungeonInformation(event: ChatEvent.Receive) {
         if (event.fullyUnformattedMessage == "[NPC] Mort: Here, I found this map when I first entered the dungeon.") {
             players.clear()
             val sidebar = getSidebarLines()

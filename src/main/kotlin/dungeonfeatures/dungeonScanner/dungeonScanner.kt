@@ -1,4 +1,4 @@
-package me.jpaMain.dungeonfeatures.DungeonScanner
+package me.jpaMain.dungeonfeatures.dungeonScanner
 
 
 import com.github.Wadey.config.JpaConfig.icefillSolver
@@ -10,7 +10,7 @@ import me.jpaMain.utils.worldUtils.isBlock
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import java.lang.System.currentTimeMillis
 
@@ -28,7 +28,7 @@ class dungeonScanner {
     }
 
     @Subscribe
-    fun onWorldLoad(event: WorldLoadEvent) {
+    fun onWorldLoad(event: WorldEvent.Load) {
         uncheckedRooms.clear()
         iceFillPosition = null
         scanFinished = false

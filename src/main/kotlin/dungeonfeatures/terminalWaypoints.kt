@@ -8,16 +8,17 @@ import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.events.QuarterSecondEvent
-import me.jpaMain.events.changeGuiEvent
 import me.jpaMain.utils.guiUtils.containsOneOf
 import me.jpaMain.utils.guiUtils.deformat
 import me.jpaMain.utils.renderHelper.getViewerPos
+import me.jpaMain.utils.worldUtils
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.util.AxisAlignedBB
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.ChatEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
+import org.polyfrost.polyui.color.*
 
 @JvmField
 public var activeWaypoints: MutableList<BlockPos> = mutableListOf()
@@ -133,12 +134,13 @@ class terminalWaypoints {
         }
     }
 
-    @Subscribe fun worldLoad(event: WorldLoadEvent) {
+    @Subscribe
+    fun worldLoad(event: WorldEvent.Load) {
         activeWaypoints.clear()
     }
 
     @Subscribe
-    fun chatReceived(event: ChatReceiveEvent) {
+    fun chatReceived(event: ChatEvent.Receive) {
         if (!terminalWaypoints) return
         when (event.fullyUnformattedMessage) {
             "[BOSS] Storm: I should have known that I stood no chance." ->
@@ -158,14 +160,36 @@ class terminalWaypoints {
 
     }
 
+    private fun isDev(pos: BlockPos): Boolean{
+        return true
+
+    }
 
     @SubscribeEvent
     fun onRenderLast(event: RenderWorldLastEvent) {
+        if (!terminalWaypoints || activeWaypoints.isEmpty()) return
         val viewerPos = getViewerPos(event.partialTicks)
-        activeWaypoints.forEach {
+        val firstWaypoint = activeWaypoints.firstOrNull()
+        var devColor = terminalWaypointsColor
+        var renderWaypoints = activeWaypoints
+        if (firstWaypoint != null && isDev(firstWaypoint)) {
+            val distance = worldUtils.findDistance3D(
+                viewerPos.first, viewerPos.second, viewerPos.third,
+                firstWaypoint.x.toDouble(), firstWaypoint.y.toDouble(), firstWaypoint.z.toDouble()
+            )
+            val clampedAlpha = (distance.coerceIn(2.0, 10.0) / 10).let { if (it == 0.2) 0.0 else it }
+            devColor = rgba(terminalWaypointsColor.r, terminalWaypointsColor.g, terminalWaypointsColor.b, clampedAlpha.toFloat())
+            renderWaypoints = activeWaypoints.drop(1).toMutableList()
+        }
+        renderWaypoints.forEach {
             renderHelper.drawBox(it, terminalWaypointsColor, 3f, terminalWaypointsPhase, viewerPos)
         }
-        if (terminalWaypointsTracer && activeWaypoints.isNotEmpty()) renderHelper.trace(activeWaypoints[0], viewerPos, terminalWaypointsTracerColor, 3f, true)
+        firstWaypoint?.let {
+            if (terminalWaypointsTracer) {
+                renderHelper.trace(it, viewerPos, devColor, 3f, true)
+            }
+        }
     }
+
 }
 

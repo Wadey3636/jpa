@@ -12,6 +12,8 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityChest
 import net.minecraft.util.BlockPos
 import java.util.stream.Collectors
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * Retrieves the block object at the specified positon
@@ -60,6 +62,12 @@ object worldUtils {
             if (isChest(location)) return listOf(pos, location)
         }
         return listOf(pos)
+    }
+    fun findDistance3D(x: Double, y: Double, z: Double, x1: Double, y1: Double, z1: Double): Double {
+        return sqrt((x1 - x).pow(2) + (y1 - y).pow(2) + (z1 - z).pow(2))
+    }
+    fun findDistance2D(x: Double, z: Double, x1: Double, z1: Double): Double {
+        return sqrt((x1-x).pow(2) + (z1-z).pow(2))
     }
 
 

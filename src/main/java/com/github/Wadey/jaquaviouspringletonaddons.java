@@ -8,7 +8,7 @@ import com.github.Wadey.command.jpaCommand;
 import me.jpaMain.command.JPAdevMode;
 import me.jpaMain.command.fsCommand;
 import me.jpaMain.command.testCommand;
-import me.jpaMain.dungeonfeatures.DungeonScanner.dungeonScanner;
+import me.jpaMain.dungeonfeatures.dungeonScanner.dungeonScanner;
 import me.jpaMain.dungeonfeatures.iceFillSolver.iceFillSolver;
 import me.jpaMain.dungeonfeatures.*;
 import me.jpaMain.dungeonfeatures.ProfitTracker;

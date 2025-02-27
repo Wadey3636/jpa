@@ -4,7 +4,7 @@ package me.jpaMain.dungeonfeatures
 import com.github.Wadey.config.JpaConfig.*
 import me.jpaMain.utils.renderHelper
 import org.polyfrost.oneconfig.api.event.v1.EventManager
-import org.polyfrost.oneconfig.api.event.v1.events.ChatReceiveEvent
+import org.polyfrost.oneconfig.api.event.v1.events.ChatEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 
 
@@ -18,7 +18,7 @@ class wishNotification {
     }
 
     @Subscribe
-    fun onChat(event: ChatReceiveEvent) {
+    fun onChat(event: ChatEvent.Receive) {
 
         if (healerWishNotification) {
             when (event.fullyUnformattedMessage) {
@@ -31,7 +31,7 @@ class wishNotification {
                     )
                 }
 
-                "[BOSS] Goldor: But you have nowhere to hide anymore!" -> {
+                "[BOSS] Goldor: You have done it, you destroyed the factory…" -> {
                     renderHelper.renderTitle(
                         "Wish",
                         wishNotificationSize,

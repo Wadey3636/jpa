@@ -15,7 +15,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
 import org.polyfrost.oneconfig.api.event.v1.EventManager
 import org.polyfrost.oneconfig.api.event.v1.eventHandler
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -44,7 +44,7 @@ class positionDetectors {
     private var player: String = ""
 
     @Subscribe
-    fun midReset(event: WorldLoadEvent) {
+    fun midReset(event: WorldEvent.Load) {
         midTriggered.set(false)
         ee2Triggered.set(false)
         ee3Triggered.set(false)

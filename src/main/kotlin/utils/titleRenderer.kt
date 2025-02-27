@@ -7,7 +7,7 @@ import me.jpaMain.utils.renderHelper.drawCenteredText
 import net.minecraft.client.gui.ScaledResolution
 import org.polyfrost.oneconfig.api.event.v1.EventManager
 import org.polyfrost.oneconfig.api.event.v1.events.HudRenderEvent
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import org.polyfrost.polyui.color.PolyColor
 
@@ -29,7 +29,7 @@ class titleUtils {
 
 
     @Subscribe
-    fun worldLoadEvent(event: WorldLoadEvent) {
+    fun worldLoadEvent(event: WorldEvent.Load) {
 
         scaledResolution = ScaledResolution(mc)
         centerX = (scaledResolution.scaledWidth / 2f)

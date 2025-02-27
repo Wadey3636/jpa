@@ -1,6 +1,6 @@
 package me.jpaMain.utils
 
-import org.polyfrost.oneconfig.api.event.v1.events.WorldLoadEvent
+import org.polyfrost.oneconfig.api.event.v1.events.WorldEvent
 import org.polyfrost.oneconfig.api.event.v1.events.HypixelLocationEvent
 import org.polyfrost.oneconfig.api.event.v1.invoke.impl.Subscribe
 import org.polyfrost.oneconfig.api.event.v1.EventManager
@@ -31,7 +31,7 @@ class locationUtils {
     }
 
     @Subscribe
-    fun worldLoad(event: WorldLoadEvent) {
+    fun worldLoad(event: WorldEvent.Unload) {
         inDungeon = false
         inGarden = false
         inSkyBlock = false
